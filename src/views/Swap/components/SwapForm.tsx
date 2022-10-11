@@ -219,7 +219,7 @@ export default function SwapForm({ setIsChartDisplayed, isChartDisplayed, isAcce
           hasAmount={hasAmount}
           onRefreshPrice={onRefreshPrice}
         />
-        <Wrapper id="swap-page" style={{ minHeight: '412px' }}>
+        <Wrapper id="swap-page" style={{ minHeight: '370px' }}>
           <AutoColumn gap="sm">
             <CurrencyInputPanel
               label={independentField === Field.OUTPUT && !showWrap && trade ? t('From (estimated)') : t('From')}
@@ -274,11 +274,11 @@ export default function SwapForm({ setIsChartDisplayed, isChartDisplayed, isAcce
               commonBasesType={CommonBasesType.SWAP_LIMITORDER}
             />
 
-            <Box style={{ display: isShowAccessToken ? 'block' : 'none' }}>
+            {/* <Box style={{ display: isShowAccessToken ? 'block' : 'none' }}>
               <AccessRisk currency={currencies[Field.OUTPUT]} />
-            </Box>
+            </Box> */}
 
-            {isExpertMode && recipient !== null && !showWrap ? (
+            {/* {isExpertMode && recipient !== null && !showWrap ? (
               <>
                 <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
                   <ArrowWrapper clickable={false}>
@@ -290,7 +290,7 @@ export default function SwapForm({ setIsChartDisplayed, isChartDisplayed, isAcce
                 </AutoRow>
                 <AddressInputPanel id="recipient" value={recipient} onChange={onChangeRecipient} />
               </>
-            ) : null}
+            ) : null} */}
 
             {showWrap ? null : (
               <AutoColumn gap="7px" style={{ padding: '0 16px' }}>
@@ -310,12 +310,12 @@ export default function SwapForm({ setIsChartDisplayed, isChartDisplayed, isAcce
                     </>
                   )}
                 </RowBetween>
-                <RowBetween align="center">
+                {/* <RowBetween align="center">
                   <Label>{t('Slippage Tolerance')}</Label>
                   <Text bold color="primary">
                     {allowedSlippage / 100}%
                   </Text>
-                </RowBetween>
+                </RowBetween> */}
               </AutoColumn>
             )}
           </AutoColumn>

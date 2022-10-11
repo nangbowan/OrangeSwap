@@ -297,7 +297,7 @@ const IfoCard: React.FC<React.PropsWithChildren<IfoFoldableCardProps>> = ({ ifo,
     })
     if (receipt?.status) {
       toastSuccess(
-        t('Successfully !'),
+        t('Successfully Enabled!'),
         <ToastDescriptionWithTx txHash={receipt.transactionHash}>
           {t('You can now participate in the %symbol% IFO.', { symbol: ifo.token.symbol })}
         </ToastDescriptionWithTx>,

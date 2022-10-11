@@ -57,12 +57,12 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = ({
   return (
     <CurrencyInputContainer>
       <Flex width="100%" alignItems="center" justifyContent="space-between">
-        {setIsChartDisplayed && (
+        {/* {setIsChartDisplayed && (
           <ColoredIconButton onClick={toggleChartDisplayed} variant="text" scale="sm">
             {isChartDisplayed ? <ChartDisableIcon color="textSubtle" /> : <ChartIcon width="24px" color="textSubtle" />}
           </ColoredIconButton>
-        )}
-        <Flex flexDirection="column" alignItems="flex-end" width="100%" mr={18}>
+        )} */}
+        <Flex flexDirection="column" width="100%" mr={18}>
           <Heading as="h2">{title}</Heading>
         </Flex>
         <Flex>
@@ -77,7 +77,7 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = ({
           </IconButton>
         </Flex>
       </Flex>
-      <Flex alignItems="center">
+      <Flex width="100%" alignItems="center">
         <Text color="textSubtle" fontSize="14px">
           {subtitle}
         </Text>

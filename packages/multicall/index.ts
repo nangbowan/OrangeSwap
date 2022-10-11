@@ -1,7 +1,7 @@
 import { Interface } from '@ethersproject/abi'
 import { CallOverrides, Contract } from '@ethersproject/contracts'
 import { Provider } from '@ethersproject/providers'
-import { ChainId } from '@pancakeswap/sdk/src'
+import { ChainId } from '@pancakeswap/sdk'
 import multicallAbi from './Multicall.json'
 
 export const multicallAddresses = {

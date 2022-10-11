@@ -1,7 +1,6 @@
 // used to construct the list of all pairs we consider by default in the frontend
 
 // SDN OFAC addresses
-// 国家制裁钱包地址
 export const BLOCKED_ADDRESSES: string[] = [
   '0x7F367cC41522cE07553e823bf3be79A889DEbe1B',
   '0xd882cFc20F52f2599D84b8e8D58C7FB62cfE344b',

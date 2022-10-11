@@ -757,7 +757,7 @@
   "Connect to a wallet to find pools": "连接到钱包以查找流动性池",
   "Select a token to find your liquidity.": "选择代币以查找您的流动性。",
   "No liquidity found.": "未找到流动性。",
-  "Don't see a pool you joined?": "未看到您加入的流动性池？",
+  "Don't see a pool you joined?": "看不到您加入的池？",
   "Find other LP tokens": "查找其他 LP 代币",
   "Import Pool": "导入流动性池",
   "Import an existing pool": "导入现有流动性池",
@@ -850,7 +850,7 @@
   "Enter a recipient": "输入接收人",
   "Invalid recipient": "接收人无效",
   "Supply": "供应",
-  "Your Liquidity": "您的流动性",
+  "Your Liquidity": "您的流动资金",
   "Remove liquidity to receive tokens back": "移除流动性以收回代币",
   "Trade anything. No registration, no hassle.": "交易任何代币，无需注册，不必麻烦",
   "Trade any token on BNB Smart Chain in seconds, just by connecting your wallet.": "只需连接您的钱包，即可在 BNB Smart Chain 上快速交易任何代币。",
@@ -1938,5 +1938,10 @@
   "The URL you are accessing (Chain id: %chainId%) belongs to %network%; mismatching your wallet’s network. Please switch the network to continue.": "您正在访问的 URL（链 ID：%chainId%）属于 %network%；与您的钱包网络不匹配。请切换网络以继续。",
   "Error connecting, please retry and confirm in wallet!": "Error connecting, please retry and confirm in wallet!",
   "Boost only applies to base APR (CAKE yield)": "Boost only applies to base APR (CAKE yield)",
-  "Available Boosted: Up to 2x": "Available Boosted: Up to 2x"
+  "Available Boosted: Up to 2x": "Available Boosted: Up to 2x",
+  "Send": "发送",
+  "ForecastReceive": "接收（预估）",
+  "LiquidityFund": "流动资金",
+  "Add liquidity to claim LP tokens": "添加流动资金以领取LP代币",
+  "Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here": "或者，如果你在农场质押了你的LP代币，将其赎回让代币在这里显示"
 }

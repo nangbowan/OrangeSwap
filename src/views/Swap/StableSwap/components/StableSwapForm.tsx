@@ -210,7 +210,7 @@ export default function StableSwapForm({ setIsChartDisplayed, isChartDisplayed }
         hasAmount={hasAmount}
         onRefreshPrice={onRefreshPrice}
       />
-      <Wrapper id="swap-page" style={{ minHeight: '412px' }}>
+      <Wrapper id="swap-page" style={{ minHeight: '370px' }}>
         <AutoColumn gap="sm">
           <CurrencyInputPanel
             disableCurrencySelect

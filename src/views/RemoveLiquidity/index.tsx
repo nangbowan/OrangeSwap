@@ -173,7 +173,7 @@ export default function RemoveLiquidity({ currencyA, currencyB, currencyIdA, cur
       { name: 'verifyingContract', type: 'address' },
     ]
     const domain = {
-      name: 'Orange LPs',
+      name: 'Pancake LPs',
       version: '1',
       chainId,
       verifyingContract: pair.liquidityToken.address,
@@ -185,7 +185,6 @@ export default function RemoveLiquidity({ currencyA, currencyB, currencyIdA, cur
       { name: 'nonce', type: 'uint256' },
       { name: 'deadline', type: 'uint256' },
     ]
-    // owner没错，nonce出错
     const message = {
       owner: account,
       spender: ROUTER_ADDRESS[chainId],
