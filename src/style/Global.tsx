@@ -10,6 +10,16 @@ const GlobalStyle = createGlobalStyle`
   * {
     font-family: 'Kanit', sans-serif;
   }
+  @font-face {
+      font-family: 'FZLanTingHeiS-B-GB';
+      src: url("/font/FZLanTingHeiS-B-GB.ttf");
+  }
+
+  @font-face {
+      font-family: 'PingFang SC';
+      src: url("/font/PingFang SC.ttf");
+  }
+  
   body {
     background-color: ${({ theme }) => theme.colors.background};
 
