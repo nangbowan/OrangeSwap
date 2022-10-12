@@ -25,7 +25,7 @@ const InputRow = styled.div<{ selected: boolean }>`
   padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
 `
 const CurrencySelectButton = styled(Button).attrs({ variant: 'text', scale: 'sm' })<{ zapStyle?: ZapStyle }>`
-  padding: 0 0.5rem;
+  padding: 0 0;
 
   ${({ zapStyle, theme }) =>
     zapStyle &&
@@ -44,7 +44,7 @@ const LabelRow = styled.div`
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.75rem;
   line-height: 1rem;
-  padding: 0.75rem 1rem 0 1rem;
+  padding: 15px 1rem 0 6px;
 `
 const InputPanel = styled.div`
   display: flex;
