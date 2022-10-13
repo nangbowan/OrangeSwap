@@ -25,7 +25,7 @@ export const additionalColors = {
 export const lightColors = {
   ...baseColors,
   ...additionalColors,
-  secondary: '#7645D9',
+  secondary: '#FFAE32',
   secondary80: '#7645D980',
   background: '#FAF9FA',
   backgroundDisabled: '#E9EAEB',
@@ -36,7 +36,7 @@ export const lightColors = {
   dropdown: '#F6F6F6',
   dropdownDeep: '#EEEEEE',
   invertedContrast: '#FFFFFF',
-  input: '#eeeaf4',
+  input: '#F3EEE7',
   inputSecondary: '#d7caec',
   tertiary: '#EFF4F5',
   text: '#280D5F',
@@ -84,4 +84,5 @@ export const darkColors = {
   gradientViolet: 'linear-gradient(180deg, #6C4999 0%, #6D4DB2 100%)',
   gradientVioletAlt: 'linear-gradient(180deg, #434575 0%, #66578D 100%)',
   gradientGold: 'linear-gradient(180deg, #FFD800 0%, #FDAB32 100%)',
+  
 }

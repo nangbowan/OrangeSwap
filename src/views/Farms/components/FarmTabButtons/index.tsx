@@ -55,11 +55,11 @@ const Wrapper = styled.div`
   align-items: center;
 
   a {
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 7px;
+    padding-right: 7px;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    margin-left: 16px;
+    margin-left: 10px;
   }
 `
