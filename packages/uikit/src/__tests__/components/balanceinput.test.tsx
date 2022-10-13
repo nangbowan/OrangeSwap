@@ -78,7 +78,7 @@ it("renders correctly", () => {
     }
 
     .c3:focus:not(:disabled) {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c0 {
@@ -236,7 +236,7 @@ it("renders correctly with unit prop", () => {
     }
 
     .c3:focus:not(:disabled) {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c6 {
@@ -491,7 +491,7 @@ it("renders correctly with unit prop and switchEditingUnits", () => {
     }
 
     .c3:focus:not(:disabled) {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c11 {

@@ -106,7 +106,7 @@ it("renders correctly", () => {
     }
 
     .c1:focus + label {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c1:checked + label .pancakes {
@@ -302,7 +302,7 @@ it("renders correctly scale sm", () => {
     }
 
     .c1:focus + label {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c1:checked + label .pancakes {

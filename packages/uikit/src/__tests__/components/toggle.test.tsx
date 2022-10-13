@@ -36,11 +36,11 @@ it("renders correctly", () => {
     }
 
     .c1:focus + .c2 {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c1:hover + .c2:not(:disabled):not(:checked) {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c0 {
@@ -114,11 +114,11 @@ it("renders correctly scale sm", () => {
     }
 
     .c1:focus + .c2 {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c1:hover + .c2:not(:disabled):not(:checked) {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c0 {

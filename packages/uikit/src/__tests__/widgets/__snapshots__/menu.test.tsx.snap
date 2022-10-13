@@ -969,11 +969,11 @@ exports[`renders correctly 1`] = `
 }
 
 .c79:focus + .c80 {
-  box-shadow: var(--shadows-focus);
+  box-shadow: var(--colors-primary);
 }
 
 .c79:hover + .c80:not(:disabled):not(:checked) {
-  box-shadow: var(--shadows-focus);
+  box-shadow: var(--colors-primary);
 }
 
 .c78 {
