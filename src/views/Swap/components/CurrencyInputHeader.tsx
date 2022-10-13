@@ -72,9 +72,9 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = ({
           <IconButton onClick={onPresentTransactionsModal} variant="text" scale="sm">
             <HistoryIcon color="textSubtle" width="24px" />
           </IconButton>
-          <IconButton variant="text" scale="sm" onClick={handleOnClick}>
+          {/* <IconButton variant="text" scale="sm" onClick={handleOnClick}>
             <RefreshIcon disabled={!hasAmount} color="textSubtle" width="27px" />
-          </IconButton>
+          </IconButton> */}
         </Flex>
       </Flex>
       <Flex width="100%" alignItems="center">

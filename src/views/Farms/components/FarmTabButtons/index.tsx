@@ -33,7 +33,7 @@ const FarmTabButtons: React.FC<React.PropsWithChildren<FarmTabButtonsProps>> = (
 
   return (
     <Wrapper>
-      <ButtonMenu activeIndex={activeIndex} scale="sm" variant="subtle">
+      <ButtonMenu activeIndex={activeIndex} scale="sm" variant="primary">
         <ButtonMenuItem as={NextLinkFromReactRouter} to="/farms">
           {t('Live')}
         </ButtonMenuItem>
