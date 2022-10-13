@@ -8,7 +8,7 @@
   "Blog": "博客",
   "Earn": "赚取",
   "%asset% Earned": "已赚取的 %asset%",
-  "Pool": "糖浆池",
+  "Pool": "池子",
   "Coming Soon": "即将推出",
   "APY": "年化收益率",
   "Total Liquidity": "总流动性",
@@ -63,7 +63,7 @@
   "Home": "首页",
   "Trade": "交易",
   "Farms": "农场",
-  "Pools": "糖浆池",
+  "Pools": "池子",
   "NFT": "NFT",
   "Info": "信息",
   "IFO": "IFO",
@@ -316,7 +316,7 @@
   "Manual": "手动",
   "Earn CAKE, stake CAKE": "质押 CAKE，赚取 CAKE",
   "Help": "帮助",
-  "Syrup Pools": "糖浆池",
+  "Syrup Pools": "池子",
   "Best round: #%roundId%": "最佳回合：#%roundId%",
   "View Reclaimed & Won": "查看收回和赢得",
   "This round was automatically cancelled due to an error. If you entered a position, please reclaim your funds below.": "由于错误，此回合已自动取消。如果您输入了头寸，请在下面收回您的资金。",
@@ -1943,5 +1943,7 @@
   "ForecastReceive": "接收（预估）",
   "LiquidityFund": "流动资金",
   "Add liquidity to claim LP tokens": "添加流动资金以领取LP代币",
-  "Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here": "或者，如果你在农场质押了你的LP代币，将其赎回让代币在这里显示"
+  "Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here": "或者，如果你在农场质押了你的LP代币，将其赎回让代币在这里显示",
+  "Pledge tokens to earn new tokens": "质押代币赚取新的代币",
+  "You can redeem it at any time, and the reward is calculated by block": "您可以随时赎回，奖励按区块计算。"
 }

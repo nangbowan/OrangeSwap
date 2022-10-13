@@ -1943,5 +1943,7 @@
   "ForecastReceive": "Forecast receive",
   "LiquidityFund": "LiquidityFund",
   "Add liquidity to claim LP tokens": "Add liquidity to claim LP tokens",
-  "Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here": "Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here"
+  "Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here": "Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here",
+  "Pledge tokens to earn new tokens": "Pledge tokens to earn new tokens",
+  "You can redeem it at any time, and the reward is calculated by block": "You can redeem it at any time, and the reward is calculated by block"
 }

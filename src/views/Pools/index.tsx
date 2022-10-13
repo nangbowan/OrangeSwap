@@ -271,11 +271,11 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
             <Heading as="h1" scale="xxl" color="secondary" mb="24px">
               {t('Syrup Pools')}
             </Heading>
-            <Heading scale="md" color="text">
-              {t('Just stake some tokens to earn.')}
+            <Heading scale="md" color="#9E9FA4">
+              {t('Pledge tokens to earn new tokens')}
             </Heading>
-            <Heading scale="md" color="text">
-              {t('High APR, low risk.')}
+            <Heading scale="md" color="#9E9FA4">
+              {t('You can redeem it at any time, and the reward is calculated by block')}
             </Heading>
           </Flex>
         </Flex>
