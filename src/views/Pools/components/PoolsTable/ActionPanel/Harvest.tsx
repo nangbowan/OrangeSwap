@@ -46,9 +46,9 @@ const HarvestAction: React.FunctionComponent<React.PropsWithChildren<Deserialize
       <Text fontSize="12px" bold color="secondary" as="span" textTransform="uppercase">
         {earningToken.symbol}{' '}
       </Text>
-      <Text fontSize="12px" bold color="textSubtle" as="span" textTransform="uppercase">
+      {/* <Text fontSize="12px" bold color="textSubtle" as="span" textTransform="uppercase">
         {t('Earned')}
-      </Text>
+      </Text> */}
     </>
   )
 

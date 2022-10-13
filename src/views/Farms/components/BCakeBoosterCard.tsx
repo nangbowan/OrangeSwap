@@ -44,7 +44,7 @@ export const ImageWrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     right: auto;
     top: 50%;
-    left: -70px;
+    left: -300px;
     transform: translateY(-50%);
   }
   z-index: 2;
@@ -100,7 +100,7 @@ export const BCakeBoosterCard = () => {
   return (
     <CardWrapper>
       <ImageWrapper>
-        <Image src={boosterCardImage} alt="boosterCardImage" width={99} height={191} placeholder="blur" />
+        <Image src={boosterCardImage} alt="boosterCardImage" width={200} height={200} placeholder="blur" />
       </ImageWrapper>
       <Card p="0px" style={{ zIndex: 1 }}>
         <StyledCardBody style={{ padding: '15px 24px' }}>
@@ -138,7 +138,7 @@ const CardContent: React.FC = () => {
         <Text color="textSubtle" fontSize={12} mb="16px">
           {t('An active fixed-term CAKE staking position is required for activating farm yield boosters.')}
         </Text>
-        <ConnectWalletButton width="100%" style={{ backgroundColor: theme.colors.textSubtle }} />
+        <ConnectWalletButton width="100%" />
       </Box>
     )
   if (!locked)
@@ -151,7 +151,7 @@ const CardContent: React.FC = () => {
           {t('An active fixed-term CAKE staking position is required for activating farm yield boosters.')}
         </Text>
         <NextLink href="/pools" passHref>
-          <Button as="a" width="100%" style={{ backgroundColor: theme.colors.textSubtle }}>
+          <Button as="a" width="100%" style={{ backgroundColor: theme.colors.primary }}>
             {t('Go to Pool')}
           </Button>
         </NextLink>
@@ -176,10 +176,10 @@ const CardContent: React.FC = () => {
   if (!proxyCreated) {
     return (
       <Box>
-        <Text color="textSubtle" fontSize={12} bold>
+        <Text color="#9E9FA4" fontSize={12} bold>
           {t('Available Yield Booster')}
         </Text>
-        <Text color="textSubtle" fontSize={12} mb="16px">
+        <Text color="#9E9FA4" fontSize={12} mb="16px">
           {t('A one-time setup is required for enabling farm yield boosters.')}
         </Text>
         <CreateProxyButton onDone={refreshProxyAddress} style={{ backgroundColor: theme.colors.textSubtle }} />

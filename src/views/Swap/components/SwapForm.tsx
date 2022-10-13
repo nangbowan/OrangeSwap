@@ -234,7 +234,7 @@ export default function SwapForm({ setIsChartDisplayed, isChartDisplayed, isAcce
               showCommonBases
               commonBasesType={CommonBasesType.SWAP_LIMITORDER}
             />
-
+            
             <AutoColumn justify="space-between">
               <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>
                 <SwitchIconButton

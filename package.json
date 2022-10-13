@@ -10,7 +10,7 @@
   "scripts": {
     "analyze": "ANALYZE=true yarn build",
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "test": "jest && yarn turbo run test",
     "test:watch": "jest --watch",

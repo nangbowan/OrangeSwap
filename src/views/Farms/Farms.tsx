@@ -326,7 +326,7 @@ const Farms: React.FC<React.PropsWithChildren> = ({ children }) => {
             <FarmH1 as="h1" scale="xxl" color="secondary" mb="24px">
               {t('Farms')}
             </FarmH1>
-            <FarmH2 scale="lg" color="text">
+            <FarmH2 scale="lg" color="#9E9FA4">
               {t('Stake LP tokens to earn.')}
             </FarmH2>
             <NextLinkFromReactRouter to="/farms/auction" prefetch={false}>
@@ -359,13 +359,13 @@ const Farms: React.FC<React.PropsWithChildren> = ({ children }) => {
               <Text> {t('Staked only')}</Text>
             </ToggleWrapper>
             <ToggleWrapper>
-              <Toggle
+              {/* <Toggle
                 id="staked-only-farms"
                 checked={boostedOnly}
                 onChange={() => setBoostedOnly((prev) => !prev)}
                 scale="sm"
               />
-              <Text> {t('Booster Available')}</Text>
+              <Text> {t('Booster Available')}</Text> */}
             </ToggleWrapper>
             <FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
           </ViewControls>

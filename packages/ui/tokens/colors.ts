@@ -7,7 +7,7 @@ export const baseColors = {
   primary3D: '#1FC7D43D',
   primaryBright: '#53DEE9',
   primaryDark: '#0098A1',
-  success: '#31D0AA',
+  success: '#FFAE32',
   success19: '#31D0AA19',
   warning: '#FFB237',
   warning2D: '#ED4B9E2D',
@@ -25,8 +25,8 @@ export const additionalColors = {
 export const lightColors = {
   ...baseColors,
   ...additionalColors,
-  secondary: '#7645D9',
-  secondary80: '#7645D980',
+  secondary: '#FFAE32',
+  secondary80: '#FFAE32',
   background: '#FAF9FA',
   backgroundDisabled: '#E9EAEB',
   backgroundAlt: '#FFFFFF',
@@ -36,7 +36,7 @@ export const lightColors = {
   dropdown: '#F6F6F6',
   dropdownDeep: '#EEEEEE',
   invertedContrast: '#FFFFFF',
-  input: '#eeeaf4',
+  input: '#F8F8F8',
   inputSecondary: '#d7caec',
   tertiary: '#EFF4F5',
   text: '#280D5F',
@@ -44,7 +44,7 @@ export const lightColors = {
   textDisabled: '#BDC2C4',
   textSubtle: '#7A6EAA',
   disabled: '#E9EAEB',
-  gradientBubblegum: '#FFFFFF',
+  gradientBubblegum: '#F5F5F5',
   // gradientBubblegum: 'linear-gradient(139.73deg, #E5FDFF 0%, #F3EFFF 100%)',
   gradientInverseBubblegum: 'linear-gradient(139.73deg, #F3EFFF 0%, #E5FDFF 100%)',
   gradientCardHeader: 'linear-gradient(111.68deg, #F2ECF2 0%, #E8F2F6 100%)',
@@ -84,4 +84,5 @@ export const darkColors = {
   gradientViolet: 'linear-gradient(180deg, #6C4999 0%, #6D4DB2 100%)',
   gradientVioletAlt: 'linear-gradient(180deg, #434575 0%, #66578D 100%)',
   gradientGold: 'linear-gradient(180deg, #FFD800 0%, #FDAB32 100%)',
+  
 }

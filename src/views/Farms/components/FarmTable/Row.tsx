@@ -194,9 +194,9 @@ const Row: React.FunctionComponent<React.PropsWithChildren<RowPropsWithLoading>>
               ) : (
                 <Box style={{ marginRight: '16px' }}>
                   <CoreTag scale="sm" />
-                  {props?.details?.boosted ? (
+                  {/* {props?.details?.boosted ? (
                     <BoostedTag style={{ verticalAlign: 'bottom' }} scale="sm" ml="4px" />
-                  ) : null}
+                  ) : null} */}
                 </Box>
               )}
             </Flex>

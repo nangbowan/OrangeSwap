@@ -229,7 +229,7 @@ const Staked: React.FunctionComponent<React.PropsWithChildren<StackedActionProps
     return (
       <StyledActionContainer>
         <ActionTitles>
-          <Text bold textTransform="uppercase" color="textSubtle" fontSize="12px">
+          <Text bold textTransform="uppercase" color="#9E9FA4" fontSize="12px">
             {t('Start Farming')}
           </Text>
         </ActionTitles>
@@ -321,7 +321,7 @@ const Staked: React.FunctionComponent<React.PropsWithChildren<StackedActionProps
   return (
     <StyledActionContainer>
       <ActionTitles>
-        <Text bold textTransform="uppercase" color="textSubtle" fontSize="12px">
+        <Text bold textTransform="uppercase" color="#9E9FA4" fontSize="12px">
           {t('Enable Farm')}
         </Text>
       </ActionTitles>
