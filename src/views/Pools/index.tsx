@@ -347,14 +347,14 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
         )}
         {viewMode === ViewMode.CARD ? cardLayout : tableLayout}
         <div ref={observerRef} />
-        <Image
+        {/* <Image
           mx="auto"
           mt="12px"
           src="/images/decorations/3d-syrup-bunnies.png"
           alt="Pancake illustration"
           width={192}
           height={184.5}
-        />
+        /> */}
       </Page>
       {createPortal(<ScrollToTopButton />, document.body)}
     </>

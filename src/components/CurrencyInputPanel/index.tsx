@@ -225,13 +225,18 @@ export default function CurrencyInputPanel({
                 ~{formatNumber(amountInDollar)} USD
               </Text>
             )}
-            {account && currency && !disabled && showMaxButton && label !== 'To' && (
+            {/* {account && currency && !disabled && showMaxButton && label !== 'To' && (
               <Button onClick={onMax} scale="xs" variant="secondary" style={{ textTransform: 'uppercase' }}>
                 {t('Max')}
               </Button>
-            )}
+            )} */}
           </InputRow>
         </Container>
+            {account && currency && !disabled && showMaxButton && label !== 'To' && (
+              <Button onClick={onMax} scale="xs" variant="secondary" style={{ position: 'absolute' ,top: '73px',right: '10px' ,width: '20%',textTransform: 'uppercase' }}>
+                {t('Max')}
+              </Button>
+            )}
         {disabled && <Overlay />}
       </InputPanel>
     </Box>
