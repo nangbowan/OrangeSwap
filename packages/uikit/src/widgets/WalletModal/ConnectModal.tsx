@@ -94,7 +94,7 @@ function ConnectModal<T>({ login, onDismiss = () => null, displayCount = 3, t, w
           <Button
             as="a"
             href="https://docs.pancakeswap.finance/get-started/connection-guide"
-            variant="subtle"
+            variant="primary"
             width="100%"
             {...EXTERNAL_LINK_PROPS}
           >

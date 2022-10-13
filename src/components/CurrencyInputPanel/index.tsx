@@ -156,25 +156,6 @@ export default function CurrencyInputPanel({
               <Text color="textSubtle" fontSize="14px">
               {t('ForecastReceive')}
               </Text>
-              {/* <CopyButton
-                width="16px"
-                buttonColor="textSubtle"
-                text={tokenAddress}
-                tooltipMessage={t('Token address copied')}
-                tooltipTop={-20}
-                tooltipRight={40}
-                tooltipFontSize={12}
-              />
-              <AddToWalletButton
-                variant="text"
-                p="0"
-                height="auto"
-                width="fit-content"
-                tokenAddress={tokenAddress}
-                tokenSymbol={token.symbol}
-                tokenDecimals={token.decimals}
-                tokenLogo={token instanceof WrappedTokenInfo ? token.logoURI : undefined}
-              /> */}
             </Flex>
           ) : null}
         </Flex>
@@ -239,16 +220,16 @@ export default function CurrencyInputPanel({
             />
           </LabelRow>
           <InputRow selected={disableCurrencySelect}>
-            {/* {!!currency && showBUSD && Number.isFinite(amountInDollar) && (
+            {!!currency && showBUSD && Number.isFinite(amountInDollar) && (
               <Text fontSize="12px" color="textSubtle" mr="12px">
                 ~{formatNumber(amountInDollar)} USD
               </Text>
-            )} */}
-            {/* {account && currency && !disabled && showMaxButton && label !== 'To' && (
+            )}
+            {account && currency && !disabled && showMaxButton && label !== 'To' && (
               <Button onClick={onMax} scale="xs" variant="secondary" style={{ textTransform: 'uppercase' }}>
                 {t('Max')}
               </Button>
-            )} */}
+            )}
           </InputRow>
         </Container>
         {disabled && <Overlay />}

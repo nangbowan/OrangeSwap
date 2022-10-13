@@ -176,10 +176,10 @@ const CardContent: React.FC = () => {
   if (!proxyCreated) {
     return (
       <Box>
-        <Text color="textSubtle" fontSize={12} bold>
+        <Text color="#9E9FA4" fontSize={12} bold>
           {t('Available Yield Booster')}
         </Text>
-        <Text color="textSubtle" fontSize={12} mb="16px">
+        <Text color="#9E9FA4" fontSize={12} mb="16px">
           {t('A one-time setup is required for enabling farm yield boosters.')}
         </Text>
         <CreateProxyButton onDone={refreshProxyAddress} style={{ backgroundColor: theme.colors.textSubtle }} />
