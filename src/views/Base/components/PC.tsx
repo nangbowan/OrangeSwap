@@ -108,6 +108,7 @@ const PC: FC = (): ReactElement => {
   )
 }
 
+
 const Main = styled.div`
   width: 1440px;
   overflow-x: hidden;
@@ -325,7 +326,7 @@ const User = styled.div`
   flex: 1;
   padding-top: 145px;
   position: relative;
-  img{
+  img {
     margin-top: 108px !important;
   }
   &::before {
@@ -350,7 +351,7 @@ const Amount = styled.div`
   flex: 1;
   padding-top: 145px;
   position: relative;
-  img{
+  img {
     margin-top: 108px !important;
   }
   &::before {
@@ -396,7 +397,6 @@ const CartTip = styled.p`
 const Introduce = styled.div`
   padding: 118px 0 149px;
   width: 100%;
-
 `
 const Libs = styled.div`
   display: flex;
