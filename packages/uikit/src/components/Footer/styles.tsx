@@ -5,6 +5,8 @@ import SocialLinks from "./Components/SocialLinks";
 
 export const StyledFooter = styled(Flex)`
   background: ${darkColors.backgroundAlt};
+  position: relative;
+  z-index: 3;
 `;
 
 export const StyledList = styled.ul`

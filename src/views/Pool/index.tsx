@@ -17,6 +17,38 @@ const Body = styled(CardBody)`
   background-color: ${({ theme }) => theme.colors.dropdownDeep};
 `
 
+const Icon = styled.img`
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 211px;
+  height: 211px;
+  /* opacity: 0.6;
+  filter: blur(16px); */
+  display: ${() => (window as any).screen.width <= 768 ? 'block' : 'none'};
+`
+const IconYz = styled.img`
+  position: absolute;
+  bottom: -100px;
+  left: 0px;
+  width: 573px;
+  height: 573px;
+  /* opacity: 0.6;
+  filter: blur(16px); */
+  display: ${() => (window as any).screen.width <= 768 ? 'none' : 'block'};
+`
+const Icons = styled.img`
+  position: absolute;
+  top: -50px;
+    left: calc(50% + 220px);
+    transform: translateX(-50%);
+  width: 170px;
+  height: 170px;
+  /* opacity: 0.6;
+  filter: blur(16px); */
+  display: ${() => (window as any).screen.width <= 768 ? 'none' : 'block'};
+`
+
 export default function Pool() {
   const { account } = useWeb3React()
   const { t } = useTranslation()
@@ -109,7 +141,8 @@ export default function Pool() {
   }
 
   return (
-    <Page>
+    <Page style={{position: 'relative'}}>
+      
       <AppBody>
         <AppHeader title={t('LiquidityFund')} subtitle={t('Add liquidity to claim LP tokens')} />
         <CardFooter style={{ textAlign: 'center' }}>
@@ -146,7 +179,11 @@ export default function Pool() {
           
         </CardFooter>
       </AppBody>
-      
+      <Icon src="/images/pool/bottom.png" />
+      <IconYz src="/images/pool/yz.png" />
+      <Icons src="/images/pool/icon.png" />
     </Page>
   )
 }
+
+
