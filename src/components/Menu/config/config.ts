@@ -83,7 +83,6 @@ const config: (
       href: '/farms',
       icon: EarnIcon,
       fillIcon: EarnFillIcon,
-      image: '/images/decorations/pe2.png',
       supportChainIds: SUPPORT_ONLY_BSC,
       items: [
         {
@@ -95,6 +94,16 @@ const config: (
           href: '/pools',
           supportChainIds: SUPPORT_ONLY_BSC,
         },
+      ].map((item) => addMenuItemSupported(item, chainId)),
+    },
+    {
+      label: t('rebate'),
+      href: '',
+      icon: TrophyIcon,
+      fillIcon: TrophyFillIcon,
+      image: '/images/decorations/pe2.png',
+      supportChainIds: SUPPORT_ONLY_BSC,
+      items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
     {

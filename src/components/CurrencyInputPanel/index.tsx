@@ -232,11 +232,14 @@ export default function CurrencyInputPanel({
             )} */}
           </InputRow>
         </Container>
-            {account && currency && !disabled && showMaxButton && label !== 'To' && (
-              <Button onClick={onMax} scale="xs" variant="secondary" style={{ position: 'absolute' ,top: '73px',right: '10px' ,width: '20%',textTransform: 'uppercase' }}>
-                {t('Max')}
-              </Button>
-            )}
+        <div>
+          {account && currency && !disabled && showMaxButton && label !== 'To' && (
+            <Button onClick={onMax} scale="xs" variant="secondary" style={{ float: 'right',width: '20%',textTransform: 'uppercase' }}>
+              {t('Max')}
+            </Button>
+          )}
+        </div>
+            
         {disabled && <Overlay />}
       </InputPanel>
     </Box>
