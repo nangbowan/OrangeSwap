@@ -14,7 +14,7 @@
     "directory": "packages/swap-sdk"
   },
   "keywords": [
-    "pancakeswap",
+    "orangeswap",
     "bsc"
   ],
   "module": "dist/index.mjs",
