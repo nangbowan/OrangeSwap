@@ -37,12 +37,12 @@ it("renders correctly", () => {
     }
 
     .c0:hover:not(:disabled):not(:checked) {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c0:focus {
       outline: none;
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     .c0:checked {

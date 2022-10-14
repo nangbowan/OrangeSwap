@@ -46,7 +46,7 @@ it("renders correctly", () => {
     }
 
     .c0:focus:not(:disabled) {
-      box-shadow: var(--shadows-focus);
+      box-shadow: var(--colors-primary);
     }
 
     <input

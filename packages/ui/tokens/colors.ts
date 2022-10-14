@@ -16,7 +16,7 @@ export const baseColors = {
 
 export const additionalColors = {
   binance: '#F0B90B',
-  overlay: '#452a7a',
+  overlay: '#E79E4D',
   gold: '#FFC700',
   silver: '#B2B2B2',
   bronze: '#E7974D',
@@ -57,8 +57,8 @@ export const lightColors = {
 export const darkColors = {
   ...baseColors,
   ...additionalColors,
-  secondary: '#9A6AFF',
-  secondary80: '#9A6AFF80',
+  secondary: '#FFAE32',
+  secondary80: '#FFAE32',
   background: '#08060B',
   backgroundDisabled: '#3c3742',
   backgroundAlt: '#27262c',
