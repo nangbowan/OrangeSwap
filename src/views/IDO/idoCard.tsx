@@ -1,8 +1,20 @@
 import { FC, ReactElement } from 'react'
 import styled from 'styled-components'
+import { useAccount } from 'wagmi'
+import { copyText } from '@pancakeswap/utils/copyText'
 
+const $hash = (txHash, length = 4, lastLength = 6) => {
+  if (!txHash) {
+      return '--';
+  }
+  // eslint-disable-next-line no-param-reassign
+  if (!lastLength) lastLength = length;
+  return `${txHash.substring(0, length)  }...${  txHash.substring(txHash.length - lastLength, txHash.length)}`;
+};
 const idoCard: FC = (): ReactElement => {
-  const isStart = false
+  const { address: account } = useAccount();
+  const isStart = false;
+
   return (
     <Main>
       <Imgs className="frist" src="/images/ido/first_bg.png" />
@@ -98,8 +110,8 @@ const idoCard: FC = (): ReactElement => {
         <InviteCont>
           <Left>
             我的邀请链接
-            <MyLink>0000000000000000000...</MyLink>
-            <CopyIcon src="/images/ido/copy.svg" />
+            <MyLink>{$hash(`https://orangeswap.org/swap?shareid=${account}`, 15, 10)}</MyLink>
+            <CopyIcon src="/images/ido/copy.svg" onClick={() => copyText(`https://orangeswap.org/swap?shareid=${account}`)} />
           </Left>
           <Right>
             <PeopleNum>
@@ -449,6 +461,11 @@ const MyLink = styled.div`
   padding: 10px 24px;
   border: 1px solid #ffffff;
   margin: 0 32px;
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow:ellipsis;
+  
 `
 const CopyIcon = styled.img`
   width: 44px;

@@ -16,6 +16,7 @@ import Page from '../Page'
 import PriceChartContainer from './components/Chart/PriceChartContainer'
 
 import SwapForm from './components/SwapForm'
+import ChangeIng from '../Rebate/changeIng'
 import StableSwapFormContainer from './StableSwap'
 import { StyledInputCurrencyWrapper, StyledSwapContainer } from './styles'
 import SwapTab, { SwapType } from './components/SwapTab'
@@ -39,7 +40,8 @@ const IconYz = styled.img`
   left: 0px;
   width: 573px;
   height: 573px;
-  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
+  display: none;
+  /* display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')}; */
 `
 const Icons = styled.img`
   position: absolute;
@@ -154,9 +156,11 @@ export default function Swap() {
           )}
         </Flex>
       </Flex>
+      <ChangeIng />
       <Icon src="/images/pool/bottom.png" />
       <IconYz src="/images/pool/yz.png" />
       <Icons src="/images/pool/icon.png" />
+      
     </Page>
   )
 }
