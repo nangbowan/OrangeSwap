@@ -1,5 +1,5 @@
 {
-  "name": "PancakeSwap Default List",
+  "name": "OrangeSwap Default List",
   "timestamp": "2022-01-26T11:45:09Z",
   "version": {
     "major": 4,
@@ -51,12 +51,12 @@
       "logoURI": "https://pancakeswap.finance/images/tokens/0x55d398326f99059fF775485246999027B3197955.png"
     },
     {
-      "name": "PancakeSwap Token",
-      "symbol": "CAKE",
+      "name": "Orangeswap Token",
+      "symbol": "ORG",
       "address": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
       "chainId": 56,
       "decimals": 18,
-      "logoURI": "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png"
+      "logoURI": "https://github.com/nangbowan/OrangeSwap/tree/main/src/config/constants/tokenLists/Orange.png"
     },
     {
       "name": "Venus",
