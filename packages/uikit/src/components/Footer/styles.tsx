@@ -4,9 +4,13 @@ import { Box, Flex } from "../Box";
 import SocialLinks from "./Components/SocialLinks";
 
 export const StyledFooter = styled(Flex)`
-  background: ${darkColors.backgroundAlt};
+  /* background: ${darkColors.backgroundAlt}; */
+  background: linear-gradient(285.68deg, #FF5B36 6.56%, #FFB74A 98.03%);
   position: relative;
   z-index: 3;
+  @media (max-width: 768px) {
+    padding: 31px 20px !important;
+  }
 `;
 
 export const StyledList = styled.ul`
@@ -51,7 +55,8 @@ export const StyledToolsContainer = styled(Flex)`
 `;
 
 export const StyledSocialLinks = styled(SocialLinks)`
-  border-bottom: 1px solid ${darkColors.cardBorder};
+  /* border-bottom: 1px solid ${darkColors.cardBorder}; */
+  border-bottom: 1px solid #E2E2E2;
 `;
 
 export const StyledText = styled.span`

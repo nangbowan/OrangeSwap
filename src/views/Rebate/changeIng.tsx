@@ -69,7 +69,7 @@ const Cont = styled.div`
   width: 100%;
   padding: 136px 0 0 560px;
   position: relative;
-  z-index: 4;
+  z-index: 2;
   @media (max-width: 768px) {
     padding: 0;
   }
