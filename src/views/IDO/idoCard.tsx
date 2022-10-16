@@ -5,11 +5,12 @@ const idoCard: FC = (): ReactElement => {
   const isStart = false
   return (
     <Main>
-      <Imgs className="frist" src="/images/ido/frist_bg.png" />
+      <Imgs className="frist" src="/images/ido/first_bg.png" />
       <Imgs className="second" src="/images/ido/second_bg.png" />
       <Imgs className="third" src="/images/ido/third_bg.png" />
 
       <Title>IDO:Initial Digital Assects Offering</Title>
+      <Tip>购买在FSC公链上发起的新代币</Tip>
       <MarketBtn>运作方式</MarketBtn>
       <IdoCont>
         <Card>
@@ -101,9 +102,14 @@ const idoCard: FC = (): ReactElement => {
             <CopyIcon src="/images/ido/copy.svg" />
           </Left>
           <Right>
-            <PeopleNum>已邀请人数 : 50</PeopleNum>
-            <RewardCount>我的奖励 : 50 XCC</RewardCount>
+            <PeopleNum>
+              已邀请人数 <b>:</b> <span>50</span>
+            </PeopleNum>
+            <RewardCount>
+              我的奖励 <b>:</b> <span>50 XCC</span>
+            </RewardCount>
           </Right>
+          <InviteBtn>我的邀请链接</InviteBtn>
         </InviteCont>
       </Invite>
     </Main>
@@ -112,6 +118,7 @@ const idoCard: FC = (): ReactElement => {
 
 const Main = styled.div`
   width: 100%;
+  overflow-x: hidden;
   padding-top: 157px;
   position: relative;
   &::after {
@@ -123,19 +130,28 @@ const Main = styled.div`
     height: 1080px;
     background: linear-gradient(180deg, rgba(255, 248, 237, 0) 0%, #fff5e6 100%);
   }
+  @media (max-width: 768px) {
+    padding-top: 40px;
+    &::after {
+      display: none;
+    }
+  }
 `
 
 const Imgs = styled.img`
   position: absolute;
+  @media (max-width: 768px) {
+    position: relative;
+  }
   &.frist {
     top: 0;
     left: 0;
-    width: 290px;
     height: 290px;
-    left: -69px;
+    left: 0px;
     top: 130px;
-    opacity: 0.6;
-    filter: blur(10px);
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   &.second {
     width: 814px;
@@ -143,26 +159,38 @@ const Imgs = styled.img`
     left: 50%;
     transform: translateX(-50%);
     top: 230px;
+    @media (max-width: 768px) {
+      width: 180px;
+      height: 180px;
+      top: 0;
+      margin-bottom: 12px;
+    }
   }
   &.third {
-    width: 500px;
     height: 500px;
-    right: -150px;
+    right: 0px;
     top: 663px;
-    opacity: 0.6;
-    filter: blur(30px);
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   &.four {
     top: -205px;
     left: 0;
     width: 520px;
     height: 398px;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
   &.five {
     bottom: -100px;
     right: -164px;
     width: 520px;
     height: 398px;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `
 const Title = styled.div`
@@ -178,6 +206,25 @@ const Title = styled.div`
   background: linear-gradient(92.51deg, #808080 0.37%, #151515 51.61%, #7c7c7c 99.14%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  @media (max-width: 768px) {
+    font-size: 24px;
+    line-height: 34px;
+    padding: 0 28px;
+    color: #121211;
+  }
+`
+const Tip = styled.p`
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+    font-family: 'PingFang SC';
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    color: #121211;
+    margin-top: 13px;
+  }
 `
 const MarketBtn = styled.div`
   width: 240px;
@@ -194,6 +241,18 @@ const MarketBtn = styled.div`
   position: relative;
   cursor: pointer;
   z-index: 2;
+  @media (max-width: 768px) {
+    height: 40px;
+    line-height: 40px;
+    width: auto;
+    padding: 0 49px;
+    font-size: 16px;
+    border-radius: 28.5px;
+    display: inline-block;
+    margin: 18px auto 40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `
 const IdoCont = styled.div`
   width: 1400px;
@@ -201,11 +260,15 @@ const IdoCont = styled.div`
   margin: 0 auto;
   margin-bottom: 120px;
   position: relative;
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 32px;
+  }
 `
 const Card = styled.div`
   width: 640px;
   height: 702px;
-  /* padding-bottom: 56px; */
   background: rgba(255, 255, 255, 0.7);
   padding: 0 60px;
   display: inline-block;
@@ -214,16 +277,37 @@ const Card = styled.div`
   &:first-child {
     margin-right: 120px;
   }
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    padding: 0 0 32px;
+    border-radius: 16px;
+    &:first-child {
+      margin-right: 0;
+      margin-bottom: 32px;
+    }
+  }
 `
 const Top = styled.div`
   height: 250px;
   line-height: 250px;
   width: 100%;
   border-bottom: 1px dashed #ffb233;
+  @media (max-width: 768px) {
+    height: auto;
+    display: flex;
+    padding: 20px 0;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 const Icon = styled.img`
   width: 179px;
   height: 183px;
+  @media (max-width: 768px) {
+    width: 85px;
+    height: 87px;
+  }
 `
 const IdoTitle = styled.div`
   font-family: 'PingFang SC';
@@ -234,6 +318,10 @@ const IdoTitle = styled.div`
   text-align: center;
   color: #ff8c14;
   float: right;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
 `
 const IdoTitles = styled.div`
   width: 100%;
@@ -242,21 +330,37 @@ const IdoTitles = styled.div`
   font-weight: 600;
   font-size: 36px;
   color: #ff8c14;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    line-height: 28px;
+    padding: 4px 0;
+  }
 `
 const Content = styled.div`
   padding-top: 33px;
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 33px 20px;
+  }
 `
 const Line = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
 `
 const Label = styled.div`
   font-family: 'PingFang SC';
   font-size: 22px;
   line-height: 31px;
   color: #000000;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 20px;
+  }
 `
 const ContFont = styled.div`
   font-family: 'PingFang SC';
@@ -265,6 +369,10 @@ const ContFont = styled.div`
   line-height: 31px;
   text-align: right;
   color: #000000;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 20px;
+  }
 `
 const Btn = styled.div`
   height: 64px;
@@ -280,6 +388,16 @@ const Btn = styled.div`
   cursor: pointer;
   left: 50%;
   transform: translateX(-50%);
+  @media (max-width: 768px) {
+    margin: 12px auto 0;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 46px;
+    font-size: 16px;
+    border-radius: 28.5px;
+    min-width: 188px;
+    text-align: center;
+  }
 `
 
 const Invite = styled.div`
@@ -289,6 +407,12 @@ const Invite = styled.div`
   background: linear-gradient(285.68deg, #ff5b36 6.56%, #ffb74a 98.03%);
   position: relative;
   z-index: 3;
+  @media (max-width: 768px) {
+    height: auto;
+    line-height: auto;
+    background: none;
+    padding: 0 20px;
+  }
 `
 const InviteCont = styled.div`
   width: 1440px;
@@ -299,6 +423,14 @@ const InviteCont = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    padding: 34px 32px 32px;
+    display: block;
+    background: #ffffff;
+    border-radius: 16px;
+  }
 `
 
 const Left = styled.div`
@@ -306,6 +438,9 @@ const Left = styled.div`
   font-size: 32px;
   display: flex;
   align-items: center;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 const MyLink = styled.div`
   font-size: 32px;
@@ -326,12 +461,69 @@ const Right = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 34px;
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 25px;
+    color: #000000;
+    b {
+      display: none;
+    }
+  }
 `
 const PeopleNum = styled.div`
-    display: inline-block;
-    margin-right: 64px;
+  display: inline-block;
+  margin-right: 64px;
+  @media (max-width: 768px) {
+    display: block;
+    margin-right: 0px;
+    span {
+      float: right;
+      display: flex;
+      align-items: flex-end;
+      text-align: center;
+      font-size: 18px;
+
+      background: linear-gradient(180deg, #ffaa33 0%, #ff6c43 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
 `
 const RewardCount = styled.div`
-    display: inline-block;
+  display: inline-block;
+  @media (max-width: 768px) {
+    display: block;
+    margin: 28px 0 32px;
+    span {
+      float: right;
+      display: flex;
+      align-items: flex-end;
+      text-align: center;
+      font-size: 18px;
+      background: linear-gradient(180deg, #ffaa33 0%, #ff6c43 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+`
+const InviteBtn = styled.div`
+  display: none;
+  @media (max-width: 768px) {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 46px;
+    font-size: 16px;
+    color: #ffffff;
+    font-family: 'PingFang SC';
+    display: block;
+    background: linear-gradient(285.68deg, #ff5b36 6.56%, #ffb74a 98.03%);
+    border-radius: 28.5px;
+    position: relative;
+    cursor: pointer;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 188px;
+    text-align: center;
+  }
 `
 export default idoCard

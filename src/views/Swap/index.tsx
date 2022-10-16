@@ -6,6 +6,7 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { EXCHANGE_DOCS_URLS } from 'config/constants'
 import { useDefaultsFromURLSearch } from 'state/limitOrders/hooks'
 import { AppBody } from 'components/App'
+import styled from 'styled-components'
 
 import { useCurrency } from '../../hooks/Tokens'
 import { Field } from '../../state/swap/actions'
@@ -24,6 +25,31 @@ export const ACCESS_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.BSC]
 
 const STABLE_SUPPORT_CHAIN_IDS = [ChainId.BSC_TESTNET]
 
+const Icon = styled.img`
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 211px;
+  height: 211px;
+  display: ${() => ((window as any).screen.width <= 768 ? 'block' : 'none')};
+`
+const IconYz = styled.img`
+  position: absolute;
+  bottom: -100px;
+  left: 0px;
+  width: 573px;
+  height: 573px;
+  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
+`
+const Icons = styled.img`
+  position: absolute;
+  top: -50px;
+  left: calc(50% + 160px);
+  transform: translateX(-50%);
+  width: 170px;
+  height: 170px;
+  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
+`
 export default function Swap() {
   const { isMobile } = useMatchBreakpoints()
   const [isChartExpanded, setIsChartExpanded] = useState(false)
@@ -65,7 +91,7 @@ export default function Swap() {
   const isAccessTokenSupported = useMemo(() => ACCESS_TOKEN_SUPPORT_CHAIN_IDS.includes(chainId), [chainId])
 
   return (
-    <Page removePadding={isChartExpanded} hideFooterOnDesktop={isChartExpanded}>
+    <Page removePadding={isChartExpanded} hideFooterOnDesktop={isChartExpanded} style={{ position: 'relative' }}>
       <Flex width="100%" justifyContent="center" position="relative">
         {!isMobile && isChartSupported && (
           <PriceChartContainer
@@ -128,6 +154,9 @@ export default function Swap() {
           )}
         </Flex>
       </Flex>
+      <Icon src="/images/pool/bottom.png" />
+      <IconYz src="/images/pool/yz.png" />
+      <Icons src="/images/pool/icon.png" />
     </Page>
   )
 }

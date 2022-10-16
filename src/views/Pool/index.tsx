@@ -23,9 +23,7 @@ const Icon = styled.img`
   left: 0px;
   width: 211px;
   height: 211px;
-  /* opacity: 0.6;
-  filter: blur(16px); */
-  display: ${() => (window as any).screen.width <= 768 ? 'block' : 'none'};
+  display: ${() => ((window as any).screen.width <= 768 ? 'block' : 'none')};
 `
 const IconYz = styled.img`
   position: absolute;
@@ -33,20 +31,16 @@ const IconYz = styled.img`
   left: 0px;
   width: 573px;
   height: 573px;
-  /* opacity: 0.6;
-  filter: blur(16px); */
-  display: ${() => (window as any).screen.width <= 768 ? 'none' : 'block'};
+  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
 `
 const Icons = styled.img`
   position: absolute;
   top: -50px;
-    left: calc(50% + 220px);
-    transform: translateX(-50%);
+  left: calc(50% + 220px);
+  transform: translateX(-50%);
   width: 170px;
   height: 170px;
-  /* opacity: 0.6;
-  filter: blur(16px); */
-  display: ${() => (window as any).screen.width <= 768 ? 'none' : 'block'};
+  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
 `
 
 export default function Pool() {
@@ -141,8 +135,7 @@ export default function Pool() {
   }
 
   return (
-    <Page style={{position: 'relative'}}>
-      
+    <Page style={{ position: 'relative' }}>
       <AppBody>
         <AppHeader title={t('LiquidityFund')} subtitle={t('Add liquidity to claim LP tokens')} />
         <CardFooter style={{ textAlign: 'center' }}>
@@ -155,10 +148,10 @@ export default function Pool() {
       </AppBody>
 
       <AppBody>
-        <h2 style={{ fontSize: '20px', margin: '20px'}}>{t('Your Liquidity')}</h2>
+        <h2 style={{ fontSize: '20px', margin: '20px' }}>{t('Your Liquidity')}</h2>
         <Body>
           {renderBody()}
-          {account && !v2IsLoading }
+          {account && !v2IsLoading}
         </Body>
         <CardFooter>
           <Flex alignItems="center" mt="20px">
@@ -173,10 +166,8 @@ export default function Pool() {
           </Flex>
 
           <Text color="textSubtle" mt="20px" mb="8px">
-            {t("Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here")}
+            {t('Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here')}
           </Text>
-
-          
         </CardFooter>
       </AppBody>
       <Icon src="/images/pool/bottom.png" />
@@ -185,5 +176,3 @@ export default function Pool() {
     </Page>
   )
 }
-
-
