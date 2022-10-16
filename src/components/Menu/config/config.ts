@@ -98,7 +98,7 @@ const config: (
     },
     {
       label: t('rebate'),
-      href: '',
+      href: '/rebate',
       icon: TrophyIcon,
       fillIcon: TrophyFillIcon,
       image: '/images/decorations/pe2.png',
@@ -114,7 +114,7 @@ const config: (
       items: [
         {
           label: 'IDO',
-          href: '',
+          href: '/ido',
           supportChainIds: SUPPORT_ONLY_BSC,
         },
         {
