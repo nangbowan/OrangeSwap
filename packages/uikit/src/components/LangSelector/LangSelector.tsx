@@ -34,9 +34,9 @@ const LangSelector: React.FC<React.PropsWithChildren<Props>> = ({
       // <Button scale={buttonScale} variant="text" startIcon={<LanguageIcon color={color} width="24px" />}>
       //   {!hideLanguage && <Text color={color}>{currentLang?.toUpperCase()}</Text>}
       // </Button>
-      <Button scale={buttonScale} variant="text">
+      <Button className="lange_btn" scale={buttonScale} variant="text">
         {/* {!hideLanguage && <Text color={color}>{currentLang?.toUpperCase()}</Text>} */}
-        <Text color={"#fff"} fontSize="24px">语言</Text>
+        <Text className="lange_text" color={"#fff"} fontSize="24px">语言</Text>
       </Button>
     }
   >

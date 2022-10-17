@@ -465,8 +465,6 @@ const MyLink = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
   -o-text-overflow:ellipsis;
-  
-  
 `
 const CopyIcon = styled.img`
   width: 44px;
