@@ -11,7 +11,7 @@ export const swapSectionData = (t: TranslateFunction): SalesSectionProps => ({
     external: false,
   },
   secondaryButton: {
-    to: 'https://docs.pancakeswap.finance/',
+    to: 'https://orange-swap.gitbook.io/orange-swap-1/',
     text: t('Learn'),
     external: true,
   },
@@ -35,7 +35,7 @@ export const earnSectionData = (t: TranslateFunction): SalesSectionProps => ({
     external: false,
   },
   secondaryButton: {
-    to: 'https://docs.pancakeswap.finance/products/yield-farming',
+    to: 'https://orange-swap.gitbook.io/orange-swap-1/',
     text: t('Learn'),
     external: true,
   },

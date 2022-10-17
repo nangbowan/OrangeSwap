@@ -57,7 +57,7 @@ const MenuItem1212: React.FC<React.PropsWithChildren<FooterProps>> = ({
             <Button
               data-theme="light"
               as="a"
-              href="https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&chainId=56"
+              href="https://orangeswap.org/swap"
               target="_blank"
               scale="sm"
               style={{
@@ -133,7 +133,7 @@ const MenuItem1212: React.FC<React.PropsWithChildren<FooterProps>> = ({
             <Button
               data-theme="light"
               as="a"
-              href="https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&chainId=56"
+              href="https://orangeswap.org/swap"
               target="_blank"
               scale="sm"
               style={{
@@ -176,7 +176,7 @@ const MenuItem1212: React.FC<React.PropsWithChildren<FooterProps>> = ({
             <Button
               data-theme="light"
               as="a"
-              href="https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&chainId=56"
+              href="https://orangeswap.org/swap"
               target="_blank"
               scale="sm"
               endIcon={<ArrowForwardIcon color="backgroundAlt" />}
@@ -227,7 +227,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
             <Button
               data-theme="light"
               as="a"
-              href="https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&chainId=56"
+              href="https://orangeswap.org/swap"
               target="_blank"
               scale="sm"
               style={{
@@ -267,7 +267,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
             <Button
               data-theme="light"
               as="a"
-              href="https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&chainId=56"
+              href="https://orangeswap.org/swap"
               target="_blank"
               scale="sm"
               className="buy_bake"

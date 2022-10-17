@@ -1903,7 +1903,7 @@ exports[`renders correctly 1`] = `
           >
             <a
               class="c27"
-              href="https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&chainId=56"
+              href="https://orangeswap.org/swap"
               target="_blank"
             >
               <svg
@@ -3170,7 +3170,7 @@ exports[`renders correctly 1`] = `
                 >
                   <a
                     class="c27"
-                    href="https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&chainId=56"
+                    href="https://orangeswap.org/swap"
                     target="_blank"
                   >
                     <svg
@@ -3235,7 +3235,7 @@ exports[`renders correctly 1`] = `
                 <a
                   class="c92"
                   data-theme="light"
-                  href="https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&chainId=56"
+                  href="https://orangeswap.org/swap"
                   scale="sm"
                   target="_blank"
                 >
