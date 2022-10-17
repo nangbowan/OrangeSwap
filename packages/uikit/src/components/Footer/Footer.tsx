@@ -282,7 +282,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
           </Line>
         </Top>
         <Soild> </Soild>
-        <Bottom className="bottom">
+        <Bottom>
           <HrefLink>
             <img src="/images/twier.svg" alt="" width="130px" />
             <img src="/images/telegram.svg" alt="" width="130px" />
