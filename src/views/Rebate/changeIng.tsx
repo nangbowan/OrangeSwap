@@ -32,9 +32,9 @@ const ChangeIng: FC = (): ReactElement => {
 }
 const Main = styled.div`
   width: 100%;
-  margin: 24px 0 79px;
+  padding: 24px 0 79px;
   @media (max-width: 768px) {
-    margin: 40px 0 72px;
+    padding: 40px 0 72px;
   }
 `
 const Section = styled.div`

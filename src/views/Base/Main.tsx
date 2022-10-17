@@ -243,10 +243,12 @@ const Notice = styled.div`
   height: 160px;
   background: linear-gradient(285.68deg, #ff5b36 6.56%, #ffb74a 98.03%);
   z-index: 3;
+  min-width: 1440px;
   @media (max-width: 768px) {
     position: relative;
     left: 0;
     top: 0px;
+    min-width: 100%;
     width: 100%;
     height: auto;
     padding: 20px;
@@ -525,7 +527,7 @@ const User = styled.div`
       border: solid 12px transparent;
       border-radius: 0 36px 36px 0;
 
-      background-image: linear-gradient(var(--colors-background), var(--colors-background)),
+      background-image: linear-gradient(#fff, #fff),
         linear-gradient(to right, rgba(255, 238, 199, 1), rgba(255, 165, 143, 1), rgba(255, 187, 149, 1));
 
       background-origin: border-box;
@@ -588,7 +590,7 @@ const Amount = styled.div`
       border: solid 12px transparent;
       border-radius: 0 36px 36px 0;
 
-      background-image: linear-gradient(var(--colors-background), var(--colors-background)),
+      background-image: linear-gradient(#fff, #fff),
         linear-gradient(to right, rgba(228, 102, 239, 1), rgba(249, 114, 212, 1), rgba(155, 132, 255, 1));
 
       background-origin: border-box;

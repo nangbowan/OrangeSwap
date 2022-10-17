@@ -107,7 +107,9 @@ const Main = styled.div`
   width: 100%;
   background: #f8f8f8;
   position: relative;
+  min-width: 1440px;
   @media (max-width: 768px) {
+    min-width: 100%;
   }
 `
 const Cont = styled.div`

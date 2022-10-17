@@ -5,15 +5,15 @@ import { copyText } from '@pancakeswap/utils/copyText'
 
 const $hash = (txHash, length = 4, lastLength = 6) => {
   if (!txHash) {
-      return '--';
+    return '--'
   }
   // eslint-disable-next-line no-param-reassign
-  if (!lastLength) lastLength = length;
-  return `${txHash.substring(0, length)  }...${  txHash.substring(txHash.length - lastLength, txHash.length)}`;
-};
+  if (!lastLength) lastLength = length
+  return `${txHash.substring(0, length)}...${txHash.substring(txHash.length - lastLength, txHash.length)}`
+}
 const idoCard: FC = (): ReactElement => {
-  const { address: account } = useAccount();
-  const isStart = false;
+  const { address: account } = useAccount()
+  const isStart = false
 
   return (
     <Main>
@@ -40,9 +40,7 @@ const idoCard: FC = (): ReactElement => {
             <Line>
               <Label>最大代币输入(USDT)</Label>
               <ContFont>
-                35214525 USDT
-                <br />
-                (261.23%)
+                <BtnUsdt>200U</BtnUsdt>
               </ContFont>
             </Line>
             <Line>
@@ -79,9 +77,7 @@ const idoCard: FC = (): ReactElement => {
             <Line>
               <Label>最大代币输入(USDT)</Label>
               <ContFont>
-                35214525 USDT
-                <br />
-                (261.23%)
+                <BtnUsdt>200U</BtnUsdt>
               </ContFont>
             </Line>
             <Line>
@@ -111,7 +107,10 @@ const idoCard: FC = (): ReactElement => {
           <Left>
             我的邀请链接
             <MyLink>{$hash(`https://orangeswap.org/swap?shareid=${account}`, 15, 10)}</MyLink>
-            <CopyIcon src="/images/ido/copy.svg" onClick={() => copyText(`https://orangeswap.org/swap?shareid=${account}`)} />
+            <CopyIcon
+              src="/images/ido/copy.svg"
+              onClick={() => copyText(`https://orangeswap.org/swap?shareid=${account}`)}
+            />
           </Left>
           <Right>
             <PeopleNum>
@@ -362,6 +361,9 @@ const Line = styled.div`
   margin-bottom: 24px;
   @media (max-width: 768px) {
     margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
   }
 `
 const Label = styled.div`
@@ -386,6 +388,25 @@ const ContFont = styled.div`
     line-height: 20px;
   }
 `
+const BtnUsdt = styled.div`
+  width: 160px;
+  height: 48px;
+  line-height: 48px;
+  background: linear-gradient(285.68deg, #ff5b36 6.56%, #ffb74a 98.03%);
+  font-family: 'PingFang SC';
+  font-weight: 600;
+  font-size: 22px;
+  text-align: center;
+  color: #ffffff;
+  @media (max-width: 768px) {
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    background: #ffae32;
+    border-radius: 16px;
+    font-size: 14px;
+  }
+`
 const Btn = styled.div`
   height: 64px;
   padding: 0 70px;
@@ -401,7 +422,7 @@ const Btn = styled.div`
   left: 50%;
   transform: translateX(-50%);
   @media (max-width: 768px) {
-    margin: 12px auto 0;
+    margin: 0 auto;
     height: 40px;
     line-height: 40px;
     padding: 0 46px;
@@ -461,10 +482,10 @@ const MyLink = styled.div`
   padding: 10px 24px;
   border: 1px solid #ffffff;
   margin: 0 32px;
-  overflow:hidden;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  -o-text-overflow:ellipsis;
+  -o-text-overflow: ellipsis;
 `
 const CopyIcon = styled.img`
   width: 44px;

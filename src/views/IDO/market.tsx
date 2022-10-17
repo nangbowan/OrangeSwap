@@ -45,6 +45,7 @@ const Main = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  overflow: hidden;
   @media (max-width: 768px) {
     margin: 81px auto 32px;
     width: 100%;

@@ -282,7 +282,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
           </Line>
         </Top>
         <Soild> </Soild>
-        <Bottom>
+        <Bottom className="bottom">
           <HrefLink>
             <img src="/images/twier.svg" alt="" width="130px" />
             <img src="/images/telegram.svg" alt="" width="130px" />
@@ -302,6 +302,11 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
 const Main = styled.div`
   width: 100%;
   background: linear-gradient(285.68deg, #ff5b36 6.56%, #ffb74a 98.03%);
+  min-width: 1440px;
+  @media (max-width: 768px) {
+    min-width: 100%;
+    /* overflow-x: hidden; */
+  }
 `;
 const Content = styled.div`
   width: 1440px;
@@ -382,6 +387,11 @@ const Lang = styled.div`
     height: 100% !important;
     padding: 0 !important
   }
+  &>div{
+    &>div{
+      left: -40px !important;
+    }
+  }
 `;
 const Soild = styled.div`
   height: 1px;
@@ -445,7 +455,7 @@ const HrefLink = styled.div`
     img {
       width: 20px;
       position: relative;
-      top: 8px;
+      top: 4px;
       &:first-child {
         margin-right: 20px;
       }
