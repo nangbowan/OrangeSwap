@@ -11,7 +11,8 @@ const $hash = (txHash, length = 4, lastLength = 6) => {
   if (!lastLength) lastLength = length
   return `${txHash.substring(0, length)}...${txHash.substring(txHash.length - lastLength, txHash.length)}`
 }
-const idoCard: FC = (): ReactElement => {
+const idoCard: FC<any> = (): ReactElement => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { address: account } = useAccount()
   const isStart = false
 
