@@ -219,7 +219,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
             />
             <Boxs>
               <img src="/images/org_logo.svg" alt="" width="40px" />
-              <p>1212</p>
+              <p> {/* {cakePriceUsd } */}</p>
               {/* {cakePriceUsd && <p>{cakePriceUsd}</p>} */}
 
               {/* <CakePrice cakePriceUsd={cakePriceUsd} color="textSubtle" /> */}
