@@ -413,6 +413,8 @@ const Boxs = styled.div`
   margin: 0 50px;
   line-height: 40px;
   display: flex;
+  top: 50%;
+  transform: translateY(-50%);
   p {
     line-height: 40px;
     display: inline-block;
