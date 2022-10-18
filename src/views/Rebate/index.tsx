@@ -21,7 +21,7 @@ const Rebate: FC = (): ReactElement => {
   const [money, setMoney] = useState<number>(0)
   const decimals = 18
   const orgbundrebate = {
-    56: '0xAe9269f27437f0fcBC232d39Ec814844a51d6b8f',
+    56: '',
     97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3'
     // 97: '0x593f55EF95be8C327F5B3193Bce8086Da3518140'
     // 97: '0xA00530A1A375Fd414e418ed1688da989Cc0B493D'
@@ -29,7 +29,6 @@ const Rebate: FC = (): ReactElement => {
 
   // const tokenContract = useERC20(orgbundrebate[chainId])
   const rebateContract = useOrgbundrebate(orgbundrebate[chainId]);
-
   const rewardGulars = [
     { grade: 1, number: '0-99999', scal: '0.1%' },
     { grade: 2, number: '100000-199999', scal: '0.2%' },
@@ -40,23 +39,27 @@ const Rebate: FC = (): ReactElement => {
   ]
 
   useEffect(()=> {
-    if(rebateContract && chainId){
+    if(rebateContract && chainId && account){
       // getToken();
       getReward()
     }
-  }, [rebateContract, chainId])
+  }, [rebateContract, chainId, account])
 
-  const getToken = async () => {
-    // const decimals = useSingleCallResult(token ? undefined : tokenContract, 'decimals', undefined, NEVER_RELOAD)
-    const balance = await tokenContract.balanceOf('0x0B8996cA85955f6545bFAa63c931b7328886Db69');
-    console.log('balance ====', balance.toString())
-    const _decimals = await tokenContract.decimals();
-    console.log('_decimals ====', _decimals)
-  }
+  // const getToken = async () => {
+  //   // const decimals = useSingleCallResult(token ? undefined : tokenContract, 'decimals', undefined, NEVER_RELOAD)
+  //   const balance = await tokenContract.balanceOf('0x0B8996cA85955f6545bFAa63c931b7328886Db69');
+  //   console.log('balance ====', balance.toString())
+  //   const _decimals = await tokenContract.decimals();
+  //   console.log('_decimals ====', _decimals)
+  // }
   const getReward = async () => {
     const result = await rebateContract.reward(account);
-    console.log('---------------', result.toString())
-    setMoney($shiftedBy(result.toString(), -18, 4))
+    setMoney($shiftedBy(result.toString(), -18, 6))
+  }
+  const claim = async () => {
+    console.log('rebateContract', rebateContract)
+    const result = await rebateContract.claimrebate();
+    console.log('result', result)
   }
   const dialog = () => {
     copyText(`https://orangeswap.org/swap?shareid=${account}`)
@@ -94,7 +97,7 @@ const Rebate: FC = (): ReactElement => {
             </Title>
             <Count>
               <Text>{money} USDT</Text>
-              <ClaimBtn>提取奖励</ClaimBtn>
+              <ClaimBtn onClick={()=> claim()}>提取奖励</ClaimBtn>
             </Count>
           </InviteLink>
         </Invite>
