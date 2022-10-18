@@ -338,11 +338,11 @@ const Farms: React.FC<React.PropsWithChildren> = ({ children }) => {
               </Button>
             </NextLinkFromReactRouter>
           </Box>
-          {(chainId === ChainId.BSC || chainId === ChainId.BSC_TESTNET) && (
+          {/* {(chainId === ChainId.BSC || chainId === ChainId.BSC_TESTNET) && (
             <Box>
               <BCakeBoosterCard />
             </Box>
-          )}
+          )} */}
         </FarmFlexWrapper>
       </PageHeader>
       <Page>
@@ -408,7 +408,7 @@ const Farms: React.FC<React.PropsWithChildren> = ({ children }) => {
             </LabelWrapper>
           </FilterContainer>
         </ControlContainer>
-        {isInactive && (
+        {/* {isInactive && (
           <FinishedTextContainer>
             <Text fontSize={['16px', null, '20px']} color="failure" pr="4px">
               {t("Don't see the farm you are staking?")}
@@ -430,19 +430,19 @@ const Farms: React.FC<React.PropsWithChildren> = ({ children }) => {
               </FinishedTextLink>
             </Flex>
           </FinishedTextContainer>
-        )}
+        )} */}
         {viewMode === ViewMode.TABLE ? (
           <Table farms={chosenFarmsMemoized} cakePrice={cakePrice} userDataReady={userDataReady} />
         ) : (
           <FlexLayout>{children}</FlexLayout>
         )}
-        {account && !userDataLoaded && stakedOnly && (
+        {/* {account && !userDataLoaded && stakedOnly && (
           <Flex justifyContent="center">
             <Loading />
           </Flex>
-        )}
-        {poolLength && <div ref={observerRef} />}
-        <StyledImage src="/images/decorations/3dpan.png" alt="Pancake illustration" width={120} height={103} />
+        )} */}
+        {/* {poolLength && <div ref={observerRef} />} */}
+        {/* <StyledImage src="/images/decorations/3dpan.png" alt="Pancake illustration" width={120} height={103} /> */}
       </Page>
       {createPortal(<ScrollToTopButton />, document.body)}
     </FarmsContext.Provider>

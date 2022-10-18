@@ -13,7 +13,7 @@ it("renders correctly", () => {
   expect(asFragment()).toMatchInlineSnapshot(`
     <DocumentFragment>
       .c0 {
-      background: var(--colors-cardBorder);
+      background: var(--colors-primary);
       border-radius: var(--radii-card);
       color: var(--colors-text);
       overflow: hidden;
@@ -25,7 +25,7 @@ it("renders correctly", () => {
       width: 100%;
       height: 100%;
       overflow: inherit;
-      background: var(--colors-backgroundAlt);
+      background: var(--colors-primary);
       border-radius: var(--radii-card);
     }
 
