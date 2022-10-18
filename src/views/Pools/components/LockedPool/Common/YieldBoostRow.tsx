@@ -17,11 +17,11 @@ const YieldBoostRow = ({ secondDuration }) => {
   return (
     <Flex alignItems="center" justifyContent="space-between">
       {tooltipVisible && tooltip}
-      <TooltipText>
+      {/* <TooltipText>
         <Text ref={targetRef} color="primary" textTransform="uppercase" bold fontSize="12px">
           {t('Yield boost')}
         </Text>
-      </TooltipText>
+      </TooltipText> */}
       <BalanceWithLoading
         color="text"
         bold
