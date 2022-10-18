@@ -101,6 +101,7 @@ const config: (
       href: '/rebate',
       icon: TrophyIcon,
       fillIcon: TrophyFillIcon,
+      showItemsOnMobile: false,
       image: '/images/decorations/pe2.png',
       supportChainIds: SUPPORT_ONLY_BSC,
       items: [
