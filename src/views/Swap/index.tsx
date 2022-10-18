@@ -36,12 +36,13 @@ const Icon = styled.img`
 `
 const IconYz = styled.img`
   position: absolute;
-  bottom: -100px;
+  bottom: 400px;
   left: 0px;
   width: 573px;
   height: 573px;
-  display: none;
-  /* display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')}; */
+  /* display: none; */
+  z-index: 0;
+  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
 `
 const Icons = styled.img`
   position: absolute;

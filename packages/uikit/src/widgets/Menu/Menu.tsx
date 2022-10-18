@@ -88,6 +88,7 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
   const topBannerHeight = isMobile ? TOP_BANNER_HEIGHT_MOBILE : TOP_BANNER_HEIGHT;
 
   const totalTopMenuHeight = banner ? MENU_HEIGHT + topBannerHeight : MENU_HEIGHT;
+  const isHeader = true;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -144,6 +145,7 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
                 <LangSelector
                   currentLang={currentLang}
                   langs={langs}
+                  isHeader={isHeader}
                   setLang={setLang}
                   buttonScale="xs"
                   color="textSubtle"

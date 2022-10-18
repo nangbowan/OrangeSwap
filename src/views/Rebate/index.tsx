@@ -1,11 +1,13 @@
 import { FC, ReactElement } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { copyText } from '@pancakeswap/utils/copyText'
 import ChangeIng from './changeIng'
 
 const Rebate: FC = (): ReactElement => {
   const { address: account } = useAccount()
+  const { chainId } = useActiveWeb3React()
   const rewardGulars = [
     { grade: 1, number: '0-99999', scal: '0.1%' },
     { grade: 2, number: '100000-199999', scal: '0.2%' },

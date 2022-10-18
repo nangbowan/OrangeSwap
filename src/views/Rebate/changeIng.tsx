@@ -42,6 +42,7 @@ const Section = styled.div`
   height: 560px;
   margin: 0 auto;
   position: relative;
+  z-index: 2;
   @media (max-width: 768px) {
     width: 100%;
     padding: 0 20px;
