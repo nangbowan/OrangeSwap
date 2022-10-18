@@ -191,7 +191,7 @@ const ActionPanel: React.FunctionComponent<React.PropsWithChildren<ActionPanelPr
             {(props) => <HarvestAction {...props} />}
           </HarvestActionContainer>
         )}
-        {farm?.boosted && (
+        {/* {farm?.boosted && (
           <ActionContainerSection style={{ minHeight: 124.5 }}>
             <BoostedAction
               title={(status) => (
@@ -214,7 +214,7 @@ const ActionPanel: React.FunctionComponent<React.PropsWithChildren<ActionPanelPr
               }
             />
           </ActionContainerSection>
-        )}
+        )} */}
         {shouldUseProxyFarm ? (
           <ProxyStakedContainer {...proxyFarm} userDataReady={userDataReady} lpLabel={lpLabel} displayApr={apr.value}>
             {(props) => <StakedAction {...props} />}

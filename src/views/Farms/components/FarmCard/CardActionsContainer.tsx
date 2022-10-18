@@ -64,7 +64,7 @@ const CardActions: React.FC<React.PropsWithChildren<FarmCardActionsProps>> = ({
           {(props) => <HarvestAction {...props} />}
         </HarvestActionContainer>
       )}
-      {farm.boosted && (
+      {/* {farm.boosted && (
         <BoostedAction
           title={(status) => (
             <Flex>
@@ -85,7 +85,7 @@ const CardActions: React.FC<React.PropsWithChildren<FarmCardActionsProps>> = ({
               : proxy?.stakedBalance.plus(proxy?.tokenBalance)) ?? new BigNumber(0)
           }
         />
-      )}
+      )} */}
       {isReady ? (
         <Flex>
           <Text bold textTransform="uppercase" color="secondary" fontSize="12px" pr="4px">

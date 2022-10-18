@@ -95,9 +95,9 @@ const BCakeCalculator: React.FC<React.PropsWithChildren<BCakeCalculatorProps>> =
 
   return (
     <>
-      <Text color="secondary" bold fontSize="12px" textTransform="uppercase" mt="24px" mb="8px">
+      {/* <Text color="secondary" bold fontSize="12px" textTransform="uppercase" mt="24px" mb="8px">
         {t('Yield Booster')}
-      </Text>
+      </Text> */}
 
       <Toggle scale="md" checked={isShow} onClick={() => setIsShow(!isShow)} />
       {isShow && (
