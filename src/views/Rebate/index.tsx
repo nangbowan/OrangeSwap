@@ -1,13 +1,35 @@
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
+import { useToast } from '@pancakeswap/uikit'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { $shiftedBy } from 'utils/met'
 import { copyText } from '@pancakeswap/utils/copyText'
+import { ToastDescriptionWithTx } from 'components/Toast'
+import { useERC20, useTokenContract, useOrgbundrebate } from 'hooks/useContract'
+import { NEVER_RELOAD, useSingleCallResult, } from 'state/multicall/hooks'
+import { useAllTokens, useIsUserAddedToken, useToken } from '../../hooks/Tokens'
+
 import ChangeIng from './changeIng'
 
+// orgido:0x33d98E94e133BC82E52B430dEc41C660a9049D51
+// orgbundrebate:0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3
 const Rebate: FC = (): ReactElement => {
   const { address: account } = useAccount()
   const { chainId } = useActiveWeb3React()
+  const { toastError, toastSuccess } = useToast()
+  const [money, setMoney] = useState<number>(0)
+  const decimals = 18
+  const orgbundrebate = {
+    56: '0xAe9269f27437f0fcBC232d39Ec814844a51d6b8f',
+    97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3'
+    // 97: '0x593f55EF95be8C327F5B3193Bce8086Da3518140'
+    // 97: '0xA00530A1A375Fd414e418ed1688da989Cc0B493D'
+  }
+
+  // const tokenContract = useERC20(orgbundrebate[chainId])
+  const rebateContract = useOrgbundrebate(orgbundrebate[chainId]);
+
   const rewardGulars = [
     { grade: 1, number: '0-99999', scal: '0.1%' },
     { grade: 2, number: '100000-199999', scal: '0.2%' },
@@ -16,6 +38,31 @@ const Rebate: FC = (): ReactElement => {
     { grade: 5, number: '500000-999999', scal: '0.5%' },
     { grade: 6, number: '≥1000000', scal: '0.6%' },
   ]
+
+  useEffect(()=> {
+    if(rebateContract && chainId){
+      // getToken();
+      getReward()
+    }
+  }, [rebateContract, chainId])
+
+  const getToken = async () => {
+    // const decimals = useSingleCallResult(token ? undefined : tokenContract, 'decimals', undefined, NEVER_RELOAD)
+    const balance = await tokenContract.balanceOf('0x0B8996cA85955f6545bFAa63c931b7328886Db69');
+    console.log('balance ====', balance.toString())
+    const _decimals = await tokenContract.decimals();
+    console.log('_decimals ====', _decimals)
+  }
+  const getReward = async () => {
+    const result = await rebateContract.reward(account);
+    console.log('---------------', result.toString())
+    setMoney($shiftedBy(result.toString(), -18, 4))
+  }
+  const dialog = () => {
+    copyText(`https://orangeswap.org/swap?shareid=${account}`)
+    toastSuccess(`success`, 'Copy Successfly')
+  }
+
   return (
     <Main>
       <Icon className="top_bg" src="/images/rebate/top_yezi.png" />
@@ -32,12 +79,12 @@ const Rebate: FC = (): ReactElement => {
               <Copy
                 className="pc"
                 src="/images/rebate/copy.svg"
-                onClick={() => copyText(`https://orangeswap.org/swap?shareid=${account}`)}
+                onClick={() => dialog()}
               />
               <Copy
                 className="mobile"
                 src="/images/rebate/copy_mobile.svg"
-                onClick={() => copyText(`https://orangeswap.org/swap?shareid=${account}`)}
+                onClick={() => dialog()}
               />
             </LinkCont>
           </InviteLink>
@@ -46,7 +93,7 @@ const Rebate: FC = (): ReactElement => {
               <span>已获得总返佣</span>
             </Title>
             <Count>
-              <Text>XXX USDT</Text>
+              <Text>{money} USDT</Text>
               <ClaimBtn>提取奖励</ClaimBtn>
             </Count>
           </InviteLink>

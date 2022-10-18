@@ -201,9 +201,9 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
   buyCakeLabel,
   ...props
 }) => {
-  useEffect(() => {
-    console.error('---', cakePriceUsd)
-  },[cakePriceUsd])
+  // useEffect(() => {
+  //   console.error('---', cakePriceUsd)
+  // },[cakePriceUsd])
   return (
     <Main>
       <Content>
