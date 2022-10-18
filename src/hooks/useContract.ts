@@ -43,6 +43,8 @@ import {
   getMasterchefContract,
   getMasterchefV1Contract,
   getNftMarketContract,
+  getOrgIdoContract,
+  getOrgbundrebateContract,
   getNftSaleContract,
   getPancakeBunniesContract,
   getPancakeSquadContract,
@@ -91,6 +93,17 @@ export const useIfoV2Contract = (address: string) => {
 export const useIfoV3Contract = (address: string) => {
   const { data: signer } = useSigner()
   return useMemo(() => getIfoV3Contract(address, signer), [address, signer])
+}
+
+export const useOrgIdo = (address: string, withSignerIfPossible = true) => {
+  const providerOrSigner = useProviderOrSigner(withSignerIfPossible)
+  return useMemo(() => getOrgIdoContract(address, providerOrSigner), [address, providerOrSigner])
+}
+
+
+export const useOrgbundrebate = (address: string, withSignerIfPossible = true) => {
+  const providerOrSigner = useProviderOrSigner(withSignerIfPossible)
+  return useMemo(() => getOrgbundrebateContract(address, providerOrSigner), [address, providerOrSigner])
 }
 
 export const useERC20 = (address: string, withSignerIfPossible = true) => {
