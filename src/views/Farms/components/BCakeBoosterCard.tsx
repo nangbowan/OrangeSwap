@@ -70,11 +70,11 @@ export const useBCakeTooltipContent = () => {
   const { t } = useTranslation()
   const tooltipContent = (
     <>
-      <Box mb="20px">
+      {/* <Box mb="20px">
         {t(
           'Yield Boosters allow you to boost your farming yields by locking CAKE in the fixed-term staking CAKE pool. The more CAKE you lock, and the longer you lock them, the higher the boost you will receive.',
         )}
-      </Box>
+      </Box> */}
       <Box>
         {t('To learn more, check out the')}
         <Link target="_blank" href="https://medium.com/pancakeswap/introducing-bcake-farm-yield-boosters-b27b7a6f0f84">
@@ -87,38 +87,38 @@ export const useBCakeTooltipContent = () => {
 }
 
 export const BCakeBoosterCard = () => {
-  const { t } = useTranslation()
-  const theme = useTheme()
-  const { isMobile } = useMatchBreakpoints()
+  // const { t } = useTranslation()
+  // const theme = useTheme()
+  // const { isMobile } = useMatchBreakpoints()
 
-  const tooltipContent = useBCakeTooltipContent()
+  // const tooltipContent = useBCakeTooltipContent()
 
-  const { targetRef, tooltip, tooltipVisible } = useTooltip(tooltipContent, {
-    placement: 'bottom-start',
-    ...(isMobile && { hideTimeout: 1500 }),
-  })
-  // return (
-  //   <CardWrapper>
-  //     <ImageWrapper>
-  //       <Image src={boosterCardImage} alt="boosterCardImage" width={200} height={200} placeholder="blur" />
-  //     </ImageWrapper>
-  //     <Card p="0px" style={{ zIndex: 1 }}>
-  //       <StyledCardBody style={{ padding: '15px 24px' }}>
-  //         <RocketIcon />
-  //         <Text fontSize={22} bold color="text" marginBottom="-12px" display="inline-block" ml="7px">
-  //           {t('Yield Booster')}
-  //         </Text>
-  //         {tooltipVisible && tooltip}
-  //         <Box ref={targetRef} style={{ float: 'right', position: 'relative', top: '6px' }}>
-  //           <HelpIcon color={theme.colors.textSubtle} />
-  //         </Box>
-  //       </StyledCardBody>
-  //       <StyledCardFooter>
-  //         <CardContent />
-  //       </StyledCardFooter>
-  //     </Card>
-  //   </CardWrapper>
-  // )
+  // const { targetRef, tooltip, tooltipVisible } = useTooltip(tooltipContent, {
+  //   placement: 'bottom-start',
+  //   ...(isMobile && { hideTimeout: 1500 }),
+  // })
+  return (
+    <CardWrapper>
+      {/* <ImageWrapper>
+        <Image src={boosterCardImage} alt="boosterCardImage" width={200} height={200} placeholder="blur" />
+      </ImageWrapper> */}
+      <Card p="0px" style={{ zIndex: 1 }}>
+        {/* <StyledCardBody style={{ padding: '15px 24px' }}>
+          <RocketIcon />
+          <Text fontSize={22} bold color="text" marginBottom="-12px" display="inline-block" ml="7px">
+            {t('Yield Booster')}
+          </Text>
+          {tooltipVisible && tooltip}
+          <Box ref={targetRef} style={{ float: 'right', position: 'relative', top: '6px' }}>
+            <HelpIcon color={theme.colors.textSubtle} />
+          </Box>
+        </StyledCardBody> */}
+        <StyledCardFooter>
+          <CardContent />
+        </StyledCardFooter>
+      </Card>
+    </CardWrapper>
+  )
 }
 
 const CardContent: React.FC = () => {
@@ -221,4 +221,5 @@ const CardContent: React.FC = () => {
   //     </Text>
   //   </Box>
   // )
+  return <></>
 }

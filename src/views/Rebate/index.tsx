@@ -46,13 +46,13 @@ const Rebate: FC = (): ReactElement => {
     }
   }, [rebateContract, chainId])
 
-  const getToken = async () => {
-    // const decimals = useSingleCallResult(token ? undefined : tokenContract, 'decimals', undefined, NEVER_RELOAD)
-    const balance = await tokenContract.balanceOf('0x0B8996cA85955f6545bFAa63c931b7328886Db69');
-    console.log('balance ====', balance.toString())
-    const _decimals = await tokenContract.decimals();
-    console.log('_decimals ====', _decimals)
-  }
+  // const getToken = async () => {
+  //   // const decimals = useSingleCallResult(token ? undefined : tokenContract, 'decimals', undefined, NEVER_RELOAD)
+  //   const balance = await tokenContract.balanceOf('0x0B8996cA85955f6545bFAa63c931b7328886Db69');
+  //   console.log('balance ====', balance.toString())
+  //   const _decimals = await tokenContract.decimals();
+  //   console.log('_decimals ====', _decimals)
+  // }
   const getReward = async () => {
     const result = await rebateContract.reward(account);
     console.log('---------------', result.toString())
