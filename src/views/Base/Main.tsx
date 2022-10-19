@@ -1,7 +1,9 @@
 import { FC, ReactElement } from 'react'
+import { useRouter } from 'next/router';
 import styled from 'styled-components'
 
 const BaseMain: FC = (): ReactElement => {
+  const router = useRouter();
   return (
     <Main>
       <Top>
@@ -9,7 +11,7 @@ const BaseMain: FC = (): ReactElement => {
         <OrgImg src="/images/base/orgidos.png" />
         <TopImg src="/images/base/banner.png" />
         <TopCont>
-          <Btn>GO</Btn>
+          <Btn onClick={()=> router.push('/ido')}>GO</Btn>
           <Arrow src="/images/base/arrow.svg" />
           <Join>立即参与</Join>
         </TopCont>
@@ -22,7 +24,7 @@ const BaseMain: FC = (): ReactElement => {
               <Icon src="/images/base/wallet.svg" />
               连接钱包
             </ConnectWallet>
-            <ConnectWallet>
+            <ConnectWallet onClick={()=> router.push('/swap')}>
               <Icon src="/images/base/change.svg" />
               立即交易
             </ConnectWallet>
@@ -72,7 +74,7 @@ const BaseMain: FC = (): ReactElement => {
               </Illustrate>
               <IntroduceTip>只需连接您的钱包，即可在FSC公链上快速交易任何代币。</IntroduceTip>
               <Btns>
-                <LibsBtn>立即交易</LibsBtn>
+                <LibsBtn onClick={()=> router.push('/swap')}>立即交易</LibsBtn>
                 <LibsBtn>了解</LibsBtn>
               </Btns>
             </FontCont>
@@ -102,7 +104,7 @@ const BaseMain: FC = (): ReactElement => {
               </Illustrate>
               <IntroduceTip>只需连接您的钱包，即可在FSC公链上快速交易任何代币。</IntroduceTip>
               <Btns>
-                <LibsBtn>立即交易</LibsBtn>
+                <LibsBtn onClick={()=> router.push('/swap')}>买ORG</LibsBtn>
                 <LibsBtn>了解</LibsBtn>
               </Btns>
             </FontCont>
@@ -188,6 +190,7 @@ const Btn = styled.div`
   color: #ffffff;
   text-align: center;
   transition: all 0.2s;
+  cursor: pointer;
   &:hover {
     opacity: 0.8;
   }

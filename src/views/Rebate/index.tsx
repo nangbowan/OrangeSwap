@@ -12,7 +12,6 @@ import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
 import { useERC20, useTokenContract, useOrgbundrebate } from 'hooks/useContract'
 
-
 import ChangeIng from './changeIng'
 
 const options = {
@@ -334,20 +333,8 @@ const Count = styled.div`
     font-size: 36px;
     text-align: center;
     color: #ffffff;
-    cursor: pointer;
     letter-spacing: 0;
     padding: 0;
-    /* @media (max-width: 768px) {
-      margin-left: 20px;
-      width: 104px;
-      height: 100%;
-      font-family: 'PingFang SC';
-      font-weight: 600;
-      font-size: 16px;
-      border-radius: 16px;
-      top: 0;
-      right: 0;
-    } */
   }
   @media (max-width: 768px) {
     width: 100%;

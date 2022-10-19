@@ -40,9 +40,9 @@ const IconYz = styled.img`
   left: 0px;
   width: 573px;
   height: 573px;
-  /* display: none; */
+  display: none;
   z-index: 0;
-  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
+  /* display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')}; */
 `
 const Icons = styled.img`
   position: absolute;

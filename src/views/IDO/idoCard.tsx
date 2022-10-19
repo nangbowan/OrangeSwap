@@ -10,7 +10,6 @@ import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
 import { useERC20, useTokenContract, useOrgbundrebate, useOrgIdo } from 'hooks/useContract'
 
-
 const options = {
   gasLimit: BOOSTED_FARM_GAS_LIMIT,
 }
@@ -27,7 +26,10 @@ const IdoCard: FC<any> = (): ReactElement => {
   const { chainId } = useActiveWeb3React()
   const gasPrice = useGasPrice()
   const { toastSuccess } = useToast()
-  const { fetchWithCatchTxError, loading: pendingTx } = useCatchTxError();
+  const { fetchWithCatchTxError } = useCatchTxError()
+
+  const [loading, setLoading] = useState<boolean>(false)
+  const [whiteLoading, setWhiteLoading] = useState<boolean>(false)
 
   const [retailidonum, setRetailidonum] = useState(0)
   const [maxretailidonum, setMaxretailidonum] = useState(0)
@@ -42,53 +44,76 @@ const IdoCard: FC<any> = (): ReactElement => {
   }
   const orgIdoContract = useOrgIdo(orgIdo[chainId])
 
-  const claim = async () => {
-    const receipt = await fetchWithCatchTxError(() => {
-      return orgIdoContract.claimrebate({ ...options, gasPrice })
-    })
-    if (receipt?.status) {
-      toastSuccess(
-        `Harvested!`,
-        <ToastDescriptionWithTx txHash={receipt.transactionHash}>
-          提取奖励成功
-        </ToastDescriptionWithTx>,
-      )
+  const goretailido = async () => {
+    try {
+      setLoading(true)
+      const receipt = await fetchWithCatchTxError(() => {
+        return orgIdoContract.goretailido({ ...options, gasPrice })
+      })
+      if (receipt?.status) {
+        toastSuccess(
+          `Successed!`,
+          <ToastDescriptionWithTx txHash={receipt.transactionHash}>参与成功</ToastDescriptionWithTx>,
+        )
+      }
+      setLoading(false)
+    } catch (e) {
+      setLoading(false)
+      console.error('goretailido Error', e)
+    }
+  }
+  const gowhiteido = async () => {
+    try {
+      setWhiteLoading(true)
+      const receipt = await fetchWithCatchTxError(() => {
+        return orgIdoContract.gowhiteido({ ...options, gasPrice })
+      })
+      if (receipt?.status) {
+        toastSuccess(
+          `Successed!`,
+          <ToastDescriptionWithTx txHash={receipt.transactionHash}>参与成功</ToastDescriptionWithTx>,
+        )
+      }
+      setWhiteLoading(false)
+    } catch (e) {
+      setWhiteLoading(false)
+      console.error('gowhiteido Error', e)
     }
   }
 
   const getRetailidonum = async () => {
-    const result = await orgIdoContract.retailidonum();
+    const result = await orgIdoContract.retailidonum()
     console.log('getRetailidonum: ====', result.toString())
     setRetailidonum(result.toString())
   }
   const getMaxretailidonum = async () => {
-    const result = await orgIdoContract.maxretailidonum();
+    const result = await orgIdoContract.maxretailidonum()
     console.log('getMaxretailidonum: ====', result.toString())
     setMaxretailidonum(result.toString())
   }
   const getWhiteidonum = async () => {
-    const result = await orgIdoContract.whiteidonum();
+    const result = await orgIdoContract.whiteidonum()
     console.log('getWhiteidonum: ====', result.toString())
     setWhiteidonum(result.toString())
   }
   const getMaxwhiteidonum = async () => {
-    const result = await orgIdoContract.maxwhiteidonum();
+    const result = await orgIdoContract.maxwhiteidonum()
     console.log('getMaxwhiteidonum: ====', result.toString())
     setMaxwhiteidonum(result.toString())
   }
   const getOrgprice = async () => {
-    const result = await orgIdoContract.orgprice();
+    const result = await orgIdoContract.orgprice()
     console.log('getOrgprice: ====', result.toString(), result.toString() * 0.01)
     setOrgprice(result.toString() * 0.01)
   }
 
   useEffect(() => {
     if (orgIdoContract && chainId && account) {
-      getRetailidonum();
-      getMaxretailidonum();
-      getWhiteidonum();
-      getMaxwhiteidonum();
-      getOrgprice();
+      getRetailidonum()
+      getMaxretailidonum()
+      getWhiteidonum()
+      getMaxwhiteidonum()
+      getOrgprice()
     }
   }, [orgIdoContract, chainId, account])
 
@@ -137,7 +162,9 @@ const IdoCard: FC<any> = (): ReactElement => {
               <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
-          <Btn>确认参与</Btn>
+          <Button className="_claimBtn" isLoading={loading} onClick={() => goretailido()}>
+            确认参与
+          </Button>
         </Card>
         <Card>
           <Top>
@@ -174,7 +201,9 @@ const IdoCard: FC<any> = (): ReactElement => {
               <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
-          <Btn> {isStart ? '确认参与' : '确认授权'}</Btn>
+          <Button className="_claimBtn" isLoading={whiteLoading} onClick={() => gowhiteido()}>
+            {isStart ? '确认参与' : '确认授权'}
+          </Button>
         </Card>
         <Imgs className="four" src="/images/ido/four_bg.png" />
         <Imgs className="five" src="/images/ido/five_bg.png" />
@@ -365,6 +394,21 @@ const Card = styled.div`
   &:first-child {
     margin-right: 120px;
   }
+  ._claimBtn {
+    height: 64px;
+    padding: 0 70px;
+    line-height: 64px;
+    display: inline-block;
+    margin: 32px auto 0;
+    background: linear-gradient(285.68deg, #ff5b36 6.56%, #ffb74a 98.03%);
+    font-family: 'PingFang SC';
+    font-size: 20px;
+    color: #ffffff;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    letter-spacing: 0;
+  }
   @media (max-width: 768px) {
     width: 100%;
     height: auto;
@@ -373,6 +417,16 @@ const Card = styled.div`
     &:first-child {
       margin-right: 0;
       margin-bottom: 32px;
+    }
+    ._claimBtn {
+      margin: 0 auto;
+      height: 40px;
+      line-height: 40px;
+      padding: 0 46px;
+      font-size: 16px;
+      border-radius: 28.5px;
+      min-width: 188px;
+      text-align: center;
     }
   }
 `
