@@ -104,7 +104,7 @@ const Rebate: FC = (): ReactElement => {
               <span>已获得总返佣</span>
             </Title>
             <Count>
-              <Text>{money} USDT</Text>
+              <Text>{money} ORG</Text>
               <Button className='_claimBtn' isLoading={pendingTx} disabled={money <= 0} onClick={() => claim()}>提取奖励</Button>
             </Count>
           </InviteLink>
