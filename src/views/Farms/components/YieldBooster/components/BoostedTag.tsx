@@ -17,7 +17,7 @@ const BoostedTag: React.FC<BoostedTag> = (props) => {
       startIcon={<RocketIcon width="18px" color="success" mr="4px" />}
       {...props}
     >
-      {t('Boosted')}
+      {/* {t('Boosted')} */}
     </Tag>
   )
 }

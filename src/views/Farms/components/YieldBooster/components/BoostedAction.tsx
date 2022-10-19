@@ -153,8 +153,8 @@ const BoostedAction: React.FunctionComponent<BoostedActionPropsType> = ({
 
   return (
     <>
-      {title && title(status)}
-      {desc && desc(renderBtn())}
+      {/* {title && title(status)}
+      {desc && desc(renderBtn())} */}
     </>
   )
 }

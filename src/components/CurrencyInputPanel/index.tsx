@@ -144,20 +144,20 @@ export default function CurrencyInputPanel({
       <Flex alignItems="center" justifyContent="space-between">
         <Flex>
           {beforeButton}
-          {!(token && tokenAddress) ? (
+          {/* {!(token && tokenAddress) ? (
             <Flex style={{ gap: '4px' }} ml="4px" alignItems="center">
               <Text color="textSubtle" fontSize="14px">
               {t('Send')}
               </Text>
             </Flex>
-          ) : null}
-          {token && tokenAddress ? (
+          ) : null} */}
+          {/* {token && tokenAddress ? (
             <Flex style={{ gap: '4px' }} ml="4px" alignItems="center">
               <Text color="textSubtle" fontSize="14px">
               {t('ForecastReceive')}
               </Text>
             </Flex>
-          ) : null}
+          ) : null} */}
         </Flex>
         {account && (
           <Text
