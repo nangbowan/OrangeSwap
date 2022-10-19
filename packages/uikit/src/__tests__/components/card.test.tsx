@@ -18,7 +18,7 @@ it("renders correctly", () => {
       color: var(--colors-text);
       overflow: hidden;
       position: relative;
-      padding: 1px 1px 3px 1px;
+      padding: 2px 2px 2px 2px;
     }
 
     .c1 {

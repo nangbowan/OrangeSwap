@@ -19,7 +19,7 @@ const Container = styled.div`
   margin-bottom: 32px;
   border-radius: 24px 24px 16px 16px;
   background-color: ${({ theme }) => theme.colors.disabled};
-  padding: 1px 1px 3px 1px;
+  padding: 2px 2px 2px 2px;
 `
 
 const PoolsTable: React.FC<React.PropsWithChildren<PoolsTableProps>> = ({ pools, userDataReady, account }) => {

@@ -19,7 +19,7 @@ const StyledLinkExternal = styled(LinkExternal)`
 const FixedTermWrapper = styled(Box)<{ expired?: boolean }>`
   width: 100%;
   margin: 16px 0;
-  padding: 1px 1px 3px 1px;
+  padding: 2px 2px 2px 2px;
   background: ${({ theme, expired }) => (expired ? theme.colors.warning : 'linear-gradient(180deg, #53dee9, #7645d9)')};
   border-radius: ${({ theme }) => theme.radii.default};
 `
