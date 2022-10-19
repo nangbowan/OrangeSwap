@@ -1,7 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
-import { useToast } from '@pancakeswap/uikit'
+import { useToast, Button } from '@pancakeswap/uikit'
 import { useGasPrice } from 'state/user/hooks'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { $shiftedBy } from 'utils/met'
@@ -9,9 +9,9 @@ import { copyText } from '@pancakeswap/utils/copyText'
 import { BOOSTED_FARM_GAS_LIMIT } from 'config'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { ToastDescriptionWithTx } from 'components/Toast'
+import useCatchTxError from 'hooks/useCatchTxError'
 import { useERC20, useTokenContract, useOrgbundrebate } from 'hooks/useContract'
-import { NEVER_RELOAD, useSingleCallResult } from 'state/multicall/hooks'
-import { useAllTokens, useIsUserAddedToken, useToken } from '../../hooks/Tokens'
+
 
 import ChangeIng from './changeIng'
 
@@ -25,14 +25,14 @@ const Rebate: FC = (): ReactElement => {
   const { address: account } = useAccount()
   const { chainId } = useActiveWeb3React()
   const gasPrice = useGasPrice()
-  const { toastError, toastSuccess } = useToast()
+  const { toastSuccess } = useToast()
+  const { fetchWithCatchTxError, loading: pendingTx } = useCatchTxError()
+
   const [money, setMoney] = useState<number>(0)
   const decimals = 18
   const orgbundrebate = {
     56: '',
     97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3',
-    // 97: '0x593f55EF95be8C327F5B3193Bce8086Da3518140'
-    // 97: '0xA00530A1A375Fd414e418ed1688da989Cc0B493D'
   }
 
   // const tokenContract = useERC20(orgbundrebate[chainId])
@@ -48,7 +48,6 @@ const Rebate: FC = (): ReactElement => {
 
   useEffect(() => {
     if (rebateContract && chainId && account) {
-      // getToken();
       getReward()
     }
   }, [rebateContract, chainId, account])
@@ -65,11 +64,20 @@ const Rebate: FC = (): ReactElement => {
     setMoney($shiftedBy(result.toString(), -18, 6))
   }
   const claim = async () => {
-    console.log('rebateContract', gasPrice,  rebateContract)
-    const result = await rebateContract.claimrebate('0', { ...options, gasPrice })
-    console.log('result', result)
+    const receipt = await fetchWithCatchTxError(() => {
+      return rebateContract.claimrebate({ ...options, gasPrice })
+    })
+    if (receipt?.status) {
+      toastSuccess(
+        `Harvested!`,
+        <ToastDescriptionWithTx txHash={receipt.transactionHash}>
+          提取奖励成功
+        </ToastDescriptionWithTx>,
+      )
+      getReward()
+    }
   }
-  const dialog = () => {
+  const copyEvent = () => {
     copyText(`https://orangeswap.org/swap?shareid=${account}`)
     toastSuccess(`success`, 'Copy Successfly')
   }
@@ -87,8 +95,8 @@ const Rebate: FC = (): ReactElement => {
             </Title>
             <LinkCont>
               <Btn>https://orangeswap.org/swap?shareid={account}</Btn>
-              <Copy className="pc" src="/images/rebate/copy.svg" onClick={() => dialog()} />
-              <Copy className="mobile" src="/images/rebate/copy_mobile.svg" onClick={() => dialog()} />
+              <Copy className="pc" src="/images/rebate/copy.svg" onClick={() => copyEvent()} />
+              <Copy className="mobile" src="/images/rebate/copy_mobile.svg" onClick={() => copyEvent()} />
             </LinkCont>
           </InviteLink>
           <InviteLink>
@@ -97,7 +105,7 @@ const Rebate: FC = (): ReactElement => {
             </Title>
             <Count>
               <Text>{money} USDT</Text>
-              <ClaimBtn onClick={() => claim()}>提取奖励</ClaimBtn>
+              <Button className='_claimBtn' isLoading={pendingTx} disabled={money <= 0} onClick={() => claim()}>提取奖励</Button>
             </Count>
           </InviteLink>
         </Invite>
@@ -314,6 +322,33 @@ const Count = styled.div`
   background-origin: border-box;
   background-clip: content-box, border-box;
   display: flex;
+  ._claimBtn{
+    width: 480px;
+    height: 120px;
+    position: relative;
+    top: -4px;
+    right: -4px;
+    background: linear-gradient(285.68deg, #ff6744 6.56%, #ffae32 98.03%);
+    border-radius: 80px;
+    font-family: 'FZLanTingHeiS-B-GB';
+    font-size: 36px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+    letter-spacing: 0;
+    padding: 0;
+    /* @media (max-width: 768px) {
+      margin-left: 20px;
+      width: 104px;
+      height: 100%;
+      font-family: 'PingFang SC';
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 16px;
+      top: 0;
+      right: 0;
+    } */
+  }
   @media (max-width: 768px) {
     width: 100%;
     height: 60px;
@@ -323,6 +358,17 @@ const Count = styled.div`
     background-image: none;
     background-origin: border-box;
     background-clip: content-box, border-box;
+    ._claimBtn{
+      margin-left: 20px;
+      width: 104px;
+      height: 100%;
+      font-family: 'PingFang SC';
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 16px;
+      top: 0;
+      right: 0;
+    }
   }
 `
 const Text = styled.div`

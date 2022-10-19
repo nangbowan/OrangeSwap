@@ -1,8 +1,19 @@
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { useToast, Button } from '@pancakeswap/uikit'
+import { useGasPrice } from 'state/user/hooks'
 import { copyText } from '@pancakeswap/utils/copyText'
+import { BOOSTED_FARM_GAS_LIMIT } from 'config'
+import { ToastDescriptionWithTx } from 'components/Toast'
+import useCatchTxError from 'hooks/useCatchTxError'
+import { useERC20, useTokenContract, useOrgbundrebate, useOrgIdo } from 'hooks/useContract'
 
+
+const options = {
+  gasLimit: BOOSTED_FARM_GAS_LIMIT,
+}
 const $hash = (txHash, length = 4, lastLength = 6) => {
   if (!txHash) {
     return '--'
@@ -13,7 +24,73 @@ const $hash = (txHash, length = 4, lastLength = 6) => {
 }
 const IdoCard: FC<any> = (): ReactElement => {
   const { address: account } = useAccount()
+  const { chainId } = useActiveWeb3React()
+  const gasPrice = useGasPrice()
+  const { toastSuccess } = useToast()
+  const { fetchWithCatchTxError, loading: pendingTx } = useCatchTxError();
+
+  const [retailidonum, setRetailidonum] = useState(0)
+  const [maxretailidonum, setMaxretailidonum] = useState(0)
+  const [orgprice, setOrgprice] = useState(0)
+  const [whiteidonum, setWhiteidonum] = useState(0)
+  const [maxwhiteidonum, setMaxwhiteidonum] = useState(0)
   const isStart = false
+
+  const orgIdo = {
+    56: '',
+    97: '0x33d98E94e133BC82E52B430dEc41C660a9049D51',
+  }
+  const orgIdoContract = useOrgIdo(orgIdo[chainId])
+
+  const claim = async () => {
+    const receipt = await fetchWithCatchTxError(() => {
+      return orgIdoContract.claimrebate({ ...options, gasPrice })
+    })
+    if (receipt?.status) {
+      toastSuccess(
+        `Harvested!`,
+        <ToastDescriptionWithTx txHash={receipt.transactionHash}>
+          提取奖励成功
+        </ToastDescriptionWithTx>,
+      )
+    }
+  }
+
+  const getRetailidonum = async () => {
+    const result = await orgIdoContract.retailidonum();
+    console.log('getRetailidonum: ====', result.toString())
+    setRetailidonum(result.toString())
+  }
+  const getMaxretailidonum = async () => {
+    const result = await orgIdoContract.maxretailidonum();
+    console.log('getMaxretailidonum: ====', result.toString())
+    setMaxretailidonum(result.toString())
+  }
+  const getWhiteidonum = async () => {
+    const result = await orgIdoContract.whiteidonum();
+    console.log('getWhiteidonum: ====', result.toString())
+    setWhiteidonum(result.toString())
+  }
+  const getMaxwhiteidonum = async () => {
+    const result = await orgIdoContract.maxwhiteidonum();
+    console.log('getMaxwhiteidonum: ====', result.toString())
+    setMaxwhiteidonum(result.toString())
+  }
+  const getOrgprice = async () => {
+    const result = await orgIdoContract.orgprice();
+    console.log('getOrgprice: ====', result.toString(), result.toString() * 0.01)
+    setOrgprice(result.toString() * 0.01)
+  }
+
+  useEffect(() => {
+    if (orgIdoContract && chainId && account) {
+      getRetailidonum();
+      getMaxretailidonum();
+      getWhiteidonum();
+      getMaxwhiteidonum();
+      getOrgprice();
+    }
+  }, [orgIdoContract, chainId, account])
 
   return (
     <Main>
@@ -46,18 +123,18 @@ const IdoCard: FC<any> = (): ReactElement => {
             <Line>
               <Label>总提交金额</Label>
               <ContFont>
-                35214525 USDT
+                {retailidonum} USDT
                 <br />
                 (261.23%)
               </ContFont>
             </Line>
             <Line>
               <Label>要筹集的资金</Label>
-              <ContFont>832.125 USDT</ContFont>
+              <ContFont>{maxretailidonum} USDT</ContFont>
             </Line>
             <Line>
               <Label>每个ORG的价格</Label>
-              <ContFont>$0.90</ContFont>
+              <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
           <Btn>确认参与</Btn>
@@ -83,18 +160,18 @@ const IdoCard: FC<any> = (): ReactElement => {
             <Line>
               <Label>总提交金额</Label>
               <ContFont>
-                35214525 USDT
+                {whiteidonum} USDT
                 <br />
                 (261.23%)
               </ContFont>
             </Line>
             <Line>
               <Label>要筹集的资金</Label>
-              <ContFont>832.125 USDT</ContFont>
+              <ContFont>{maxwhiteidonum} USDT</ContFont>
             </Line>
             <Line>
               <Label>每个ORG的价格</Label>
-              <ContFont>$0.90</ContFont>
+              <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
           <Btn> {isStart ? '确认参与' : '确认授权'}</Btn>
