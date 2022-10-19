@@ -19,6 +19,7 @@ const Main = styled.div`
   min-width: 1440px;
   @media (max-width: 768px) {
     min-width: 100%;
+    overflow-x: hidden;
   }
 `
 
