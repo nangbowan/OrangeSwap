@@ -1,6 +1,7 @@
 import throttle from "lodash/throttle";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 import BottomNav from "../../components/BottomNav";
 import { Box } from "../../components/Box";
 import Flex from "../../components/Box/Flex";
@@ -81,6 +82,7 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
   buyCakeLabel,
   children,
 }) => {
+  const router = useRouter();
   const { isMobile, isMd } = useMatchBreakpoints();
   const [showMenu, setShowMenu] = useState(true);
   const refPrevOffset = useRef(typeof window === "undefined" ? 0 : window.pageYOffset);
@@ -158,7 +160,22 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
         </FixedContainer>
         {subLinks && (
           <Flex justifyContent="space-around">
-            <SubMenuItems items={subLinksWithoutMobile} mt={`${totalTopMenuHeight + 1}px`} activeItem={activeSubItem} />
+            {/* <SubMenuItems items={subLinksWithoutMobile} mt={`${totalTopMenuHeight + 1}px`} activeItem={activeSubItem} /> */}
+            {subLinksWithoutMobile.length > 0 && (
+              <TabView>
+                <div>
+                  {subLinksWithoutMobile.map((item) => (
+                    <TabLibs
+                      key={item.href}
+                      className={activeSubItem === item.href && "active"}
+                      onClick={() => router.push(item.href)}
+                    >
+                      {item.label}
+                    </TabLibs>
+                  ))}
+                </div>
+              </TabView>
+            )}
 
             {subLinksMobileOnly?.length > 0 && (
               <SubMenuItems
@@ -192,4 +209,39 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
   );
 };
 
+const TabView = styled.div`
+  width: 100%;
+  margin-top: 70px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0);
+  background-color: #f5f5f5;
+  /* box-shadow: inset 0px -2px 0px -8px rgb(133 133 133 / 10%); */
+  /* overflow-x: scroll; */
+  & > div {
+    display: inline-block;
+    margin: 0 auto;
+    height: 44px;
+    line-height: 44px;
+    background: #ffb44c;
+    border-radius: 28.5px;
+  }
+`;
+const TabLibs = styled.div`
+  display: inline-block;
+  width: 120px;
+  height: 100%;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  color: #ffffff;
+  transition: all 0.2s;
+  cursor: pointer;
+  border-radius: 28.5px;
+  &.active {
+    background: linear-gradient(285.68deg, #ff6744 6.56%, #ffae32 98.03%);
+  }
+`;
 export default Menu;

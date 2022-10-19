@@ -1,7 +1,63 @@
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useAccount } from 'wagmi'
+import { useToast, Button } from '@pancakeswap/uikit'
+import { useGasPrice } from 'state/user/hooks'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+
+import { $shiftedBy } from 'utils/met'
+import { BOOSTED_FARM_GAS_LIMIT } from 'config'
+import { ToastDescriptionWithTx } from 'components/Toast'
+import useCatchTxError from 'hooks/useCatchTxError'
+
+import { useOrgbundrebate } from 'hooks/useContract'
+
+const options = {
+  gasLimit: BOOSTED_FARM_GAS_LIMIT,
+}
 
 const ChangeIng: FC = (): ReactElement => {
+  const { address: account } = useAccount()
+  const { chainId } = useActiveWeb3React()
+  const gasPrice = useGasPrice()
+  const { toastSuccess } = useToast()
+  const { fetchWithCatchTxError, loading: pendingTx } = useCatchTxError()
+
+  const [money, setMoney] = useState<number>(0)
+
+
+  const orgbundrebate = {
+    56: '',
+    97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3',
+  }
+
+  const rebateContract = useOrgbundrebate(orgbundrebate[chainId])
+
+  const getReward = async () => {
+    const result = await rebateContract.swapreward(account)
+    setMoney($shiftedBy(result.toString(), -18, 6))
+  }
+
+  const claim = async () => {
+    const receipt = await fetchWithCatchTxError(() => {
+      return rebateContract.claimswaprebate({ ...options, gasPrice })
+    })
+    if (receipt?.status) {
+      toastSuccess(
+        `Harvested!`,
+        <ToastDescriptionWithTx txHash={receipt.transactionHash}>
+          提取奖励成功
+        </ToastDescriptionWithTx>,
+      )
+      getReward()
+    }
+  }
+
+  useEffect(() => {
+    if (rebateContract && chainId && account) {
+      getReward()
+    }
+  }, [rebateContract, chainId, account])
   return (
     <Main>
       <Section>
@@ -16,14 +72,14 @@ const ChangeIng: FC = (): ReactElement => {
             <Card>
               <Libs>
                 <Title>我的交易金额</Title>
-                <Count>XXXXORG</Count>
+                <Count>{money * 1000} ORG</Count>
               </Libs>
               <Libs>
-                <Title>我的交易金额</Title>
-                <Count>XXXXORG</Count>
+                <Title>我的交易奖励</Title>
+                <Count>{money} ORG</Count>
               </Libs>
             </Card>
-            <Btn>提取奖励</Btn>
+            <Button className='_claimBtn' isLoading={pendingTx} disabled={money <= 0} onClick={() => claim()}>提取奖励</Button>
           </Content>
         </Cont>
       </Section>
@@ -108,8 +164,27 @@ const Header = styled.div`
 `
 const Content = styled.div`
   width: 578px;
+  ._claimBtn{
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background: linear-gradient(180deg, #e466ef 0%, #9b84ff 100%);
+    border-radius: 20px;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 20px;
+    text-align: center;
+    color: #ffffff;
+    padding: 0;
+    letter-spacing: 0;
+  }
   @media (max-width: 768px) {
     width: 100%;
+    ._claimBtn{
+      font-size: 16px;
+    }
   }
 `
 const Card = styled.div`

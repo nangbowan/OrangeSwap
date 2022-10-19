@@ -1,6 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
+import { useRouter } from 'next/router';
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useToast, Button } from '@pancakeswap/uikit'
 import { useGasPrice } from 'state/user/hooks'
@@ -8,6 +9,7 @@ import { copyText } from '@pancakeswap/utils/copyText'
 import { BOOSTED_FARM_GAS_LIMIT } from 'config'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
+import { $shiftedBy } from 'utils/met'
 import { useERC20, useTokenContract, useOrgbundrebate, useOrgIdo } from 'hooks/useContract'
 
 const options = {
@@ -25,6 +27,7 @@ const IdoCard: FC<any> = (): ReactElement => {
   const { address: account } = useAccount()
   const { chainId } = useActiveWeb3React()
   const gasPrice = useGasPrice()
+  const router = useRouter();
   const { toastSuccess } = useToast()
   const { fetchWithCatchTxError } = useCatchTxError()
 
@@ -36,12 +39,20 @@ const IdoCard: FC<any> = (): ReactElement => {
   const [orgprice, setOrgprice] = useState(0)
   const [whiteidonum, setWhiteidonum] = useState(0)
   const [maxwhiteidonum, setMaxwhiteidonum] = useState(0)
+  const [money, setMoney] = useState<number>(0)
+  const [inviterNum, setInviterNum] = useState<number>(0)
   const isStart = false
 
   const orgIdo = {
     56: '',
     97: '0x33d98E94e133BC82E52B430dEc41C660a9049D51',
   }
+  const orgbundrebate = {
+    56: '',
+    97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3',
+  }
+
+  const rebateContract = useOrgbundrebate(orgbundrebate[chainId])
   const orgIdoContract = useOrgIdo(orgIdo[chainId])
 
   const goretailido = async () => {
@@ -81,30 +92,39 @@ const IdoCard: FC<any> = (): ReactElement => {
     }
   }
 
+  const getReward = async () => {
+    const result = await rebateContract.reward(account)
+    setMoney($shiftedBy(result.toString(), -18, 6))
+  }
+  const getInviterNum = async () => {
+    const result = await rebateContract.getinvitelistlen(account)
+    setInviterNum(result.toString())
+  }
+
   const getRetailidonum = async () => {
     const result = await orgIdoContract.retailidonum()
-    console.log('getRetailidonum: ====', result.toString())
     setRetailidonum(result.toString())
   }
   const getMaxretailidonum = async () => {
     const result = await orgIdoContract.maxretailidonum()
-    console.log('getMaxretailidonum: ====', result.toString())
     setMaxretailidonum(result.toString())
   }
   const getWhiteidonum = async () => {
     const result = await orgIdoContract.whiteidonum()
-    console.log('getWhiteidonum: ====', result.toString())
     setWhiteidonum(result.toString())
   }
   const getMaxwhiteidonum = async () => {
     const result = await orgIdoContract.maxwhiteidonum()
-    console.log('getMaxwhiteidonum: ====', result.toString())
     setMaxwhiteidonum(result.toString())
   }
   const getOrgprice = async () => {
     const result = await orgIdoContract.orgprice()
-    console.log('getOrgprice: ====', result.toString(), result.toString() * 0.01)
     setOrgprice(result.toString() * 0.01)
+  }
+
+  const copyEvent = () => {
+    copyText(`https://orangeswap.org/swap?shareid=${account}`)
+    toastSuccess(`success`, 'Copy Successfly')
   }
 
   useEffect(() => {
@@ -114,6 +134,8 @@ const IdoCard: FC<any> = (): ReactElement => {
       getWhiteidonum()
       getMaxwhiteidonum()
       getOrgprice()
+      getReward()
+      getInviterNum()
     }
   }, [orgIdoContract, chainId, account])
 
@@ -215,18 +237,18 @@ const IdoCard: FC<any> = (): ReactElement => {
             <MyLink>{$hash(`https://orangeswap.org/swap?shareid=${account}`, 15, 10)}</MyLink>
             <CopyIcon
               src="/images/ido/copy.svg"
-              onClick={() => copyText(`https://orangeswap.org/swap?shareid=${account}`)}
+              onClick={() => copyEvent()}
             />
           </Left>
           <Right>
             <PeopleNum>
-              已邀请人数 <b>:</b> <span>50</span>
+              已邀请人数 <b>:</b> <span>{inviterNum}</span>
             </PeopleNum>
             <RewardCount>
-              我的奖励 <b>:</b> <span>50 XCC</span>
+              我的奖励 <b>:</b> <span>{money} ORG</span>
             </RewardCount>
           </Right>
-          <InviteBtn>我的邀请链接</InviteBtn>
+          <InviteBtn onClick={()=>router.push('/rebate')}>我的邀请链接</InviteBtn>
         </InviteCont>
       </Invite>
     </Main>
