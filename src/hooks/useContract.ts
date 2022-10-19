@@ -95,15 +95,21 @@ export const useIfoV3Contract = (address: string) => {
   return useMemo(() => getIfoV3Contract(address, signer), [address, signer])
 }
 
-export const useOrgIdo = (address: string, withSignerIfPossible = true) => {
-  const providerOrSigner = useProviderOrSigner(withSignerIfPossible)
-  return useMemo(() => getOrgIdoContract(address, providerOrSigner), [address, providerOrSigner])
+export const useOrgIdo = (address: string) => {
+  // const providerOrSigner = useProviderOrSigner(withSignerIfPossible)
+  const { data: signer } = useSigner()
+  return useMemo(() => getOrgIdoContract(address, signer), [address, signer])
 }
 
 
-export const useOrgbundrebate = (address: string, withSignerIfPossible = true) => {
-  const providerOrSigner = useProviderOrSigner(withSignerIfPossible)
-  return useMemo(() => getOrgbundrebateContract(address, providerOrSigner), [address, providerOrSigner])
+// export const useOrgbundrebate = (address: string, withSignerIfPossible = true) => {
+//   const providerOrSigner = useProviderOrSigner(withSignerIfPossible)
+//   return useMemo(() => getOrgbundrebateContract(address, providerOrSigner), [address, providerOrSigner])
+// }
+
+export const useOrgbundrebate = (address: string) => {
+  const { data: signer } = useSigner()
+  return useMemo(() => getOrgbundrebateContract(address, signer), [address, signer])
 }
 
 export const useERC20 = (address: string, withSignerIfPossible = true) => {
