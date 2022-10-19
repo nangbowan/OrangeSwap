@@ -30,7 +30,7 @@ const BoosterTooltip = () => {
 
   return (
     <>
-      {t(
+      {/* {t(
         `Boost multiplier is calculated based on the staking conditions from both Farms and fixed-term CAKE syrup pool and will be automatically updated upon user actions.`,
       )}
       <LinkExternal
@@ -38,7 +38,7 @@ const BoosterTooltip = () => {
         external
       >
         {t('Learn More')}
-      </LinkExternal>
+      </LinkExternal> */}
     </>
   )
 }
@@ -60,7 +60,7 @@ const ActionButton: React.FC<ActionButtonPropsType> = ({ title, description, but
 
   return (
     <>
-      <Container>
+      {/* <Container>
         <Flex>
           <Heading mr="4px">{title}</Heading>
           <TooltipText ref={targetRef}>
@@ -73,7 +73,7 @@ const ActionButton: React.FC<ActionButtonPropsType> = ({ title, description, but
           {description}
         </Text>
       </Container>
-      {btn}
+      {btn} */}
     </>
   )
 }

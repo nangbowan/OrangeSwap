@@ -37,7 +37,7 @@ const BCakeCalculator: React.FC<React.PropsWithChildren<BCakeCalculatorProps>> =
   targetInputBalance,
   earningTokenPrice,
   initialState,
-  stakingTokenSymbol = 'CAKE',
+  stakingTokenSymbol = 'ORG',
   lpTotalSupply,
   setBCakeMultiplier,
 }) => {
@@ -162,7 +162,7 @@ const BCakeCalculator: React.FC<React.PropsWithChildren<BCakeCalculatorProps>> =
               isOverMax={false}
             />
           </BCakeBlock>
-          <BCakeBlock style={{ marginTop: 16 }}>
+          {/* <BCakeBlock style={{ marginTop: 16 }}>
             <Text color="secondary" bold fontSize="12px" textTransform="uppercase">
               <>{t('Boost Multiplier')}</>
             </Text>
@@ -178,7 +178,7 @@ const BCakeCalculator: React.FC<React.PropsWithChildren<BCakeCalculatorProps>> =
                 'The estimated boost multiplier is calculated using live data. The actual boost multiplier may change upon activation.',
               )}
             </Text>
-          </BCakeBlock>
+          </BCakeBlock> */}
         </>
       )}
     </>
