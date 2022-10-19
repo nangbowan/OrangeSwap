@@ -12,5 +12,5 @@ export const OutlineText = styled(Text)<{ defaultType?: boolean }>`
 `
 
 export const DarkTextStyle = styled(Text)`
-  color: #280d5f;
+  color: #0a0317;
 `

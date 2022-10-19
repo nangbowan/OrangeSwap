@@ -11,6 +11,10 @@ import { BIG_ZERO } from 'utils/bigNumber'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
 import { useERC20, useTokenContract, useOrgbundrebate } from 'hooks/useContract'
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4f149092fc000099392d042df4494b34df32fdc5
 
 import ChangeIng from './changeIng'
 
@@ -47,7 +51,10 @@ const Rebate: FC = (): ReactElement => {
 
   useEffect(() => {
     if (rebateContract && chainId && account) {
+<<<<<<< HEAD
       // getToken();
+=======
+>>>>>>> 4f149092fc000099392d042df4494b34df32fdc5
       getReward()
     }
   }, [rebateContract, chainId, account])

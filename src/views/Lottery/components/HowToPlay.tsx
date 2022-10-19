@@ -43,7 +43,7 @@ const StyledStepCard = styled(Box)`
   align-self: baseline;
   position: relative;
   background: ${({ theme }) => theme.colors.cardBorder};
-  padding: 1px 1px 3px 1px;
+  padding: 2px 2px 2px 2px;
   border-radius: ${({ theme }) => theme.radii.card};
 `
 

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const VotingBoxBorder = styled(Box)<{ hasBoosted?: boolean }>`
   border-radius: 12px;
   margin-bottom: 24px;
-  padding: 1px 1px 3px 1px;
+  padding: 2px 2px 2px 2px;
   border: ${({ hasBoosted }) => (hasBoosted ? '0px' : '1px')};
   border-style: solid;
   border-color: ${({ theme }) => (theme.colors.cardBorder)};

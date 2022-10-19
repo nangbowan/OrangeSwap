@@ -20,7 +20,7 @@ const PredictionCardHeader: React.FC<React.PropsWithChildren<{ preText: string; 
   won,
 }) => {
   return (
-    <Heading color="#280D5F" my="8px" scale="xl" bold>
+    <Heading color="#0a0317" my="8px" scale="xl" bold>
       {preText}
       {won}
     </Heading>
@@ -54,7 +54,7 @@ const PredictionCardContent = () => {
   return (
     <>
       <Flex flexDirection="column" mt="48px">
-        <Text color="#280D5F" bold fontSize="16px">
+        <Text color="#0a0317" bold fontSize="16px">
           {t('Prediction')}
         </Text>
         {bnbWonInUsd ? (
@@ -65,10 +65,10 @@ const PredictionCardContent = () => {
             <div ref={observerRef} />
           </>
         )}
-        <Text color="#280D5F" mb="24px" bold fontSize="16px">
+        <Text color="#0a0317" mb="24px" bold fontSize="16px">
           {wonSoFar}
         </Text>
-        <Text color="#280D5F" mb="40px">
+        <Text color="#0a0317" mb="40px">
           {t('Predict the price trend of BNB or CAKE to win')}
         </Text>
       </Flex>
