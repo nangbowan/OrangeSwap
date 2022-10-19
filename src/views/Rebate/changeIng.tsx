@@ -120,6 +120,7 @@ const Img = styled.img`
     right: 0;
     top: -40px;
     margin-right: 10px;
+    z-index: 3;
   }
 `
 const Cont = styled.div`

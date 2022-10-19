@@ -9,7 +9,7 @@ import { copyText } from '@pancakeswap/utils/copyText'
 import { BOOSTED_FARM_GAS_LIMIT } from 'config'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
-import { $shiftedBy } from 'utils/met'
+import { $shiftedBy, $toFixed } from 'utils/met'
 import { useERC20, useTokenContract, useOrgbundrebate, useOrgIdo } from 'hooks/useContract'
 
 const options = {
@@ -172,7 +172,7 @@ const IdoCard: FC<any> = (): ReactElement => {
               <ContFont>
                 {retailidonum} USDT
                 <br />
-                (261.23%)
+                ({ Number(maxretailidonum) !== 0 ? $toFixed(retailidonum / maxretailidonum , 2) : 0 })%
               </ContFont>
             </Line>
             <Line>
@@ -211,7 +211,7 @@ const IdoCard: FC<any> = (): ReactElement => {
               <ContFont>
                 {whiteidonum} USDT
                 <br />
-                (261.23%)
+                ({Number(maxwhiteidonum) !== 0 ? $toFixed(whiteidonum / maxwhiteidonum , 2) : 0}%)
               </ContFont>
             </Line>
             <Line>
