@@ -1,9 +1,54 @@
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import styled from 'styled-components'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { useAccount } from 'wagmi'
+import { $toFixed } from 'utils/met'
+import { useOrgbundrebate } from 'hooks/useContract'
+
 
 const BaseMain: FC = (): ReactElement => {
+  const { address: account } = useAccount()
+  const { chainId } = useActiveWeb3React()
   const router = useRouter();
+  const [info, setInfo] = useState({
+    usernum: 0,
+    tradenum: 0,
+    impawnnum: 0,
+  })
+
+  const orgbundrebate = {
+    56: '',
+    97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3',
+  }
+  const rebateContract = useOrgbundrebate(orgbundrebate[chainId])
+  const calc = (value: number): any => {
+    let _val:any = '0';
+    if(value < 1000){
+        _val = $toFixed(value, 2)
+    }else if(value > 1000 && value < 1000 * 1000){
+        _val = `${$toFixed(value / 1000,2)}K`
+    }else{
+        _val = `${$toFixed(value / 1000 / 1000, 2)}M`
+    }
+    return _val
+}
+
+  const getData = async () => {
+    const _usernum = await rebateContract.usernum();
+    const _tradenum = await rebateContract.tradenum();
+    const _impawnnum = await rebateContract.impawnnum();
+    setInfo({
+      usernum: _usernum.toString(),
+      tradenum: calc(_tradenum.toString()),
+      impawnnum: calc(_impawnnum.toString()),
+    })
+  }
+  useEffect(() => {
+    if (rebateContract && chainId && account) {
+      getData()
+    }
+  }, [rebateContract, chainId, account])
   return (
     <Main>
       <Top>
@@ -49,17 +94,17 @@ const BaseMain: FC = (): ReactElement => {
         <CartContent>
           <User>
             <CartIcon src="/images/base/users.png" />
-            <CartTitle>8,000用户</CartTitle>
+            <CartTitle>{info.usernum}用户</CartTitle>
             <CartTip>在过去30天内</CartTip>
           </User>
           <Change>
             <CartIcon src="/images/base/change.png" />
-            <CartTitle>900,000交易</CartTitle>
+            <CartTitle>{info.tradenum}交易</CartTitle>
             <CartTip>在过去30天内达成</CartTip>
           </Change>
           <Amount>
             <CartIcon src="/images/base/amount.png" />
-            <CartTitle>已质押1.5million美元</CartTitle>
+            <CartTitle>已质押{info.impawnnum}美元</CartTitle>
             <CartTip>锁定的总价值</CartTip>
           </Amount>
         </CartContent>

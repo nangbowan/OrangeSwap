@@ -211,13 +211,18 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
 
 const TabView = styled.div`
   width: 100%;
-  margin-top: 70px;
+  margin-top: 56px;
   height: 44px;
   display: flex;
   justify-content: center;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0);
-  background-color: #f5f5f5;
+  padding: 14px 0 14px;
+  box-sizing: content-box;
+  background: ${({ theme }) => {
+    return theme.isDark ? "rgba(39,38,44,0.7);" :  "#f5f5f5"
+  }};
+  /* background: var(--colors-gradientInverseBubblegum); */
+  /* background-color: #f5f5f5; */
   /* box-shadow: inset 0px -2px 0px -8px rgb(133 133 133 / 10%); */
   /* overflow-x: scroll; */
   & > div {

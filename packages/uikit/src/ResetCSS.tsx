@@ -20,6 +20,14 @@ const ResetCSS = createGlobalStyle`
     border: 0;
     font-size: 100%;
     vertical-align: baseline;
+    
+  }
+  html, body{
+    width: 100%;
+    min-width: 1440px;
+    @media (max-width: 768px) {
+      min-width: 100%;
+    }
   }
   /* HTML5 display-role reset for older browsers */
   /* prettier-ignore */

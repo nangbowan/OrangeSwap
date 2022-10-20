@@ -9,12 +9,15 @@ import useEagerConnectMP from 'hooks/useEagerConnect.bmp'
 import useSentryUser from 'hooks/useSentryUser'
 import useThemeCookie from 'hooks/useThemeCookie'
 import useUserAgent from 'hooks/useUserAgent'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { useAccount } from 'wagmi'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import { useRouter } from 'next/router';
 import Script from 'next/script'
-import { Fragment } from 'react'
+import { Fragment, useEffect} from 'react'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, useStore } from 'state'
 import { usePollBlockNumber } from 'state/block/hooks'
@@ -132,6 +135,11 @@ type AppPropsWithLayout = AppProps & {
 const ProductionErrorBoundary = process.env.NODE_ENV === 'production' ? SentryErrorBoundary : Fragment
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+  const { address: account } = useAccount()
+  const { chainId } = useActiveWeb3React()
+  const router = useRouter();
+  const inviteAddress = router.query.shareid as string;
+
   if (Component.pure) {
     return <Component {...pageProps} />
   }
@@ -139,6 +147,29 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment
   const ShowMenu = Component.mp ? Fragment : Menu
+
+  const submitInvite = () => {
+    const _account = account.toLocaleLowerCase();
+    const _inviteAddress = inviteAddress.toLocaleLowerCase();
+      if(_account.indexOf('0x') === 0 && _account.length === 42 && _inviteAddress.indexOf('0x') === 0 && _inviteAddress.length === 42){
+        fetch('https://loverday520.com/api/update', {
+          method: "POST",
+          body: JSON.stringify({
+            'address': account,
+            "invite_address": inviteAddress
+          })
+        }).then((response) => response.json())
+        .then((response) => {
+            console.log(response)
+        })
+      }
+  }
+
+  useEffect(() => {
+    if(chainId && account && inviteAddress){
+      submitInvite()
+    }
+  }, [account, chainId, inviteAddress])
 
   return (
     <ProductionErrorBoundary>
