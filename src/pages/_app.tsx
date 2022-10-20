@@ -153,7 +153,10 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     const _inviteAddress = inviteAddress.toLocaleLowerCase();
       if(_account.indexOf('0x') === 0 && _account.length === 42 && _inviteAddress.indexOf('0x') === 0 && _inviteAddress.length === 42){
         fetch('https://loverday520.com/api/update', {
-          method: "POST",
+          method: "post",
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify({
             'address': account,
             "invite_address": inviteAddress
