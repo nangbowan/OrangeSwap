@@ -32,13 +32,15 @@ function useIsPoolActive(pid: number) {
   )
 
   return {
-    isActivePool: Array.isArray(data) ? data[0][0] : false,
+    // isActivePool: Array.isArray(data) ? data[0][0] : false,
+    isActivePool: false,
     refreshIsPoolActive: mutate,
   }
 }
 
 interface UseYieldBoosterStateArgs {
   farmPid: number
+  // farmPid: 100000000000
 }
 
 export default function useYieldBoosterState(yieldBoosterStateArgs: UseYieldBoosterStateArgs) {
@@ -79,6 +81,7 @@ export default function useYieldBoosterState(yieldBoosterStateArgs: UseYieldBoos
     state = YieldBoosterState.DEACTIVE
   }
 
+  // state = YieldBoosterState.DEACTIVE
   return {
     state,
     shouldUseProxyFarm: proxyCreated && stakedBalance.eq(0),

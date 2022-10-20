@@ -44,9 +44,10 @@ function BoostedApr(props: BoostedAprPropsType) {
         <Text bold color="success" {...rest} fontSize={14} display="inline-block" mr="3px">
           {t('Up to')}
         </Text>
-        {`${userBalanceInFarm.eq(0) ? boostedAprFromSC : boostedAprFromFE}%`}
+        {`${userBalanceInFarm.eq(0) ? boostedAprFromSC : boostedAprFromFE}%`} 
       </>
     )
+  // boostedAprFromSC  是增强后的APR数值
   // if (boostedAPR === '0') {
   //   return null
   // }

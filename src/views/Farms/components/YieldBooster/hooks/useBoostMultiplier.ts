@@ -10,7 +10,7 @@ import _toNumber from 'lodash/toNumber'
 import { YieldBoosterState } from './useYieldBoosterState'
 
 const PRECISION_FACTOR = FixedNumber.from('1000000000000') // 1e12
-
+// 2
 async function getPublicMultiplier({ farmBoosterContract }): Promise<number> {
   const calls = [
     {
@@ -33,16 +33,16 @@ async function getPublicMultiplier({ farmBoosterContract }): Promise<number> {
 
   const [[cA], [CA_PRECISION], [BOOST_PRECISION]] = data
 
-  const MAX_BOOST_PRECISION = FixedNumber.from(CA_PRECISION)
-    .divUnsafe(FixedNumber.from(cA))
-    .mulUnsafe(PRECISION_FACTOR)
-    .subUnsafe(FixedNumber.from(BOOST_PRECISION))
+  const MAX_BOOST_PRECISION = FixedNumber.from(CA_PRECISION)// 100000
+    .divUnsafe(FixedNumber.from(cA))// 50000
+    .mulUnsafe(PRECISION_FACTOR)// 1000000000000
+    .subUnsafe(FixedNumber.from(BOOST_PRECISION))// 1000000000000
 
   const boostPercent = PRECISION_FACTOR.addUnsafe(MAX_BOOST_PRECISION).divUnsafe(PRECISION_FACTOR)
 
   return _toNumber(boostPercent.round(3).toString())
 }
-
+// 1
 async function getUserMultiplier({ farmBoosterContract, account, pid }): Promise<number> {
   const calls = [
     {
@@ -60,7 +60,7 @@ async function getUserMultiplier({ farmBoosterContract, account, pid }): Promise
 
   if (!data) return 0
 
-  const [[multiplier], [BOOST_PRECISION]] = data
+  const [[multiplier], [BOOST_PRECISION]] = [[1000000000000],[1000000000000]]
 
   return _toNumber(
     PRECISION_FACTOR.addUnsafe(FixedNumber.from(multiplier))
@@ -84,7 +84,7 @@ async function getMultiplierFromMC({ pid, proxyAddress, masterChefContract }): P
 
   if (!data?.length) return 0
 
-  const [[boostMultiplier]] = data
+  const [[boostMultiplier]] = [[1000000000000]]
 
   return _toNumber(FixedNumber.from(boostMultiplier).divUnsafe(PRECISION_FACTOR).round(3).toString())
 }
@@ -92,13 +92,15 @@ async function getMultiplierFromMC({ pid, proxyAddress, masterChefContract }): P
 export default function useBoostMultiplier({ pid, boosterState, proxyAddress }): number {
   const farmBoosterContract = useBCakeFarmBoosterContract()
   const masterChefContract = useMasterchef()
-
   const { account } = useActiveWeb3React()
 
-  const shouldGetFromSC = [YieldBoosterState.DEACTIVE, YieldBoosterState.ACTIVE, YieldBoosterState.MAX].includes(
-    boosterState,
-  )
-  const should1X = [YieldBoosterState.LOCKED_END].includes(boosterState)
+  // const shouldGetFromSC = [YieldBoosterState.DEACTIVE, YieldBoosterState.ACTIVE, YieldBoosterState.MAX].includes(
+  //   boosterState,
+  // )
+  const shouldGetFromSC = false
+
+  // const should1X = [YieldBoosterState.LOCKED_END].includes(boosterState)
+  const should1X = true
 
   const getMultiplier = useCallback(async () => {
     if (shouldGetFromSC) {
