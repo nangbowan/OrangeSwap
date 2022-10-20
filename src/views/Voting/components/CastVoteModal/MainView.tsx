@@ -87,7 +87,7 @@ const MainView: React.FC<React.PropsWithChildren<MainViewProps>> = ({
                   </Text>
                   {hasLockedCake && (
                     <Flex>
-                      <RocketIcon color={isBoostingExpired ? 'warning' : 'secondary'} width="15px" height="15px" />
+                      {/* <RocketIcon color={isBoostingExpired ? 'warning' : 'secondary'} width="15px" height="15px" /> */}
                       <Text ml="4px" bold color={isBoostingExpired ? 'warning' : 'secondary'} fontSize="14px">
                         {isBoostingExpired ? t('Boosting Expired') : t('Boosted by vCAKE')}
                       </Text>

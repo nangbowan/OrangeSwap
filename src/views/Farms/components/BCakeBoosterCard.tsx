@@ -102,8 +102,8 @@ export const BCakeBoosterCard = () => {
       {/* <ImageWrapper>
         <Image src={boosterCardImage} alt="boosterCardImage" width={200} height={200} placeholder="blur" />
       </ImageWrapper> */}
-      <Card p="0px" style={{ zIndex: 1 }}>
-        {/* <StyledCardBody style={{ padding: '15px 24px' }}>
+      {/* <Card p="0px" style={{ zIndex: 1 }}>
+        <StyledCardBody style={{ padding: '15px 24px' }}>
           <RocketIcon />
           <Text fontSize={22} bold color="text" marginBottom="-12px" display="inline-block" ml="7px">
             {t('Yield Booster')}
@@ -112,11 +112,11 @@ export const BCakeBoosterCard = () => {
           <Box ref={targetRef} style={{ float: 'right', position: 'relative', top: '6px' }}>
             <HelpIcon color={theme.colors.textSubtle} />
           </Box>
-        </StyledCardBody> */}
+        </StyledCardBody>
         <StyledCardFooter>
           <CardContent />
         </StyledCardFooter>
-      </Card>
+      </Card> */}
     </CardWrapper>
   )
 }

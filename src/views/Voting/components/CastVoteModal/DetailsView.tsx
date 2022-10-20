@@ -180,7 +180,7 @@ const DetailsView: React.FC<React.PropsWithChildren<DetailsViewProps>> = ({
                     {formatNumber(cakePoolBalance, 0, 3)}
                   </Text>
                   <Flex>
-                    <RocketIcon color={isBoostingExpired ? 'warning' : 'secondary'} width="15px" height="15px" />
+                    {/* <RocketIcon color={isBoostingExpired ? 'warning' : 'secondary'} width="15px" height="15px" /> */}
                     <Text ml="4px" color={isBoostingExpired ? 'warning' : 'secondary'} fontSize="12px">
                       {isBoostingExpired ? t('Boosting Expired') : t('Boosted by vCAKE')}
                     </Text>
