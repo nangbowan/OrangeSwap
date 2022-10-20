@@ -165,6 +165,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       }
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if(chainId && account && inviteAddress){
       submitInvite()
