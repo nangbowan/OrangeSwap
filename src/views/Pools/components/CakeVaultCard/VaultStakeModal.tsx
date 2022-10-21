@@ -235,7 +235,7 @@ const VaultStakeModal: React.FC<React.PropsWithChildren<VaultStakeModalProps>> =
         currencyValue={cakePriceBusd.gt(0) && `~${formattedUsdValueStaked || 0} USD`}
         decimals={stakingToken.decimals}
       />
-      <Text mt="8px" ml="auto" color="textSubtle" fontSize="12px" mb="8px">
+      <Text mt="8px" ml="auto" color="primary" fontSize="12px" mb="8px">
         {t('Balance: %balance%', { balance: getFullDisplayBalance(stakingMax, stakingToken.decimals) })}
       </Text>
       <Slider
@@ -266,7 +266,7 @@ const VaultStakeModal: React.FC<React.PropsWithChildren<VaultStakeModalProps>> =
       )}
       {!isRemovingStake && (
         <Flex mt="24px" alignItems="center" justifyContent="space-between">
-          <Text mr="8px" color="textSubtle">
+          <Text mr="8px" color="primary">
             {t('Annual ROI at current rates')}:
           </Text>
           {Number.isFinite(annualRoi) ? (
@@ -278,7 +278,7 @@ const VaultStakeModal: React.FC<React.PropsWithChildren<VaultStakeModalProps>> =
             >
               <AnnualRoiDisplay>${formattedAnnualRoi}</AnnualRoiDisplay>
               <IconButton variant="text" scale="sm">
-                <CalculateIcon color="textSubtle" width="18px" />
+                <CalculateIcon color="primary" width="18px" />
               </IconButton>
             </AnnualRoiContainer>
           ) : (

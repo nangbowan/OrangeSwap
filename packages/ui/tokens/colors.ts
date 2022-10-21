@@ -28,7 +28,8 @@ export const lightColors = {
   ...additionalColors,
   secondary: 'rgb(255,146,56)',
   secondary80: 'rgb(255,146,56)',
-  background: '#FAF9FA',
+  // background: '#FAF9FA'
+  background: '#fffbfb',
   backgroundDisabled: '#E9EAEB',
   backgroundAlt: '#FFFFFF',
   backgroundAlt2: 'rgba(255, 255, 255, 0.7)',
@@ -43,7 +44,7 @@ export const lightColors = {
   text: '#0a0317',
   text99: '#280D5F99',
   textDisabled: '#BDC2C4',
-  textSubtle: '#7A6EAA',
+  textSubtle: '#6f6b7f',
   disabled: '#E9EAEB',
   gradientBubblegum: '#F5F5F5',
   // gradientBubblegum: 'linear-gradient(139.73deg, #E5FDFF 0%, #F3EFFF 100%)',

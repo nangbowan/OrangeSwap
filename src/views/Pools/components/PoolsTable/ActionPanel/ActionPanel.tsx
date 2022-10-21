@@ -169,7 +169,7 @@ const ActionPanel: React.FC<React.PropsWithChildren<ActionPanelProps>> = ({ acco
         {vaultKey ? <CompoundingPoolTag /> : <ManualPoolTag />}
         {tagTooltipVisible && tagTooltip}
         <span ref={tagTargetRef}>
-          <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
+          <HelpIcon ml="4px" width="20px" height="20px" color="primary" />
         </span>
       </InfoSection>
       <ActionContainer>

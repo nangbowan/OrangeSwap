@@ -31,7 +31,7 @@ const CakeVaultApr: React.FC<React.PropsWithChildren<CakeVaultAprProps>> = ({ po
     <>
       <Box marginX="8px" mb="8px">
         <Flex justifyContent="space-between">
-          <Text fontSize="16px" color="textSubtle" textAlign="left">
+          <Text fontSize="16px" color="primary" textAlign="left">
             {t('Flexible APY')}
           </Text>
           {flexibleApy ? (
@@ -48,7 +48,7 @@ const CakeVaultApr: React.FC<React.PropsWithChildren<CakeVaultAprProps>> = ({ po
                 padding="0px"
                 marginLeft="4px"
               >
-                <CalculateIcon color="textSubtle" width="20px" />
+                <CalculateIcon color="primary" width="20px" />
               </Button>
             </Flex>
           ) : (
@@ -86,7 +86,7 @@ const CakeVaultApr: React.FC<React.PropsWithChildren<CakeVaultAprProps>> = ({ po
                   padding="0px"
                   marginLeft="4px"
                 >
-                  <CalculateIcon color="textSubtle" width="20px" />
+                  <CalculateIcon color="primary" width="20px" />
                 </Button>
               </Flex>
             ) : (

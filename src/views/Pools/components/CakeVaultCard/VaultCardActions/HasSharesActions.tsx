@@ -49,7 +49,7 @@ const HasSharesActions: React.FC<React.PropsWithChildren<HasStakeActionProps>> =
       <Flex mb="16px" justifyContent="space-between" alignItems="center">
         <Flex flexDirection="column">
           <Balance fontSize="20px" bold value={cakeAsNumberBalance} decimals={5} />
-          <Text as={Flex} fontSize="12px" color="textSubtle" flexWrap="wrap">
+          <Text as={Flex} fontSize="12px" color="primary" flexWrap="wrap">
             {cakePriceBusd.gt(0) ? (
               <Balance
                 value={stakedDollarValue}

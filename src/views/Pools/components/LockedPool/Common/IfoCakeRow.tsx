@@ -40,7 +40,7 @@ const IfoCakeRow: React.FC<React.PropsWithChildren> = () => {
     <Flex alignItems="center" justifyContent="space-between">
       {tooltipVisible && tooltip}
       <TooltipText>
-        <Text ref={targetRef} color="textSubtle" bold fontSize="12px">
+        <Text ref={targetRef} color="primary" bold fontSize="12px">
           {t('iCAKE')}
         </Text>
       </TooltipText>

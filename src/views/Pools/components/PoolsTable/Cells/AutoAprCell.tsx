@@ -74,7 +74,7 @@ const AutoAprCell: React.FC<React.PropsWithChildren<AprCellProps>> = ({ pool }) 
                     padding="0px"
                     marginLeft="4px"
                   >
-                    <CalculateIcon color="textSubtle" width="20px" />
+                    <CalculateIcon color="primary" width="20px" />
                   </Button>
                 )}
               </AprLabelContainer>
@@ -113,7 +113,7 @@ const AutoAprCell: React.FC<React.PropsWithChildren<AprCellProps>> = ({ pool }) 
                       padding="0px"
                       marginLeft="4px"
                     >
-                      <CalculateIcon color="textSubtle" width="20px" />
+                      <CalculateIcon color="primary" width="20px" />
                     </Button>
                   )}
                 </FlexGap>
@@ -152,7 +152,7 @@ const AutoAprCell: React.FC<React.PropsWithChildren<AprCellProps>> = ({ pool }) 
               padding="0px"
               marginLeft="4px"
             >
-              <CalculateIcon color="textSubtle" width="20px" />
+              <CalculateIcon color="primary" width="20px" />
             </Button>
           </AprLabelContainer>
         ) : (

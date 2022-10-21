@@ -269,7 +269,7 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
         <Flex justifyContent="space-between" flexDirection={['column', null, null, 'row']}>
           <Flex flex="1" flexDirection="column" mr={['8px', 0]}>
             <Heading as="h1" scale="xxl" color="secondary" mb="24px">
-              {t('Syrup Pools')}
+              {t('Pools')}
             </Heading>
             <Heading scale="md" color="#9E9FA4">
               {t('Pledge tokens to earn new tokens')}
@@ -291,7 +291,7 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
           />
           <FilterContainer>
             <LabelWrapper>
-              <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase">
+              <Text fontSize="12px" bold color="primary" textTransform="uppercase">
                 {t('Sort by')}
               </Text>
               <ControlStretch>
@@ -323,7 +323,7 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
               </ControlStretch>
             </LabelWrapper>
             <LabelWrapper style={{ marginLeft: 16 }}>
-              <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase">
+              <Text fontSize="12px" bold color="primary" textTransform="uppercase">
                 {t('Search')}
               </Text>
               <SearchInput initialValue={searchQuery} onChange={handleChangeSearchQuery} placeholder="Search Pools" />

@@ -81,28 +81,28 @@ const LockedStakingApy: React.FC<React.PropsWithChildren<LockedStakingApyProps>>
     <LightGreyCard>
       <Flex justifyContent="space-between" mb="16px">
         <Box>
-          <Text color="textSubtle" textTransform="uppercase" bold fontSize="12px">
+          <Text color="primary" textTransform="uppercase" bold fontSize="12px">
             {t('CAKE locked')}
           </Text>
           <BalanceWithLoading color="text" bold fontSize="16px" value={currentLockedAmount} decimals={5} />
           <BalanceWithLoading
             value={usdValueStaked}
             fontSize="12px"
-            color="textSubtle"
+            color="primary"
             decimals={2}
             prefix="~"
             unit=" USD"
           />
         </Box>
         <Box>
-          <Text color="textSubtle" textTransform="uppercase" bold fontSize="12px">
+          <Text color="primary" textTransform="uppercase" bold fontSize="12px">
             {t('Unlocks In')}
           </Text>
           <Text color={position >= VaultPosition.LockedEnd ? '#D67E0A' : 'text'} bold fontSize="16px">
             {position >= VaultPosition.LockedEnd ? t('Unlocked') : remainingTime}
             {tagTooltipVisibleOfBurn && tagTooltipOfBurn}
             <span ref={tagTargetRefOfBurn}>
-              <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
+              <HelpIcon ml="4px" width="20px" height="20px" color="primary" />
             </span>
           </Text>
           <Text color={position >= VaultPosition.LockedEnd ? '#D67E0A' : 'text'} fontSize="12px">
@@ -126,7 +126,7 @@ const LockedStakingApy: React.FC<React.PropsWithChildren<LockedStakingApyProps>>
         <Flex alignItems="center" justifyContent="space-between">
           {tooltipVisible && tooltip}
           <TooltipText>
-            <Text ref={targetRef} color="textSubtle" textTransform="uppercase" bold fontSize="12px">
+            <Text ref={targetRef} color="primary" textTransform="uppercase" bold fontSize="12px">
               {t('APY')}
             </Text>
           </TooltipText>

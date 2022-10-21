@@ -284,7 +284,7 @@ const StakeModal: React.FC<React.PropsWithChildren<StakeModalProps>> = ({
             >
               <AnnualRoiDisplay>${formattedAnnualRoi}</AnnualRoiDisplay>
               <IconButton variant="text" scale="sm">
-                <CalculateIcon color="textSubtle" width="18px" />
+                <CalculateIcon color="primary" width="18px" />
               </IconButton>
             </AnnualRoiContainer>
           ) : (

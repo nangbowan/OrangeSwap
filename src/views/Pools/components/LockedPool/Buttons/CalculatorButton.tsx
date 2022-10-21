@@ -8,7 +8,7 @@ const CalculatorButton = () => {
 
   return (
     <IconButton variant="text" scale="sm" mr="-8px" onClick={() => setShowRoiCalculator && setShowRoiCalculator(true)}>
-      <CalculateIcon color="textSubtle" width="18px" />
+      <CalculateIcon color="primary" width="18px" />
     </IconButton>
   )
 }

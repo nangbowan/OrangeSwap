@@ -49,7 +49,7 @@ const Footer: React.FC<React.PropsWithChildren<FooterProps>> = ({ pool, account,
           {vaultKey ? <CompoundingPoolTag /> : <ManualPoolTag />}
           {tooltipVisible && tooltip}
           <Flex ref={targetRef}>
-            <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
+            <HelpIcon ml="4px" width="20px" height="20px" color="primary" />
           </Flex>
         </Flex>
         <ExpandableLabel expanded={isExpanded} onClick={() => setIsExpanded(!isExpanded)}>

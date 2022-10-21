@@ -35,7 +35,7 @@ const WalletWrongNetwork: React.FC<React.PropsWithChildren<WalletWrongNetworkPro
       <StyledLink href="https://docs.pancakeswap.finance/get-started/connection-guide" external>
         <Button width="100%" variant="secondary">
           {t('Learn How')}
-          <HelpIcon color="primary" ml="6px" />
+          <HelpIcon color="textSubtle" ml="6px" />
         </Button>
       </StyledLink>
     </>

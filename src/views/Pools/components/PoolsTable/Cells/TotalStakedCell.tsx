@@ -32,7 +32,7 @@ const TotalStakedCell: React.FC<React.PropsWithChildren<TotalStakedCellProps>> =
   return (
     <StyledCell role="cell">
       <CellContent>
-        <Text fontSize="12px" color="textSubtle" textAlign="left">
+        <Text fontSize="12px" color="primary" textAlign="left">
           {t('Total staked')}
         </Text>
         {totalStaked && totalStaked.gte(0) ? (

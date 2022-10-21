@@ -67,7 +67,7 @@ export const StepperWrapper = styled.div<{ finished: boolean; active: boolean }>
       left: 30px;
       transition: 0.3s background-color ease-in-out;
       will-change: background-color;
-      background-color: ${({ theme, finished }) => (finished ? theme.colors.textSubtle : theme.colors.disabled)};
+      background-color: ${({ theme, finished }) => (finished ? theme.colors.primary : theme.colors.disabled)};
     }
     ${({ theme }) => theme.mediaQueries.md} {
       &::before {
@@ -76,11 +76,11 @@ export const StepperWrapper = styled.div<{ finished: boolean; active: boolean }>
     }
   }
   ${StepperCircle} {
-    background: ${({ theme, finished }) => (finished ? theme.colors.textSubtle : theme.colors.disabled)};
+    background: ${({ theme, finished }) => (finished ? theme.colors.primary : theme.colors.disabled)};
   }
   ${StepperText} {
     color: ${({ theme, active, finished }) =>
-      active ? theme.colors.primary : finished ? theme.colors.textSubtle : theme.colors.disabled};
+      active ? theme.colors.primary : finished ? theme.colors.primary : theme.colors.disabled};
   }
 `
 
@@ -105,7 +105,7 @@ export const InfoBox = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
   border-radius: 16px;
   font-size: 12px;
-  color: ${({ theme }) => theme.colors.textSubtle};
+  color: ${({ theme }) => theme.colors.primary};
   line-height: 120%;
   margin-bottom: 24px;
   display: flex;

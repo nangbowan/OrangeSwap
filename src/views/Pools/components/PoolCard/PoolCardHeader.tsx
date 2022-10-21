@@ -30,10 +30,10 @@ export const PoolCardHeaderTitle: React.FC<
 > = ({ isFinished, title, subTitle }) => {
   return (
     <Flex flexDirection="column">
-      <Heading color={isFinished ? 'textDisabled' : 'body'} scale="lg">
+      <Heading color={isFinished ? 'primary' : 'body'} scale="lg">
         {title}
       </Heading>
-      <Text fontSize="14px" color={isFinished ? 'textDisabled' : 'textSubtle'}>
+      <Text fontSize="14px" color={isFinished ? 'textDisabled' : 'primary'}>
         {subTitle}
       </Text>
     </Flex>

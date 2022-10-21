@@ -27,7 +27,7 @@ export const StakingApy = memo(({ pool }: { pool: DeserializedPool }) => {
   return (
     <LightGreyCard>
       <Flex alignItems="center" justifyContent="space-between">
-        <Text color="textSubtle" textTransform="uppercase" bold fontSize="12px">
+        <Text color="primary" textTransform="uppercase" bold fontSize="12px">
           {t('Flexible')} APY:
         </Text>
         {flexibleApy ? (
@@ -44,7 +44,7 @@ export const StakingApy = memo(({ pool }: { pool: DeserializedPool }) => {
               padding="0px"
               marginLeft="4px"
             >
-              <CalculateIcon color="textSubtle" width="20px" />
+              <CalculateIcon color="primary" width="20px" />
             </Button>
           </AprLabelContainer>
         ) : (
@@ -53,7 +53,7 @@ export const StakingApy = memo(({ pool }: { pool: DeserializedPool }) => {
       </Flex>
       {pool.vaultKey === VaultKey.CakeVault && (
         <Flex alignItems="center" justifyContent="space-between">
-          <Text color="textSubtle" textTransform="uppercase" bold fontSize="12px">
+          <Text color="primary" textTransform="uppercase" bold fontSize="12px">
             {t('Locked')} APY:
           </Text>
           {lockedApy ? (
@@ -74,7 +74,7 @@ export const StakingApy = memo(({ pool }: { pool: DeserializedPool }) => {
                   padding="0px"
                   marginLeft="4px"
                 >
-                  <CalculateIcon color="textSubtle" width="20px" />
+                  <CalculateIcon color="primary" width="20px" />
                 </Button>
               </AprLabelContainer>
             </FlexGap>

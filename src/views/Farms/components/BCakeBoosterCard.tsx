@@ -144,7 +144,7 @@ const CardContent: React.FC = () => {
   if (!locked)
     return (
       <Box width="100%">
-        <Text color="textSubtle" fontSize={12} bold>
+        <Text color="primary" fontSize={12} bold>
           {t('No CAKE locked')}
         </Text>
         {/* <Text color="textSubtle" fontSize={12} mb="16px">

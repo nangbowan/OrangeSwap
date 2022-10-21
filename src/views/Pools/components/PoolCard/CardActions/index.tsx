@@ -43,7 +43,7 @@ const CardActions: React.FC<React.PropsWithChildren<CardActionsProps>> = ({ pool
             <InlineText color="secondary" textTransform="uppercase" bold fontSize="12px">
               {`${earningToken.symbol} `}
             </InlineText>
-            <InlineText color="textSubtle" textTransform="uppercase" bold fontSize="12px">
+            <InlineText color="primary" textTransform="uppercase" bold fontSize="12px">
               {t('Earned')}
             </InlineText>
           </Box>

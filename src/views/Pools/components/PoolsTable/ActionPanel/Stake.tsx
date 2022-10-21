@@ -264,7 +264,7 @@ const Staked: React.FunctionComponent<React.PropsWithChildren<StackedActionProps
                 <Text fontSize="12px" bold color="secondary" as="span" textTransform="uppercase">
                   {stakingToken.symbol}{' '}
                 </Text>
-                <Text fontSize="12px" bold color="textSubtle" as="span" textTransform="uppercase">
+                <Text fontSize="12px" bold color="primary" as="span" textTransform="uppercase">
                   {vaultKey === VaultKey.CakeVault && (vaultData as DeserializedLockedCakeVault).userData.locked
                     ? t('Locked')
                     : t('Staked')}
@@ -325,7 +325,7 @@ const Staked: React.FunctionComponent<React.PropsWithChildren<StackedActionProps
                   {vaultPosition >= VaultPosition.LockedEnd ? t('Unlocked') : remainingTime}
                   {tagTooltipVisibleOfBurn && tagTooltipOfBurn}
                   <span ref={tagTargetRefOfBurn}>
-                    <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
+                    <HelpIcon ml="4px" width="20px" height="20px" color="primary" />
                   </span>
                 </Text>
                 <Text

@@ -51,7 +51,7 @@ const CardActions: React.FC<React.PropsWithChildren<FarmCardActionsProps>> = ({
         <Text bold textTransform="uppercase" color="#9E9FA4" fontSize="12px" pr="4px">
           ORG
         </Text>
-        <Text bold textTransform="uppercase" color="textSubtle" fontSize="12px">
+        <Text bold textTransform="uppercase" color="primary" fontSize="12px">
           {t('Earned')}
         </Text>
       </Flex>
@@ -91,7 +91,7 @@ const CardActions: React.FC<React.PropsWithChildren<FarmCardActionsProps>> = ({
           <Text bold textTransform="uppercase" color="secondary" fontSize="12px" pr="4px">
             {farm.lpSymbol}
           </Text>
-          <Text bold textTransform="uppercase" color="textSubtle" fontSize="12px">
+          <Text bold textTransform="uppercase" color="primary" fontSize="12px">
             {t('Staked')}
           </Text>
         </Flex>

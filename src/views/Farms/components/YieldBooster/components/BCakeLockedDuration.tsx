@@ -45,7 +45,7 @@ const LockDurationField: React.FC<React.PropsWithChildren<LockDurationFieldProps
     <>
       <Box mb="16px" mt="16px">
         <Flex mb="8px">
-          <Text fontSize="12px" color="textSubtle" bold textTransform="uppercase">
+          <Text fontSize="12px" color="primary" bold textTransform="uppercase">
             {t('locked for')}
           </Text>
         </Flex>

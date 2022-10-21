@@ -89,7 +89,7 @@ export const CakeVaultDetail: React.FC<React.PropsWithChildren<CakeVaultDetailPr
                   />
                 ) : (
                   <>
-                    <Text mb="10px" textTransform="uppercase" fontSize="12px" color="textSubtle" bold>
+                    <Text mb="10px" textTransform="uppercase" fontSize="12px" color="primary" bold>
                       {t('Start earning')}
                     </Text>
                     <ConnectWalletButton />
