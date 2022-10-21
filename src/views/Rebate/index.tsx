@@ -37,12 +37,12 @@ const Rebate: FC = (): ReactElement => {
   // const tokenContract = useERC20(orgbundrebate[chainId])
   const rebateContract = useOrgbundrebate(orgbundrebate[chainId])
   const rewardGulars = [
-    { grade: 1, number: '0-99999', scal: '0.1%' },
-    { grade: 2, number: '100000-199999', scal: '0.2%' },
-    { grade: 3, number: '200000-299999', scal: '0.3%' },
-    { grade: 4, number: '300000-399999', scal: '0.4%' },
-    { grade: 5, number: '500000-999999', scal: '0.5%' },
-    { grade: 6, number: '≥1000000', scal: '0.6%' },
+    { grade: 1, number: '0-4999', scal: '0.05%' },
+    { grade: 2, number: '5000-9999', scal: '0.06%' },
+    { grade: 3, number: '10000-19999', scal: '0.07%' },
+    { grade: 4, number: '20000-29999', scal: '0.08%' },
+    { grade: 5, number: '30000-59999', scal: '0.1%' },
+    { grade: 6, number: '≥60000', scal: '0.13%' },
   ]
 
   useEffect(() => {

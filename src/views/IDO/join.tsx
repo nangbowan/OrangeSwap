@@ -19,7 +19,7 @@ const Join: FC = (): ReactElement => {
           <Right>
             <Tip className="tip_second">关注社交媒体并链接到您的FSC公链钱包。</Tip>
             <Tip className="tip_frist">准备好200-1000枚USDT在你的钱包里。</Tip>
-            <Tip className="tip_third">1%改为可获得额外的ORG代币奖励</Tip>
+            <Tip className="tip_third">关注IDO时间,在IDO发售时,点击确认参与按钮认购</Tip>
           </Right>
         </Cont>
       </Content>

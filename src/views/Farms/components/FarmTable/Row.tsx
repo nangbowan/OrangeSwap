@@ -148,8 +148,8 @@ const Row: React.FunctionComponent<React.PropsWithChildren<RowPropsWithLoading>>
                           {...props.apr}
                           hideButton={isSmallerScreen}
                           // strikethrough={props?.details?.boosted}
-                          strikethrough={undefined}
-                          boosted={props?.details?.boosted}
+                          // strikethrough={undefined}
+                          // boosted={props?.details?.boosted}
                         />
                         {props?.details?.boosted ? (
                           <BoostedApr
@@ -218,7 +218,7 @@ const Row: React.FunctionComponent<React.PropsWithChildren<RowPropsWithLoading>>
                   {...props.apr}
                   hideButton
                   // strikethrough={props?.details?.boosted}
-                  boosted={props?.details?.boosted}
+                  // boosted={props?.details?.boosted}
                 />
                 {props?.details?.boosted ? (
                   <BoostedApr

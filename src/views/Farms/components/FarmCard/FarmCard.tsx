@@ -125,9 +125,9 @@ const FarmCard: React.FC<React.PropsWithChildren<FarmCardProps>> = ({
                     apr={farm.apr}
                     displayApr={displayApr}
                     lpRewardsApr={farm.lpRewardsApr}
-                    strikethrough={farm.boosted}
+                    // strikethrough={farm.boosted}
                     useTooltipText
-                    boosted={farm.boosted}
+                    // boosted={farm.boosted}
                   />
                 </>
               ) : (
