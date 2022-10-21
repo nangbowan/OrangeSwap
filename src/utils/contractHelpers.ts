@@ -1,6 +1,7 @@
 import type { Signer } from '@ethersproject/abstract-signer'
 import type { Provider } from '@ethersproject/providers'
 import { provider } from 'utils/wagmi'
+import { bscRpcProvider } from 'utils/providers'
 import { Contract } from '@ethersproject/contracts'
 import poolsConfig from 'config/constants/pools'
 import { PoolCategory } from 'config/constants/types'
@@ -147,7 +148,8 @@ import { ChainId } from '@pancakeswap/sdk'
 export const getContract = ({
   abi,
   address,
-  chainId = ChainId.BSC,
+  // chainId = ChainId.BSC,
+  chainId ,
   signer,
 }: {
   abi: any
@@ -155,9 +157,24 @@ export const getContract = ({
   chainId?: ChainId
   signer?: Signer | Provider
 }) => {
-  const signerOrProvider = signer ?? provider({ chainId })
-  return new Contract(address, abi, signerOrProvider)
+  const _contract = () => {
+    try{
+      const signerOrProvider = signer ?? bscRpcProvider
+      return new Contract(address, abi, signerOrProvider)
+    }catch(e){
+      return null
+    }
+  }
+  return _contract()
+  // const signerOrProvider = signer ?? provider({ chainId })
+  // const signerOrProvider = signer ?? bscRpcProvider
+  // return new Contract(address, abi, signerOrProvider)
 }
+
+// export const getContract = (abi: any, address: string, signer?: Signer | Provider) => {
+//   const signerOrProvider = signer ?? bscRpcProvider
+//   return new Contract(address, abi, signerOrProvider)
+// }
 
 export const getOrgIdoContract = (address: string, signer?: Signer | Provider) => {
   return getContract({ abi: orgIdoAbi, address, signer }) as any
