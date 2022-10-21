@@ -113,7 +113,7 @@ const config: (
     },
     {
       label: t('launch'),
-      href: '',
+      href: '/launch',
       icon: LaunchIcon,
       fillIcon: LaunchIcon,
       showItemsOnMobile: false,
@@ -124,7 +124,7 @@ const config: (
     },
     {
       label: t('NFT'),
-      href: '',
+      href: '/NFT',
       icon: NftbarIcon,
       fillIcon: NftbarIcon,
       showItemsOnMobile: false,
@@ -135,7 +135,7 @@ const config: (
     },
     {
       label: t('Meta'),
-      href: '',
+      href: '/Meta',
       icon: MetaverseIcon,
       fillIcon: MetaverseIcon,
       showItemsOnMobile: false,
@@ -146,7 +146,7 @@ const config: (
     },
     {
       label: 'Info',
-      href: '',
+      href: '/Info',
       icon: InfoIcon,
       fillIcon: InfoIcon,
       hideSubNav: true,
@@ -158,7 +158,7 @@ const config: (
         },
         {
           label: 'Data',
-          href: '',
+          href: '/Data',
           supportChainIds: SUPPORT_ONLY_BSC,
         },
         {
@@ -170,24 +170,24 @@ const config: (
     },
     {
       label: 'Media',
-      href: '',
+      href: '/Media',
       icon: MediaIcon,
       fillIcon: MediaIcon,
       hideSubNav: true,
       items: [
         {
           label: 'Twitter',
-          href: '',
+          href: '/Twitter',
           supportChainIds: SUPPORT_ONLY_BSC,
         },
         {
           label: 'Telegram-Chinese',
-          href: '',
+          href: '/Telegram-Chinese',
           supportChainIds: SUPPORT_ONLY_BSC,
         },
         {
           label: 'Telegram-English',
-          href: '',
+          href: '/Telegram-English',
           supportChainIds: SUPPORT_ONLY_BSC,
         },
       ].map((item) => addMenuItemSupported(item, chainId)),
