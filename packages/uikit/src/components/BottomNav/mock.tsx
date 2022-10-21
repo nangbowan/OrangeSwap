@@ -10,6 +10,7 @@ import {
   MoreIcon,
   TrophyIcon,
   TrophyFillIcon,
+  LaunchIcon
 } from "../Svg";
 
 const MenuItemsMock: MenuItemsType[] = [
@@ -32,7 +33,7 @@ const MenuItemsMock: MenuItemsType[] = [
   {
     label: "Gagnez des jetons",
     href: "/win",
-    icon: TrophyIcon,
+    icon: LaunchIcon,
     fillIcon: TrophyFillIcon,
     items: ItemsMock,
     showItemsOnMobile: true,

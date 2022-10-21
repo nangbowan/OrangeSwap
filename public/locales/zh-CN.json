@@ -1946,5 +1946,12 @@
   "Alternatively, if you pledged your LP token at the farm, redeem it to have the token displayed here": "或者，如果你在农场质押了你的LP代币，将其赎回让代币在这里显示",
   "Pledge tokens to earn new tokens": "质押代币赚取新的代币",
   "You can redeem it at any time, and the reward is calculated by block": "您可以随时赎回，奖励按区块计算。",
-  "rebate":"超级返佣"
+  "rebate": "超级返佣",
+  "launch": "发射台",
+  "Meta": "元宇宙",
+  "Media": "社交媒体",
+  "Twitter": "推特",
+  "Telegram-Chinese": "电报-中文",
+  "Telegram-English": "电报-英文"
+
 }

@@ -10,6 +10,11 @@ import {
   NftIcon,
   NftFillIcon,
   MoreIcon,
+  LaunchIcon,
+  NftbarIcon,
+  MetaverseIcon,
+  InfoIcon,
+  MediaIcon,
 } from '@pancakeswap/uikit'
 import { ContextApi } from '@pancakeswap/localization'
 import { nftsBaseUrl } from 'views/Nft/market/constants'
@@ -102,15 +107,48 @@ const config: (
       icon: TrophyIcon,
       fillIcon: TrophyFillIcon,
       showItemsOnMobile: false,
-      image: '/images/decorations/pe2.png',
       supportChainIds: SUPPORT_ONLY_BSC,
       items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
     {
-      label: '',
+      label: t('launch'),
       href: '',
-      icon: MoreIcon,
+      icon: LaunchIcon,
+      fillIcon: LaunchIcon,
+      showItemsOnMobile: false,
+      // image: '/images/decorations/pe2.png',
+      supportChainIds: SUPPORT_ONLY_BSC,
+      items: [
+      ].map((item) => addMenuItemSupported(item, chainId)),
+    },
+    {
+      label: t('NFT'),
+      href: '',
+      icon: NftbarIcon,
+      fillIcon: NftbarIcon,
+      showItemsOnMobile: false,
+      // image: '/images/decorations/pe2.png',
+      supportChainIds: SUPPORT_ONLY_BSC,
+      items: [
+      ].map((item) => addMenuItemSupported(item, chainId)),
+    },
+    {
+      label: t('Meta'),
+      href: '',
+      icon: MetaverseIcon,
+      fillIcon: MetaverseIcon,
+      showItemsOnMobile: false,
+      // image: '/images/decorations/pe2.png',
+      supportChainIds: SUPPORT_ONLY_BSC,
+      items: [
+      ].map((item) => addMenuItemSupported(item, chainId)),
+    },
+    {
+      label: 'Info',
+      href: '',
+      icon: InfoIcon,
+      fillIcon: InfoIcon,
       hideSubNav: true,
       items: [
         {
@@ -119,9 +157,38 @@ const config: (
           supportChainIds: SUPPORT_ONLY_BSC,
         },
         {
+          label: 'Data',
+          href: '',
+          supportChainIds: SUPPORT_ONLY_BSC,
+        },
+        {
           label: t('Docs'),
           href: 'https://orange-swap.gitbook.io/orange-swap-1/',
           type: DropdownMenuItemType.EXTERNAL_LINK,
+        },
+      ].map((item) => addMenuItemSupported(item, chainId)),
+    },
+    {
+      label: 'Media',
+      href: '',
+      icon: MediaIcon,
+      fillIcon: MediaIcon,
+      hideSubNav: true,
+      items: [
+        {
+          label: 'Twitter',
+          href: '',
+          supportChainIds: SUPPORT_ONLY_BSC,
+        },
+        {
+          label: 'Telegram-Chinese',
+          href: '',
+          supportChainIds: SUPPORT_ONLY_BSC,
+        },
+        {
+          label: 'Telegram-English',
+          href: '',
+          supportChainIds: SUPPORT_ONLY_BSC,
         },
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
