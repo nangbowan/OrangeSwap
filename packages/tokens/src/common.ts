@@ -2,6 +2,7 @@ import { ChainId, Token } from '@pancakeswap/sdk'
 
 export const ORG_MAINNET = new Token(
   ChainId.FON,
+
   '0xb582fD9d0D5C3515EEB6b02fF2d6eE0b6E45E7A7',
   18,
   'ORG',
@@ -139,12 +140,13 @@ export const BUSD: Record<ChainId, Token> = {
   [ChainId.GOERLI]: BUSD_GOERLI,
   [ChainId.BSC]: BUSD_BSC,
   [ChainId.BSC_TESTNET]: BUSD_TESTNET,
-  [ChainId.FON]: BUSD_TESTNET,
+  [ChainId.FON]: USDT_FON,
 }
 
 export const CAKE = {
   [ChainId.BSC]: CAKE_MAINNET,
   [ChainId.BSC_TESTNET]: CAKE_TESTNET,
+  [ChainId.FON]: ORG_MAINNET,
 }
 
 export const USDC = {
