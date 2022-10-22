@@ -51,7 +51,7 @@ const DepositAction: React.FC<React.PropsWithChildren<DepositActionProps>> = ({ 
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     t(
-      'CAKE deposit will be diverted to the fixed-term staking pool. Please note that CAKE deposited can ONLY be withdrawn after 10 weeks.',
+      'ORG deposit will be diverted to the fixed-term staking pool. Please note that ORG deposited can ONLY be withdrawn after 10 weeks.',
     ),
     {
       placement: 'bottom',
@@ -112,7 +112,7 @@ const DepositAction: React.FC<React.PropsWithChildren<DepositActionProps>> = ({ 
           {t('Deposit')}
         </Text>
         <Text fontSize="12px" ml="4px" color="textSubtle" bold as="span">
-          CAKE
+        ORG
         </Text>
       </Box>
       <InputPanel>
@@ -134,20 +134,20 @@ const DepositAction: React.FC<React.PropsWithChildren<DepositActionProps>> = ({ 
                 </Button>
               )}
               <LogoRoundIcon m="0 4px" width="24px" height="24px" />
-              <Text>CAKE</Text>
+              <Text>ORG</Text>
             </Flex>
           </Flex>
         </Container>
         {isLessThanOneCake && (
           <Text color="failure" fontSize="14px" textAlign="right">
-            {t('Please deposit at least 1 CAKE to participate in the Pottery')}
+            {t('Please deposit at least 1 ORG to participate in the Pottery')}
           </Text>
         )}
       </InputPanel>
       <Flex>
         <Flex ml="auto">
           <Text fontSize="12px" color="textSubtle">
-            {t('Deposited CAKE will be locked for 10 weeks')}
+            {t('Deposited ORG will be locked for 10 weeks')}
           </Text>
           <Flex ref={targetRef}>
             {tooltipVisible && tooltip}

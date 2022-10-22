@@ -35,7 +35,7 @@ const eventDescriptionConfigBuilder = ({ t }: EventDescriptionType) => ({
     },
   ],
   primaryButton: {
-    to: 'https://docs.pancakeswap.finance/',
+    to: 'https://orange-swap.gitbook.io/orange-swap-1/',
     text: t('View Documentation'),
     external: true,
     isDisplayed: false,

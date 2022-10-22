@@ -80,7 +80,7 @@ const Menu = () => {
                 <Button
                   variant="subtle"
                   as="a"
-                  href="https://docs.pancakeswap.finance/products/prediction"
+                  href="https://orange-swap.gitbook.io/orange-swap-1/"
                   target="_blank"
                   rel="noreferrer noopener"
                   width="48px"

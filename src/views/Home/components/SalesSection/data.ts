@@ -50,9 +50,9 @@ export const earnSectionData = (t: TranslateFunction): SalesSectionProps => ({
 })
 
 export const cakeSectionData = (t: TranslateFunction): SalesSectionProps => ({
-  headingText: t('CAKE makes our world go round.'),
+  headingText: t('ORG makes our world go round.'),
   bodyText: t(
-    'CAKE token is at the heart of the PancakeSwap ecosystem. Buy it, win it, farm it, spend it, stake it... heck, you can even vote with it!',
+    'ORG token is at the heart of the PancakeSwap ecosystem. Buy it, win it, farm it, spend it, stake it... heck, you can even vote with it!',
   ),
   reverse: false,
   primaryButton: {
@@ -61,7 +61,7 @@ export const cakeSectionData = (t: TranslateFunction): SalesSectionProps => ({
     external: false,
   },
   secondaryButton: {
-    to: 'https://docs.pancakeswap.finance/tokenomics/cake',
+    to: 'https://orange-swap.gitbook.io/orange-swap-1/',
     text: t('Learn'),
     external: true,
   },

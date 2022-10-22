@@ -68,7 +68,7 @@ const FarmCard: React.FC<React.PropsWithChildren<FarmCardProps>> = ({
       : ''
 
   const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
-  const earnLabel = farm.dual ? farm.dual.earnLabel : t('CAKE + Fees')
+  const earnLabel = farm.dual ? farm.dual.earnLabel : t('ORG + Fees')
 
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
     quoteTokenAddress: farm.quoteToken.address,

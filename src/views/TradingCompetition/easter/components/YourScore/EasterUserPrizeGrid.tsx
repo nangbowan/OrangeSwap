@@ -30,7 +30,7 @@ const EasterUserPrizeGrid: React.FC<React.PropsWithChildren<{ userTradingInforma
     <StyledPrizeTable>
       <StyledThead>
         <tr>
-          <th>{t('CAKE Prizes')}</th>
+          <th>{t('ORG Prizes')}</th>
           <th>{t('Achievements')}</th>
           <th>{t('NFT')}</th>
         </tr>

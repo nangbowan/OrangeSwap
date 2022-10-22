@@ -33,7 +33,7 @@ const IfoContainer: React.FC<React.PropsWithChildren<TypeProps>> = ({ ifoSection
       <Container>
         <IfoQuestions />
         <LinkExternal
-          href="https://docs.pancakeswap.finance/contact-us/business-partnerships#ifos-token-sales"
+          href="https://orange-swap.gitbook.io/orange-swap-1/"
           mx="auto"
           mt="16px"
         >

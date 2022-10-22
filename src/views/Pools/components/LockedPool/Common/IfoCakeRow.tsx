@@ -19,7 +19,7 @@ const IfoCakeRow: React.FC<React.PropsWithChildren> = () => {
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <Box>
-      <Text>
+      {/* <Text>
         {t(
           'The number of iCAKE equals the locked staking amount if the staking duration is longer than %weeks% weeks. If the staking duration is less than %weeks% weeks, it will linearly decrease based on the staking duration.',
           {
@@ -29,7 +29,7 @@ const IfoCakeRow: React.FC<React.PropsWithChildren> = () => {
       </Text>
       <InlineLink external href="https://docs.pancakeswap.finance/products/ifo-initial-farm-offering/icake">
         {t('Learn more about iCAKE')}
-      </InlineLink>
+      </InlineLink> */}
     </Box>,
     {
       placement: 'bottom-start',

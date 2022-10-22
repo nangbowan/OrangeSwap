@@ -68,7 +68,7 @@ const RewardBracketDetail: React.FC<React.PropsWithChildren<RewardBracketDetailP
           <>
             {numberWinners !== '0' && (
               <Text fontSize="12px" color="textSubtle">
-                {getFullDisplayBalance(cakeAmount.div(parseInt(numberWinners, 10)), 18, 2)} CAKE {t('each')}
+                {getFullDisplayBalance(cakeAmount.div(parseInt(numberWinners, 10)), 18, 2)} ORG {t('each')}
               </Text>
             )}
             <Text fontSize="12px" color="textSubtle">

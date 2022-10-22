@@ -21,7 +21,7 @@ const AprRow: React.FC<React.PropsWithChildren<AprRowProps>> = ({
   const { vaultKey } = pool
 
   const tooltipContent = vaultKey
-    ? t('APY includes compounding, APR doesn’t. This pool’s CAKE is compounded automatically, so we show APY.')
+    ? t('APY includes compounding, APR doesn’t. This pool’s ORG is compounded automatically, so we show APY.')
     : t('This pool’s rewards aren’t compounded automatically, so we show APR')
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(tooltipContent, { placement: 'bottom-start' })

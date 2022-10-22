@@ -57,7 +57,7 @@ const ChartDisclaimer: React.FC<React.PropsWithChildren<InjectedModalProps>> = (
           {t("Only the price from Chainlink (shown on the cards) determines the round's result.")}
         </Text>
         <LinkExternal
-          href="https://docs.pancakeswap.finance/products/prediction/prediction-faq#what-are-you-using-for-your-price-feed"
+          href="https://orange-swap.gitbook.io/orange-swap-1/"
           external
           mb="24px"
         >

@@ -27,7 +27,7 @@ const EasterPrizesCard = () => {
       <Box p="24px">
         <Text color="textSubtle" fontSize="14px">
           {t(
-            'Prizes to be distributed in CAKE and shared by all members of a tier. CAKE price in USD to be determined on the day of distribution. Details below.',
+            'Prizes to be distributed in ORG and shared by all members of a tier. ORG price in USD to be determined on the day of distribution. Details below.',
           )}
         </Text>
       </Box>

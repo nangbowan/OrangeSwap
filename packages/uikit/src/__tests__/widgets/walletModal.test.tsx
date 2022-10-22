@@ -347,7 +347,7 @@ it("renders ConnectModal correctly", () => {
             </p>
             <a
               class="c16"
-              href="https://docs.pancakeswap.finance/get-started/connection-guide"
+              href="https://orange-swap.gitbook.io/orange-swap-1/"
               rel="noreferrer noopener"
               scale="md"
               target="_blank"

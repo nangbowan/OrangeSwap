@@ -87,20 +87,20 @@ function ConnectModal<T>({ login, onDismiss = () => null, displayCount = 3, t, w
             {!showMore && walletsToShow.length > 4 && <MoreWalletCard t={t} onClick={() => setShowMore(true)} />}
           </Grid>
         </WalletWrapper>
-        <Box p="24px">
+        {/* <Box p="24px">
           <Text textAlign="center" color="textSubtle" as="p" mb="16px">
             {t("Haven’t got a crypto wallet yet?")}
           </Text>
           <Button
             as="a"
-            href="https://docs.pancakeswap.finance/get-started/connection-guide"
+            href="https://orange-swap.gitbook.io/orange-swap-1/"
             variant="primary"
             width="100%"
             {...EXTERNAL_LINK_PROPS}
           >
             {t("Learn How to Connect")}
           </Button>
-        </Box>
+        </Box> */}
       </ModalBody>
     </ModalContainer>
   );

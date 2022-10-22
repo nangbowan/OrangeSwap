@@ -38,7 +38,7 @@ const Staked: React.FC<React.PropsWithChildren<StakedProps>> = ({ earned, farm }
     <Container>
       <ActionTitles>
         <Text bold textTransform="uppercase" color="secondary" fontSize="12px" pr="4px">
-          {`CAKE ${t('Earned')}`}
+          {`ORG ${t('Earned')}`}
         </Text>
       </ActionTitles>
       <ActionContent>

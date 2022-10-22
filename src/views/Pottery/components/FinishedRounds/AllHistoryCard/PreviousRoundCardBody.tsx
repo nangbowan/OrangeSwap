@@ -102,7 +102,7 @@ const PreviousRoundCardBody: React.FC<React.PropsWithChildren<PreviousRoundCardB
           value={prizeInBusd}
         />
         <Balance
-          unit=" CAKE"
+          unit=" ORG"
           mb="18px"
           fontSize="14px"
           color="textSubtle"

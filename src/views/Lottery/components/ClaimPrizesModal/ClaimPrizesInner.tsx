@@ -94,7 +94,7 @@ const ClaimInnerContainer: React.FC<React.PropsWithChildren<ClaimInnerProps>> = 
       toastSuccess(
         t('Prizes Collected!'),
         <ToastDescriptionWithTx txHash={receipt.transactionHash}>
-          {t('Your CAKE prizes for round %lotteryId% have been sent to your wallet', { lotteryId })}
+          {t('Your ORG prizes for round %lotteryId% have been sent to your wallet', { lotteryId })}
         </ToastDescriptionWithTx>,
       )
       handleProgressToNextClaim()
@@ -147,7 +147,7 @@ const ClaimInnerContainer: React.FC<React.PropsWithChildren<ClaimInnerProps>> = 
     if (receipts.length === transactionsToFire) {
       toastSuccess(
         t('Prizes Collected!'),
-        t('Your CAKE prizes for round %lotteryId% have been sent to your wallet', { lotteryId }),
+        t('Your ORG prizes for round %lotteryId% have been sent to your wallet', { lotteryId }),
       )
       handleProgressToNextClaim()
     }
@@ -171,7 +171,7 @@ const ClaimInnerContainer: React.FC<React.PropsWithChildren<ClaimInnerProps>> = 
             fontSize="44px"
             bold
             color="secondary"
-            unit=" CAKE!"
+            unit=" ORG!"
           />
           <PresentWonIcon ml={['0', null, '12px']} width="64px" />
         </Flex>

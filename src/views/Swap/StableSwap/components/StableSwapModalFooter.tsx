@@ -99,7 +99,7 @@ export default function StableSwapModalFooter({
                   <Text mb="12px">{t('For each trade a %amount% fee is paid', { amount: totalFeePercent })}</Text>
                   <Text>- {t('%amount% to LP token holders', { amount: lpHoldersFeePercent })}</Text>
                   <Text>- {t('%amount% to the Treasury', { amount: treasuryFeePercent })}</Text>
-                  <Text>- {t('%amount% towards CAKE buyback and burn', { amount: buyBackFeePercent })}</Text>
+                  <Text>- {t('%amount% towards ORG buyback and burn', { amount: buyBackFeePercent })}</Text>
                 </>
               }
               ml="4px"

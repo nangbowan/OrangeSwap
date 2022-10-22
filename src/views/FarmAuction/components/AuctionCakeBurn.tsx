@@ -62,7 +62,7 @@ const AuctionCakeBurn: React.FC<React.PropsWithChildren> = () => {
           <Skeleton width="128px" />
         )}
       </Flex>
-      <Image width={350} height={320} src="/images/burnt-cake.png" alt={t('Burnt CAKE')} />
+      <Image width={350} height={320} src="/images/burnt-cake.png" alt={t('Burnt ORG')} />
     </Flex>
   )
 }

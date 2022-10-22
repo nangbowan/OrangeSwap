@@ -125,7 +125,7 @@ const PoolStatsInfo: React.FC<React.PropsWithChildren<ExpandedFooterProps>> = ({
       )}
       {vaultKey && (
         <Flex mb="2px" justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}>
-          <LinkExternal href="https://docs.pancakeswap.finance/products/syrup-pool/new-cake-pool" bold={false} small>
+          <LinkExternal href="https://orange-swap.gitbook.io/orange-swap-1/" bold={false} small>
             {t('View Tutorial')}
           </LinkExternal>
         </Flex>

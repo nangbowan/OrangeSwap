@@ -65,7 +65,7 @@ const CardFooter: React.FC<React.PropsWithChildren<CardFooterProps>> = ({ accoun
                 <Flex>
                   <Balance bold decimals={2} value={totalValueLocked} />
                   <Text ml="4px" color="textSubtle" as="span">
-                    CAKE
+                  ORG
                   </Text>
                 </Flex>
               ) : (
