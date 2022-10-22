@@ -274,12 +274,12 @@ const TopImg = styled.img`
   right: 150px;
   top: 180px;
   @media (max-width: 768px) {
-    width: 339.69px;
-    height: 339.69px;
+    width: 250px;
+    height: 250px;
     position: relative;
     right: 0;
     top: 0;
-    margin: 12px 0 4px;
+    margin: 12px 0 12px;
   }
 `
 
