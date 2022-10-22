@@ -26,28 +26,26 @@ export const ACCESS_TOKEN_SUPPORT_CHAIN_IDS = [ChainId.BSC]
 
 const STABLE_SUPPORT_CHAIN_IDS = [ChainId.BSC_TESTNET]
 
-const Icon = styled.img`
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 211px;
-  height: 211px;
-  display: ${() => ((window as any).screen.width <= 768 ? 'block' : 'none')};
-`
 const IconYz = styled.img`
   position: absolute;
-  bottom: 400px;
-  left: 0px;
-  width: 573px;
-  height: 573px;
-  display: none;
+  top: -10px;
+  left: calc(50% + 240px);
+  transform: translateX(-50%);
+  width: 550px;
+  height: auto;
   z-index: 0;
+  @media (max-width: 768px) {
+    width: 150px;
+    top: -35px;
+    left: -30px;
+    transform: none;
+  }
   /* display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')}; */
 `
 const Icons = styled.img`
   position: absolute;
   top: -50px;
-  left: calc(50% + 160px);
+  left: calc(50% - 180px);
   transform: translateX(-50%);
   width: 170px;
   height: 170px;
@@ -158,10 +156,8 @@ export default function Swap() {
         </Flex>
       </Flex>
       <ChangeIng />
-      <Icon src="/images/pool/bottom.png" />
       <IconYz src="/images/pool/yz.png" />
       <Icons src="/images/pool/icon.png" />
-      
     </Page>
   )
 }
