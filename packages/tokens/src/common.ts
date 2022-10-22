@@ -53,7 +53,14 @@ export const USDC_GOERLI = new Token(
   'tUSDC',
   'test USD Coin',
 )
-
+export const USDT_FON = new Token(
+  ChainId.FON,
+  '0x9a9eD7440a3850c4D7240c9FcA8B7C96802615f0',
+  18,
+  'USDT',
+  'Tether USD',
+  '',
+)
 export const USDT_BSC = new Token(
   ChainId.BSC,
   '0x55d398326f99059fF775485246999027B3197955',
@@ -143,4 +150,5 @@ export const USDC = {
 export const USDT = {
   [ChainId.BSC]: USDT_BSC,
   [ChainId.ETHEREUM]: USDT_ETH,
+  [ChainId.FON]: USDT_FON,
 }

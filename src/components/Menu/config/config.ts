@@ -22,6 +22,7 @@ import { perpLangMap } from 'utils/getPerpetualLanguageCode'
 import { perpTheme } from 'utils/getPerpetualTheme'
 import { DropdownMenuItems } from '@pancakeswap/uikit/src/components/DropdownMenu/types'
 import { SUPPORT_ONLY_BSC } from 'config/constants/supportChains'
+import { SUPPORT_ONLY_FON } from 'config/constants/supportChains'
 
 export type ConfigMenuDropDownItemsType = DropdownMenuItems & { hideSubNav?: boolean }
 export type ConfigMenuItemsType = Omit<MenuItemsType, 'items'> & { hideSubNav?: boolean; image?: string } & {
@@ -88,7 +89,7 @@ const config: (
       href: '/farms',
       icon: EarnIcon,
       fillIcon: EarnFillIcon,
-      supportChainIds: SUPPORT_ONLY_BSC,
+      // supportChainIds: SUPPORT_ONLY_BSC,
       items: [
         {
           label: t('Farms'),
@@ -97,7 +98,7 @@ const config: (
         {
           label: t('Pools'),
           href: '/pools',
-          supportChainIds: SUPPORT_ONLY_BSC,
+          // supportChainIds: SUPPORT_ONLY_BSC,
         },
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -107,7 +108,7 @@ const config: (
       icon: TrophyIcon,
       fillIcon: TrophyFillIcon,
       showItemsOnMobile: false,
-      supportChainIds: SUPPORT_ONLY_BSC,
+      // supportChainIds: SUPPORT_ONLY_BSC,
       items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -118,7 +119,7 @@ const config: (
       fillIcon: LaunchIcon,
       showItemsOnMobile: false,
       // image: '/images/decorations/pe2.png',
-      supportChainIds: SUPPORT_ONLY_BSC,
+      // supportChainIds: SUPPORT_ONLY_BSC,
       items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -129,7 +130,7 @@ const config: (
       fillIcon: NftbarIcon,
       showItemsOnMobile: false,
       // image: '/images/decorations/pe2.png',
-      supportChainIds: SUPPORT_ONLY_BSC,
+      // supportChainIds: SUPPORT_ONLY_BSC,
       items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -140,7 +141,7 @@ const config: (
       fillIcon: MetaverseIcon,
       showItemsOnMobile: false,
       // image: '/images/decorations/pe2.png',
-      supportChainIds: SUPPORT_ONLY_BSC,
+      // supportChainIds: SUPPORT_ONLY_BSC,
       items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -154,12 +155,12 @@ const config: (
         {
           label: 'IDO',
           href: '/ido',
-          supportChainIds: SUPPORT_ONLY_BSC,
+          // supportChainIds: SUPPORT_ONLY_BSC,
         },
         {
           label: 'Data',
           href: '/Data',
-          supportChainIds: SUPPORT_ONLY_BSC,
+          // supportChainIds: SUPPORT_ONLY_BSC,
         },
         {
           label: t('Docs'),
@@ -178,17 +179,17 @@ const config: (
         {
           label: 'Twitter',
           href: '/Twitter',
-          supportChainIds: SUPPORT_ONLY_BSC,
+          // supportChainIds: SUPPORT_ONLY_BSC,
         },
         {
           label: 'Telegram-Chinese',
           href: '/Telegram-Chinese',
-          supportChainIds: SUPPORT_ONLY_BSC,
+          // supportChainIds: SUPPORT_ONLY_BSC,
         },
         {
           label: 'Telegram-English',
           href: '/Telegram-English',
-          supportChainIds: SUPPORT_ONLY_BSC,
+          // supportChainIds: SUPPORT_ONLY_BSC,
         },
       ].map((item) => addMenuItemSupported(item, chainId)),
     },

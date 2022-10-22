@@ -1,5 +1,5 @@
 import { ChainId ,Token,WFON} from '@pancakeswap/sdk'
-// import { ORG_MAINNET, USDT_FON } from './common'
+import { USDT_FON } from './common'
 export const fonTokens = {
     wfon: WFON[ChainId.FON],
     // bnb here points to the wbnb contract. Wherever the currency BNB is required, conditional checks for the symbol 'BNB' can be used
@@ -11,5 +11,6 @@ export const fonTokens = {
       'FON',
       '',
     ),
+    usdt:USDT_FON,
     
   }

@@ -26,7 +26,7 @@ const PredictionConfigProviders = ({ children }) => {
   useEffect(() => {
     const upperToken = _toUpper(token as string) as PredictionSupportedSymbol
 
-    if ([PredictionSupportedSymbol.BNB, PredictionSupportedSymbol.].includes(upperToken)) {
+    if ([PredictionSupportedSymbol.BNB, PredictionSupportedSymbol.CAKE].includes(upperToken)) {
       setConfig(upperToken)
       localStorage?.setItem(PREDICTION_TOKEN_KEY, upperToken)
     }

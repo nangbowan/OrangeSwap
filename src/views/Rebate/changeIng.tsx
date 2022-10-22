@@ -66,7 +66,7 @@ const ChangeIng: FC = (): ReactElement => {
           <Header>
             交易挖矿
             <br />
-            正在进行中！！！
+            正在进行中
           </Header>
           <Content>
             <Card>
