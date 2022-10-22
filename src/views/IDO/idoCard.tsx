@@ -144,7 +144,7 @@ const IdoCard: FC<any> = (): ReactElement => {
   return (
     <Main>
       <Imgs className="frist" src="/images/ido/first_bg.png" />
-      <Imgs className="second" src="/images/ido/second_bg.png" />
+      <Imgs className="second" src="/images/ido/orgpeople1.png" />
       <Imgs className="third" src="/images/ido/third_bg.png" />
 
       <Title>IDO:Initial Digital Assects Offering</Title>
@@ -160,7 +160,7 @@ const IdoCard: FC<any> = (): ReactElement => {
           <Top>
             {!isStart ? (
               <>
-                <Icon src="/images/ido/click.png" />
+                <Icon src="/images/ido/orange.png" />
                 <IdoTitle>IDO未开始！</IdoTitle>
               </>
             ) : (
@@ -300,15 +300,16 @@ const Imgs = styled.img`
     }
   }
   &.second {
-    width: 814px;
-    height: 814px;
+    width: 314px;
+    height: 514px;
     left: 50%;
     transform: translateX(-50%);
-    top: 230px;
+    top: 400px;
     @media (max-width: 768px) {
-      width: 180px;
-      height: 180px;
-      top: 0;
+      width: 100px;
+      height: 150px;
+      top: 30px;
+      bottom: 10px;
       margin-bottom: 12px;
     }
   }
@@ -355,7 +356,7 @@ const Title = styled.div`
   @media (max-width: 768px) {
     font-size: 24px;
     line-height: 34px;
-    padding: 0 28px;
+    padding: 15px 28px;
     color: #121211;
   }
 `
@@ -473,10 +474,11 @@ const Top = styled.div`
   }
 `
 const Icon = styled.img`
-  width: 179px;
+  width: 220px;
   height: 183px;
+  margin: 30px 30px 20px 50px;
   @media (max-width: 768px) {
-    width: 85px;
+    width: 110px;
     height: 87px;
   }
 `

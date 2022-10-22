@@ -39,7 +39,7 @@ const Market: FC = (): ReactElement => {
           ))}
         </Content>
       </Explain>
-      <Icon src="/images/ido/explain.png" />
+      <Icon src="/images/base/banner2.png" />
     </Main>
   )
 }
@@ -196,15 +196,16 @@ const UpIcon = styled.img`
 `
 const Icon = styled.img`
   position: absolute;
-  width: 677px;
-  height: 677px;
-  right: -117px;
-  top: 0;
+  width: 450px;
+  height: 450px;
+  right: 80px;
+  top: 50px;
   @media (max-width: 768px) {
     position: relative;
-    width: 100%;
+    width: 150px;
     height: auto;
-    right: 0;
+    right: -120px;
+    padding: 0 0 50px 0;
   }
 `
 const Tip = styled.div`
@@ -217,6 +218,7 @@ const Tip = styled.div`
   @media (max-width: 768px) {
     font-size: 12px;
     line-height: 17px;
+    
   }
 `
 export default Market
