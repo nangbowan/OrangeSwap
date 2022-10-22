@@ -2,10 +2,12 @@ import { Obj } from 'itty-router'
 import { error } from 'itty-router-extras'
 import { createFarmFetcher } from '@pancakeswap/farms'
 import { createMulticall } from '@pancakeswap/multicall'
-import { bscProvider, bscTestnetProvider, goerliProvider } from './provider'
+import { fonProvider,bscProvider, bscTestnetProvider, goerliProvider } from './provider'
 
 export const getProvider = ({ chainId }: { chainId?: number }) => {
   switch (chainId) {
+    case 201022:
+      return fonProvider
     case 56:
       return bscProvider
     case 97:

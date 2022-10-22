@@ -32,7 +32,8 @@ export const useGetBoostedMultiplier = (userBalanceInFarm: BigNumber, lpTotalSup
     lockedStart,
     isLoading,
   ])
-  return _toNumber(bCakeMultiplier)
+  // return _toNumber(bCakeMultiplier)
+  return _toNumber(1)
 }
 
 export const useGetCalculatorMultiplier = (
@@ -74,7 +75,8 @@ const useGetBoostedAPR = (
   lpRewardsApr: number,
 ) => {
   const bCakeMultiplier = useGetBoostedMultiplier(userBalanceInFarm, lpTotalSupply)
-  return (apr * bCakeMultiplier + lpRewardsApr).toFixed(2)
+  // return (apr * bCakeMultiplier + lpRewardsApr).toFixed(2)
+  return (apr * 1 + lpRewardsApr).toFixed(2)
 }
 
 export default useGetBoostedAPR

@@ -63,8 +63,8 @@ const BCakeCalculator: React.FC<React.PropsWithChildren<BCakeCalculatorProps>> =
     () => new BigNumber(principalAsToken).multipliedBy(BIG_TEN.pow(18)),
     [principalAsToken],
   )
-
-  const bCakeMultiplier = useGetCalculatorMultiplier(userBalanceInFarm, lpTotalSupply, userLockedAmount, duration)
+  const bCakeMultiplier = 1
+  // const bCakeMultiplier = useGetCalculatorMultiplier(userBalanceInFarm, lpTotalSupply, userLockedAmount, duration)
 
   useEffect(() => {
     setBCakeMultiplier(bCakeMultiplier)
@@ -205,5 +205,6 @@ export const getBCakeMultiplier = (
   const bigNumberResult = dB.plus(aB).gt(userBalanceInFarm)
     ? userBalanceInFarm.dividedBy(dB)
     : dB.plus(aB).dividedBy(dB)
-  return bigNumberResult
+  // return bigNumberResult
+  return 1
 }

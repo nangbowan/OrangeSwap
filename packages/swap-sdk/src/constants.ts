@@ -98,7 +98,16 @@ export const WETH9 = {
     'https://weth.io'
   ),
 }
-
+export const WFON = {
+  [ChainId.FON]: new Token(
+    ChainId.FON,
+    '0xb582fD9d0D5C3515EEB6b02fF2d6eE0b6E45E7A7',
+    18,
+    'WFON',
+    'Wrapped FON',
+    ''
+  ),
+}
 export const WBNB = {
   [ChainId.ETHEREUM]: new Token(
     ChainId.ETHEREUM,

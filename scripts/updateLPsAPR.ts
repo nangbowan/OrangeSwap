@@ -104,6 +104,13 @@ export const bscProvider = new StaticJsonRpcProvider(
   },
   56,
 )
+export const fonProvider = new StaticJsonRpcProvider(
+  {
+    url: 'https://fsc-dataseed1.fonscan.io',
+    skipFetchSetup: true,
+  },
+  201022,
+)
 
 interface SplitFarmResult {
   normalFarms: any[]

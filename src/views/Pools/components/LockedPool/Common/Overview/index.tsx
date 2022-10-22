@@ -32,9 +32,9 @@ const Overview: React.FC<React.PropsWithChildren<OverviewPropsType>> = ({
   const { t } = useTranslation()
 
   const lockedApy = useMemo(() => getLockedApy(duration), [getLockedApy, duration])
-  const boostFactor = useMemo(() => getBoostFactor(duration), [getBoostFactor, duration])
+  // const boostFactor = useMemo(() => getBoostFactor(duration), [getBoostFactor, duration])
   const newLockedApy = useMemo(() => (newDuration && getLockedApy(newDuration)) || 0, [getLockedApy, newDuration])
-  const newBoost = useMemo(() => (newDuration && getBoostFactor(newDuration)) || 0, [getBoostFactor, newDuration])
+  // const newBoost = useMemo(() => (newDuration && getBoostFactor(newDuration)) || 0, [getBoostFactor, newDuration])
 
   const formattedRoi = useMemo(() => {
     return formatRoi({ usdValueStaked, lockedApy, duration })
@@ -92,7 +92,7 @@ const Overview: React.FC<React.PropsWithChildren<OverviewPropsType>> = ({
             value={isValidDuration && formatSecondsToWeeks(duration)}
             newValue={isValidDuration && newDuration && formatSecondsToWeeks(newDuration)}
           />
-          <BalanceRow
+          {/* <BalanceRow
             title={t('Yield boost')}
             unit="x"
             value={_toNumber(boostFactor)}
@@ -101,7 +101,7 @@ const Overview: React.FC<React.PropsWithChildren<OverviewPropsType>> = ({
             tooltipContent={t(
               'Your yield will be boosted based on the total lock duration of your current fixed term staking position.',
             )}
-          />
+          /> */}
           <DateRow
             color={_toNumber(newDuration) ? 'failure' : 'text'}
             title={t('Unlock on')}

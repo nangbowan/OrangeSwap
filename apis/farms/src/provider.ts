@@ -1,5 +1,13 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers'
 
+export const fonProvider = new StaticJsonRpcProvider(
+  {
+    url: 'https://fsc-dataseed1.fonscan.io',
+    skipFetchSetup: true,
+  },
+  201022,
+)
+
 export const bscProvider = new StaticJsonRpcProvider(
   {
     url: 'https://nodes.pancakeswap.com',

@@ -140,6 +140,21 @@ export async function saveLPsAPR(chainId: number, farmsConfig?: SerializedFarmCo
       return aprMap || null
     }
     return null
+  }else if (chainId === 201022) {
+    let data = farmsConfig
+    if (!data) {
+      const value = await FarmKV.getFarms(chainId)
+      if (value && value.data) {
+        // eslint-disable-next-line prefer-destructuring
+        data = value.data
+      }
+    }
+    if (data) {
+      const aprMap = (await updateLPsAPR(chainId, data)) || null
+      FarmKV.saveApr(chainId, aprMap)
+      return aprMap || null
+    }
+    return null
   }
   return null
 }
