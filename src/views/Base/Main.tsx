@@ -54,7 +54,7 @@ const BaseMain: FC = (): ReactElement => {
       <Top>
         <Start>即将开始</Start>
         <OrgImg src="/images/base/orgidos.png" />
-        <TopImg src="/images/base/banner.png" />
+        <TopImg src="/images/base/banner2.png" />
         <TopCont>
           <Btn onClick={()=> router.push('/ido')}>GO</Btn>
           <Arrow src="/images/base/arrow.svg" />
@@ -268,11 +268,11 @@ const Join = styled.div`
   }
 `
 const TopImg = styled.img`
-  width: 904px;
-  height: 904px;
+  width: 504px;
+  height: 504px;
   position: absolute;
-  right: -80px;
-  top: 0;
+  right: 150px;
+  top: 180px;
   @media (max-width: 768px) {
     width: 339.69px;
     height: 339.69px;
