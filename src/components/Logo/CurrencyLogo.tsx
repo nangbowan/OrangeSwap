@@ -46,6 +46,9 @@ export default function CurrencyLogo({
     }
     return <StyledLogo size={size} srcs={[`/images/chains/${currency.chainId}.png`]} width={size} style={style} />
   }
-
+  if(currency?.symbol === 'WFON'){
+    return <StyledLogo size={size} srcs={[`/images/chains/201022.png`]} alt={`${currency?.symbol ?? 'token'} logo`} style={style} />
+  } 
   return <StyledLogo size={size} srcs={srcs} alt={`${currency?.symbol ?? 'token'} logo`} style={style} />
+  
 }

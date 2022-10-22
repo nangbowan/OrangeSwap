@@ -10,6 +10,7 @@ export enum ChainId {
   GOERLI = 5,
   BSC = 56,
   BSC_TESTNET = 97,
+  FON = 201022,
 }
 
 export enum TradeType {
@@ -152,6 +153,11 @@ export const NATIVE: Record<
   [ChainId.BSC_TESTNET]: {
     name: 'Binance Chain Native Token',
     symbol: 'tBNB',
+    decimals: 18,
+  },
+  [ChainId.FON]: {
+    name: 'FON Chain Native Token',
+    symbol: 'FON',
     decimals: 18,
   },
 }

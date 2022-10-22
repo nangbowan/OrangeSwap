@@ -146,8 +146,13 @@ const IdoCard: FC<any> = (): ReactElement => {
       <Imgs className="third" src="/images/ido/third_bg.png" />
 
       <Title>IDO:Initial Digital Assects Offering</Title>
-      <Tip>购买在FSC公链上发起的新代币</Tip>
-      <MarketBtn>运作方式</MarketBtn>
+      <Tip>购买在FSC公链上发起的新代币 </Tip>
+      <MarketBtn onClick={()=> {
+        if(document){
+          const element = document.getElementById("market")
+          element.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        }
+      }}>运作方式</MarketBtn>
       <IdoCont>
         <Card>
           <Top>

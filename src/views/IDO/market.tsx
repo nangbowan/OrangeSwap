@@ -1,34 +1,40 @@
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useState } from 'react'
 import styled from 'styled-components'
 
 const Market: FC = (): ReactElement => {
+  const [index, setIndex] = useState<number>(-1)
   const list = [
     {
       title: 'orange swap IDO邀请机制是如何运作的？',
-      path: '/a',
+      content: '在IDO界面链接钱包，复制您专属的邀请链接发送给您的朋友，通过您的邀请链接进入IDO界面并链接钱包即为绑定成功。'
     },
     {
       title: 'Orange Swap IDO的邀请奖励机制是什么？',
-      path: '/b',
+      content: '您每邀请一个朋友成功认购IDO，您都可以获得她/他参与认购额度5%的ORG代币。'
     },
     {
       title: 'IDO资金将用于何处？',
-      path: '/c',
+      content: 'IDO所募集的资金将用于添加ORG初始流动池、项目营销及团队运营。'
     },
   ]
   return (
-    <Main>
+    <Main id="market">
+      
       <Explain>
         <Header>运作方式</Header>
         <Content>
-          {list.map((item) => (
-            <Line key={item.path}>
-              <Title>{item.title}</Title>
-              <Detail>
-                详情
-                <UpIcon className="pc" src="/images/ido/up.svg" />
-                <UpIcon className="mobile" src="/images/ido/up_mobile.svg" />
-              </Detail>
+          {list.map((item, _index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Line key={_index}>
+              <Top>
+                <Title>{item.title}</Title>
+                <Detail onClick={() => {setIndex(index === _index ? -1 : _index)}}>
+                  {index === _index ? "隐藏" : "详情"}
+                  <UpIcon className={["pc", index === _index && 'active'].join(' ')} src="/images/ido/up.svg" />
+                  <UpIcon className={["mobile", index === _index && 'active'].join(' ')} src="/images/ido/up_mobile.svg" />
+                </Detail>
+              </Top>
+              {index === _index && <Tip>{item.content}</Tip>}
             </Line>
           ))}
         </Content>
@@ -105,18 +111,24 @@ const Content = styled.div`
 `
 const Line = styled.div`
   width: 100%;
-  height: 151px;
+  
+  padding: 56px 0 36px;
   border-bottom: 1px dashed #9b84ff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   &:last-child {
     border: none;
   }
   @media (max-width: 768px) {
-    /* padding: 0 20px; */
-    height: 93px;
+    padding: 20px 0;
     border-bottom: 1px dashed #ff8c14;
+  }
+`
+const Top = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  @media (max-width: 768px) {
+    padding-bottom: 10px;
   }
 `
 const Title = styled.div`
@@ -128,6 +140,7 @@ const Title = styled.div`
   letter-spacing: 0.025em;
   text-transform: capitalize;
   color: #000000;
+  
   @media (max-width: 768px) {
     font-size: 16px;
     line-height: 22px;
@@ -147,7 +160,7 @@ const Detail = styled.div`
   cursor: pointer;
   float: right;
   @media (max-width: 768px) {
-    width: 74px;
+    width: 92px;
     text-align: right;
     font-size: 16px;
     line-height: 18px;
@@ -159,8 +172,14 @@ const Detail = styled.div`
 const UpIcon = styled.img`
   height: 14px;
   margin-left: 20px;
+  transform: rotate(0deg);
+  transition: all .2s;
   &.mobile {
     display: none;
+  }
+  &.active{
+    transform: rotate(-180deg);
+    transform-origin: center center;
   }
   @media (max-width: 768px) {
     height: 5px;
@@ -186,6 +205,18 @@ const Icon = styled.img`
     width: 100%;
     height: auto;
     right: 0;
+  }
+`
+const Tip = styled.div`
+  font-family: 'PingFang SC';
+  font-size: 24px;
+  line-height: 34px;
+  letter-spacing: 0.025em;
+  text-transform: capitalize;
+  color: #000000;
+  @media (max-width: 768px) {
+    font-size: 12px;
+    line-height: 17px;
   }
 `
 export default Market

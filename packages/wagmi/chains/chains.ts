@@ -115,4 +115,27 @@ export const bscTest: Chain = {
   testnet: true,
 }
 
+export const fon: Chain = {
+  id: 201022,
+  name: 'FON Smart Chain',
+  network: 'FON',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'FON Chain Native Token',
+    symbol: 'FON',
+  },
+  rpcUrls: {
+    public: 'https://fsc-dataseed1.fonscan.io/',
+    default: 'https://fsc-dataseed1.fonscan.io/',
+  },
+  blockExplorers: {
+    default: { name: 'FonScan', url: 'https://fonscan.io/' },
+  },
+  multicall: {
+    address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+    blockCreated: 17422483,
+  },
+  testnet: true,
+}
+
 export { rinkeby, mainnet, goerli }

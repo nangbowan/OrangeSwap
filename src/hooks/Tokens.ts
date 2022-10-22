@@ -32,6 +32,8 @@ export function useAllTokens(): { [address: string]: Token } {
   const { chainId } = useActiveWeb3React()
   const tokenMap = useAtomValue(combinedTokenMapFromActiveUrlsAtom)
   const userAddedTokens = useUserAddedTokens()
+
+  // console.log('useAllTokens', chainId, tokenMap)
   return useMemo(() => {
     return (
       userAddedTokens

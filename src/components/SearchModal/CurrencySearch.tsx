@@ -45,6 +45,7 @@ function useSearchInactiveTokenLists(search: string | undefined, minResults = 10
     const rest: WrappedTokenInfo[] = []
     const addressSet: { [address: string]: true } = {}
     const trimmedSearchQuery = search.toLowerCase().trim()
+    
     for (const url of inactiveUrls) {
       const list = lists[url].current
       // eslint-disable-next-line no-continue
@@ -114,6 +115,7 @@ function CurrencySearch({
 
   const showBNB: boolean = useMemo(() => {
     const s = debouncedQuery.toLowerCase().trim()
+    // console.log('showBNB native', native, s)
     return native && native.symbol?.toLowerCase?.()?.indexOf(s) !== -1
   }, [debouncedQuery, native])
 

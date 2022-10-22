@@ -10,10 +10,6 @@
   "logoURI": "https://pancakeswap.finance/logo.png",
   "keywords": ["orange", "default"],
   "tokens": [
- 
-
-
-
     {
       "name": "Wrapped BNB",
       "symbol": "WBNB",
@@ -221,33 +217,6 @@
       "chainId": 97,
       "decimals": 18,
       "logoURI": "https://pancakeswap.finance/images/tokens/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c.png"
-    },
-
-
-    {
-      "name": "Tether USD",
-      "symbol": "USDT",
-      "address": "0x9a9eD7440a3850c4D7240c9FcA8B7C96802615f0",
-      "chainId": 201022,
-      "decimals": 18,
-      "logoURI": "https://pancakeswap.finance/images/tokens/0x55d398326f99059fF775485246999027B3197955.png"
-    },
-    {
-      "name": "Wrapped FON",
-      "symbol": "WFON",
-      "address": "0xb582fD9d0D5C3515EEB6b02fF2d6eE0b6E45E7A7",
-      "chainId": 201022,
-      "decimals": 18,
-      "logoURI": "https://rosswap.com/static/media/bnb.47ab5796.png"
-    },
-    {
-      "name": "Orangeswap Token",
-      "symbol": "ORG",
-      "address": "0x418D75f65a02b3D53B2418FB8E1fe493759c7605",
-      "chainId": 201022,
-      "decimals": 18,
-      "logoURI": "https://github.com/nangbowan/OrangeSwap/blob/main/src/config/constants/tokenLists/Orange.png?raw=true"
     }
-
   ]
 }
