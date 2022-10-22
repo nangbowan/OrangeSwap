@@ -138,7 +138,7 @@ const BaseMain: FC = (): ReactElement => {
                 <LibsBtn>了解</LibsBtn>
               </Btns>
             </FontCont>
-            <Imgs src="/images/base/search.png" />
+            <Imgs className='search' src="/images/base/search.png" />
           </Libs>
           <Libs>
             <FontCont>
@@ -153,7 +153,7 @@ const BaseMain: FC = (): ReactElement => {
                 <LibsBtn>了解</LibsBtn>
               </Btns>
             </FontCont>
-            <Imgs src="/images/base/grod.png" />
+            <Imgs className='grod' src="/images/base/grod.png" />
           </Libs>
         </Introduce>
       </Content>
@@ -222,6 +222,7 @@ const TopCont = styled.div`
   @media (max-width: 768px) {
     display: inline-block;
     height: 40px;
+    margin-top: 20px;
   }
 `
 const Btn = styled.div`
@@ -268,18 +269,19 @@ const Join = styled.div`
   }
 `
 const TopImg = styled.img`
-  width: 504px;
-  height: 504px;
+  width: 529px;
+  height: 635px;
   position: absolute;
-  right: 150px;
-  top: 180px;
+  right: 80px;
+  top: 50%;
+  transform: translateY(-50%);
   @media (max-width: 768px) {
     width: 250px;
     height: 250px;
     position: relative;
     right: 0;
-    top: 0;
-    margin: 12px 0 12px;
+    top: 120px;
+    margin: 12px 0 10px;
   }
 `
 
@@ -592,7 +594,7 @@ const Change = styled.div`
   padding-top: 59px;
   @media (max-width: 768px) {
     width: 182px;
-    top: 120px;
+    top: 150px;
     right: 0;
     height: 182px;
     padding-top: 28px;
@@ -698,7 +700,7 @@ const Introduce = styled.div`
   padding: 118px 0 149px;
   width: 100%;
   @media (max-width: 768px) {
-    padding: 96px 75px 0 20px;
+    padding: 96px 75px 260px 20px;
   }
 `
 const Libs = styled.div`
@@ -714,10 +716,10 @@ const Libs = styled.div`
     margin: 60px 0 68px;
     text-align: right;
   }
-  img {
+  /* img {
     width: 743px;
     height: 743px;
-  }
+  } */
   @media (max-width: 768px) {
     display: block;
     margin-bottom: 96px;
@@ -726,10 +728,10 @@ const Libs = styled.div`
       left: 0;
       img {
         position: absolute;
-        right: -150px;
-        top: -195px;
-        width: 292px;
-        height: 292px;
+        right: -100px;
+        top: -145px;
+        width: 200px;
+        height: auto;
       }
     }
     &:nth-of-type(2) {
@@ -738,22 +740,22 @@ const Libs = styled.div`
       text-align: left;
       img {
         position: absolute;
-        right: -190px;
-        top: -75px;
         width: 292px;
-        height: 292px;
+        height: auto;
+        left: 60%;
+        top: 517px;
+        transform: translateX(-50%);
       }
     }
     &:last-child {
       position: relative;
       left: 0;
       img {
-        position: relative;
-        left: 50%;
-        top: -18px;
-        transform: translateX(-50%);
-        width: 284px;
-        height: 284px;
+        position: absolute;
+        right: -130px;
+        top: -162px;
+        width: 150px;
+        height: auto;
       }
     }
   }
@@ -830,6 +832,26 @@ const LibsBtn = styled.div`
 const Imgs = styled.img`
   width: 743px;
   height: 743px;
+  &.search{
+    width: 603px;
+    height: 569px;
+  }
+  &.grod{
+    width: 534px;
+    height: 534px;
+  }
+  /* @media (max-width: 768px) {
+    width: 112px;
+    height: 134px;
+    &.search{
+      width: 603px;
+      height: 569px;
+    }
+    &.grod{
+      width: 534px;
+      height: 534px;
+    }
+  } */
 `
 
 export default BaseMain

@@ -19,28 +19,25 @@ const Body = styled(CardBody)`
 
 const Icon = styled.img`
   position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 211px;
-  height: 211px;
-  display: ${() => ((window as any).screen.width <= 768 ? 'block' : 'none')};
+  bottom: -252px;
+  left: 10%;
+  width: 390px;
+  height: auto;
+  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
 `
 const IconYz = styled.img`
   position: absolute;
-  bottom: -100px;
-  left: 0px;
-  width: 573px;
-  height: 573px;
-  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
-`
-const Icons = styled.img`
-  position: absolute;
-  top: -50px;
-  left: calc(50% + 220px);
+  top: -13px;
+  left: calc(50% + 240px);
   transform: translateX(-50%);
-  width: 170px;
-  height: 170px;
-  display: ${() => ((window as any).screen.width <= 768 ? 'none' : 'block')};
+  width: 125px;
+  height: auto;
+  @media (max-width: 768px) {
+    width: 150px;
+    top: -35px;
+    left: -30px;
+    transform: none;
+  }
 `
 
 export default function Pool() {
@@ -170,9 +167,8 @@ export default function Pool() {
           </Text>
         </CardFooter>
       </AppBody>
-      <Icon src="/images/pool/bottom.png" />
+      <Icon src="/images/pool/people.png" />
       <IconYz src="/images/pool/yz.png" />
-      <Icons src="/images/pool/icon.png" />
     </Page>
   )
 }

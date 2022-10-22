@@ -299,6 +299,7 @@ const Main = styled.div`
   width: 100%;
   background: linear-gradient(285.68deg, #ff5b36 6.56%, #ffb74a 98.03%);
   min-width: 1440px;
+  position: relative;
   @media (max-width: 768px) {
     min-width: 100%;
     /* overflow-x: hidden; */
