@@ -18,7 +18,7 @@ export function SentryErrorBoundary({ children }) {
           <Page>
             <Flex flexDirection="column" justifyContent="center" alignItems="center">
               {/* <LogoIcon width="64px" mb="8px" /> */}
-              <img width="40px" src = "/public/images/base/exchange.png"></img>
+              {/* <img width="40px" src = "/public/images/base/exchange.png"></img> */}
               <Text mb="16px">{t('Oops, something wrong.')}</Text>
               {eventId && (
                 <Flex flexDirection="column" style={{ textAlign: 'center' }} mb="8px">
