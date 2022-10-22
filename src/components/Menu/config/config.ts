@@ -21,8 +21,7 @@ import { nftsBaseUrl } from 'views/Nft/market/constants'
 import { perpLangMap } from 'utils/getPerpetualLanguageCode'
 import { perpTheme } from 'utils/getPerpetualTheme'
 import { DropdownMenuItems } from '@pancakeswap/uikit/src/components/DropdownMenu/types'
-import { SUPPORT_ONLY_BSC } from 'config/constants/supportChains'
-import { SUPPORT_ONLY_FON } from 'config/constants/supportChains'
+import { SUPPORT_ONLY_BSC, SUPPORT_FON } from 'config/constants/supportChains'
 
 export type ConfigMenuDropDownItemsType = DropdownMenuItems & { hideSubNav?: boolean }
 export type ConfigMenuItemsType = Omit<MenuItemsType, 'items'> & { hideSubNav?: boolean; image?: string } & {
@@ -63,7 +62,7 @@ const config: (
         // {
         //   label: t('Limit'),
         //   href: '/limit-orders',
-        //   supportChainIds: SUPPORT_ONLY_BSC,
+        //   supportChainIds: SUPPORT_FON,
         //   image: '/images/decorations/3d-coin.png',
         // },
         {
@@ -89,7 +88,7 @@ const config: (
       href: '/farms',
       icon: EarnIcon,
       fillIcon: EarnFillIcon,
-      // supportChainIds: SUPPORT_ONLY_BSC,
+      supportChainIds: SUPPORT_FON,
       items: [
         {
           label: t('Farms'),
@@ -98,7 +97,7 @@ const config: (
         {
           label: t('Pools'),
           href: '/pools',
-          // supportChainIds: SUPPORT_ONLY_BSC,
+          supportChainIds: SUPPORT_FON,
         },
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -108,7 +107,7 @@ const config: (
       icon: TrophyIcon,
       fillIcon: TrophyFillIcon,
       showItemsOnMobile: false,
-      // supportChainIds: SUPPORT_ONLY_BSC,
+      supportChainIds: SUPPORT_FON,
       items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -119,7 +118,7 @@ const config: (
       fillIcon: LaunchIcon,
       showItemsOnMobile: false,
       // image: '/images/decorations/pe2.png',
-      // supportChainIds: SUPPORT_ONLY_BSC,
+      supportChainIds: SUPPORT_FON,
       items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -130,7 +129,7 @@ const config: (
       fillIcon: NftbarIcon,
       showItemsOnMobile: false,
       // image: '/images/decorations/pe2.png',
-      // supportChainIds: SUPPORT_ONLY_BSC,
+      supportChainIds: SUPPORT_FON,
       items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -141,7 +140,7 @@ const config: (
       fillIcon: MetaverseIcon,
       showItemsOnMobile: false,
       // image: '/images/decorations/pe2.png',
-      // supportChainIds: SUPPORT_ONLY_BSC,
+      supportChainIds: SUPPORT_FON,
       items: [
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
@@ -155,12 +154,12 @@ const config: (
         {
           label: 'IDO',
           href: '/ido',
-          // supportChainIds: SUPPORT_ONLY_BSC,
+          supportChainIds: SUPPORT_FON,
         },
         {
           label: 'Data',
           href: '/Data',
-          // supportChainIds: SUPPORT_ONLY_BSC,
+          supportChainIds: SUPPORT_FON,
         },
         {
           label: t('Docs'),
@@ -179,17 +178,17 @@ const config: (
         {
           label: 'Twitter',
           href: '/Twitter',
-          // supportChainIds: SUPPORT_ONLY_BSC,
+          supportChainIds: SUPPORT_FON,
         },
         {
           label: 'Telegram-Chinese',
           href: '/Telegram-Chinese',
-          // supportChainIds: SUPPORT_ONLY_BSC,
+          supportChainIds: SUPPORT_FON,
         },
         {
           label: 'Telegram-English',
           href: '/Telegram-English',
-          // supportChainIds: SUPPORT_ONLY_BSC,
+          supportChainIds: SUPPORT_FON,
         },
       ].map((item) => addMenuItemSupported(item, chainId)),
     },

@@ -3393,4 +3393,36 @@ const finishedPools = [
   earningToken: p.earningToken.serialize,
 }))
 
-export default [...livePools, ...finishedPools]
+
+export const _livePools: SerializedPoolConfig[] = [
+  {
+    sousId: 0,
+    stakingToken: bscTokens.cake,
+    earningToken: bscTokens.cake,
+    contractAddress: {
+      97: '0xB4A466911556e39210a6bB2FaECBB59E4eB7E43d',
+      56: '0xa5f8C5Dbd5F286960b9d90548680aE5ebFf07652',
+    },
+    poolCategory: PoolCategory.CORE,
+    tokenPerBlock: '10',
+    isFinished: false,
+  },
+]
+
+const _finishedPools = [
+  // {
+  //   sousId: 287,
+  //   stakingToken: bscTokens.cake,
+  //   earningToken: bscTokens.ole,
+  //   contractAddress: {
+  //     56: '0xda6F750be1331963E5772BEe757062f6bddcEA4C',
+  //     97: '',
+  //   },
+  //   poolCategory: PoolCategory.CORE,
+  //   tokenPerBlock: '2.2569',
+  //   version: 3,
+  // },
+]
+
+// export default [...livePools, ...finishedPools]
+export default [..._livePools, ..._finishedPools]

@@ -1,5 +1,14 @@
 import { ChainId, Token } from '@pancakeswap/sdk'
 
+export const ORG_MAINNET = new Token(
+  ChainId.FON,
+  '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',
+  18,
+  'ORG',
+  'OrangeSwap Token',
+  'https://orangeswap.finance/',
+)
+
 export const CAKE_MAINNET = new Token(
   ChainId.BSC,
   '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',
