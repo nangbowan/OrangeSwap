@@ -154,9 +154,14 @@ export const useBUSDCakeAmount = (amount: number): number | undefined => {
 // @Note: only fetch from one pair
 export const useCakeBusdPrice = ({ forceMainnet } = { forceMainnet: false }): Price<Currency, Currency> | undefined => {
   const { chainId } = useActiveWeb3React()
+
+  // 
   const isTestnet = !forceMainnet && isChainTestnet(chainId)
-  // Return bsc testnet cake if chain is testnet
   const cake: Token = isTestnet ? CAKE[ChainId.BSC_TESTNET] : CAKE[ChainId.BSC]
+
+  // const isTestnet:boolean = chainId !== 201022;
+  // const cake: Token = isTestnet ? CAKE[ChainId.BSC_TESTNET] : CAKE[ChainId.FON]
+  // console.log('cake----', isTestnet, cake)
   return usePriceByPairs(BUSD[cake.chainId], cake)
 }
 
