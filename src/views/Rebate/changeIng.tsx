@@ -29,6 +29,7 @@ const ChangeIng: FC = (): ReactElement => {
   const orgbundrebate = {
     56: '',
     97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3',
+    201022:'0x6C078d5B60674f071f158A09818a461778D538E6',
   }
 
   const rebateContract = useOrgbundrebate(orgbundrebate[chainId])

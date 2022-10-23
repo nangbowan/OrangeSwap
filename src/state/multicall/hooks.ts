@@ -148,7 +148,6 @@ function toCallState(
   if (success && data) {
     try {
       result = contractInterface.decodeFunctionResult(fragment, data)
-      console.log(result)
     } catch (error) {
       console.debug('Result data parsing failed', fragment, data)
       return {
