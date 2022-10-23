@@ -4,7 +4,7 @@ import { useAccount } from 'wagmi'
 import { useToast, Button } from '@pancakeswap/uikit'
 import { useGasPrice } from 'state/user/hooks'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-
+import { useTranslation } from '@pancakeswap/localization'
 import { $shiftedBy } from 'utils/met'
 import { BOOSTED_FARM_GAS_LIMIT } from 'config'
 import { ToastDescriptionWithTx } from 'components/Toast'
@@ -22,7 +22,7 @@ const ChangeIng: FC = (): ReactElement => {
   const gasPrice = useGasPrice()
   const { toastSuccess } = useToast()
   const { fetchWithCatchTxError, loading: pendingTx } = useCatchTxError()
-
+  const { t } = useTranslation()
   const [money, setMoney] = useState<number>(0)
 
 
@@ -65,22 +65,22 @@ const ChangeIng: FC = (): ReactElement => {
         <Img src="/images/rebate/coin.png" />
         <Cont>
           <Header>
-            交易挖矿
+            {t('Transaction mining')}
             <br />
-            正在进行中
+            {t('is underway')}
           </Header>
           <Content>
             <Card>
               <Libs>
-                <Title>我的交易金额</Title>
+                <Title>{t('My transaction amount')}</Title>
                 <Count>{money * 1000} ORG</Count>
               </Libs>
               <Libs>
-                <Title>我的交易奖励</Title>
+                <Title>{t('My Trading Rewards')}</Title>
                 <Count>{money} ORG</Count>
               </Libs>
             </Card>
-            <Button className='_claimBtn' isLoading={pendingTx} disabled={money <= 0} onClick={() => claim()}>提取奖励</Button>
+            <Button className='_claimBtn' isLoading={pendingTx} disabled={money <= 0} onClick={() => claim()}>{t('Withdraw rewards')}</Button>
           </Content>
         </Cont>
       </Section>
