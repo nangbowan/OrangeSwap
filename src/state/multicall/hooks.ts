@@ -18,6 +18,7 @@ import {
   toCallKey,
   ListenerOptions,
 } from './actions'
+import { ConsoleView } from 'react-device-detect'
 
 export interface Result extends ReadonlyArray<any> {
   readonly [key: string]: any
@@ -58,6 +59,7 @@ function useCallsData(calls: (Call | undefined)[], options?: ListenerOptions): C
   const callResults = useSelector<AppState, AppState['multicall']['callResults']>(
     (state) => state.multicall.callResults,
   )
+  // console.log(callResults)
   const dispatch = useAppDispatch()
 
   const serializedCallKeys: string = useMemo(
@@ -136,16 +138,20 @@ function toCallState(
   latestBlockNumber: number | undefined,
 ): CallState {
   if (!callResult) return INVALID_CALL_STATE
-  const { valid, data, blockNumber } = callResult
+  const { valid, data , blockNumber } = callResult
   if (!valid) return INVALID_CALL_STATE
   if (valid && !blockNumber) return LOADING_CALL_STATE
   if (!contractInterface || !fragment || !latestBlockNumber) return LOADING_CALL_STATE
   const success = data && data.length > 2
   const syncing = (blockNumber ?? 0) < latestBlockNumber
   let result: Result | undefined
+  console.log('callResult---',callResult)
+  console.log('success---',success)
+  console.log('data---',data)
   if (success && data) {
     try {
       result = contractInterface.decodeFunctionResult(fragment, data)
+      console.log(result)
     } catch (error) {
       console.debug('Result data parsing failed', fragment, data)
       return {
@@ -187,7 +193,7 @@ export function useSingleContractMultipleData(
         : [],
     [callInputs, contract, fragment],
   )
-
+  console.log('useCallsData====',options)
   const results = useCallsData(calls, options)
 
   const { cache } = useSWRConfig()
@@ -206,6 +212,7 @@ export function useMultipleContractSingleData(
   options?: ListenerOptions,
 ): CallState[] {
   const fragment = useMemo(() => contractInterface.getFunction(methodName), [contractInterface, methodName])
+  // console.log(fragment,isValidMethodArgs(callInputs))
   const callData: string | undefined = useMemo(
     () =>
       fragment && isValidMethodArgs(callInputs)
@@ -213,29 +220,27 @@ export function useMultipleContractSingleData(
         : undefined,
     [callInputs, contractInterface, fragment],
   )
-
+  
   const calls = useMemo(
     () =>
       fragment && addresses && addresses.length > 0 && callData
         ? addresses.map<Call | undefined>((address) => {
-            return address && callData
-              ? {
-                  address,
-                  callData,
-                }
-              : undefined
+            return address && callData ? {address,callData,}: undefined
           })
         : [],
     [addresses, callData, fragment],
   )
-
+  
+  // console.log(options)
   const results = useCallsData(calls, options)
   const { chainId } = useActiveWeb3React()
-
   const { cache } = useSWRConfig()
 
+  // console.log(fragment,'results-----',results)
   return useMemo(() => {
+    // console.log('chainId-----',chainId)
     const currentBlockNumber = cache.get(unstable_serialize(['blockNumber', chainId]))
+    console.log('results====',results)
     return results.map((result) => toCallState(result, contractInterface, fragment, currentBlockNumber))
   }, [cache, chainId, results, contractInterface, fragment])
 }

@@ -46,12 +46,12 @@ const IdoCard: FC<any> = (): ReactElement => {
   const orgIdo = {
     56: '',
     97: '0x33d98E94e133BC82E52B430dEc41C660a9049D51',
-    201022:'',
+    201022:'0x7F273BAb19c7735489dDA0898Cd5b46A9455fE1a',
   }
   const orgbundrebate = {
     56: '',
     97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3',
-    201022:'',
+    201022:'0x6C078d5B60674f071f158A09818a461778D538E6',
   }
 
   const rebateContract = useOrgbundrebate(orgbundrebate[chainId])
