@@ -145,9 +145,6 @@ function toCallState(
   const success = data && data.length > 2
   const syncing = (blockNumber ?? 0) < latestBlockNumber
   let result: Result | undefined
-  console.log('callResult---',callResult)
-  console.log('success---',success)
-  console.log('data---',data)
   if (success && data) {
     try {
       result = contractInterface.decodeFunctionResult(fragment, data)
@@ -193,7 +190,6 @@ export function useSingleContractMultipleData(
         : [],
     [callInputs, contract, fragment],
   )
-  console.log('useCallsData====',options)
   const results = useCallsData(calls, options)
 
   const { cache } = useSWRConfig()
@@ -212,7 +208,6 @@ export function useMultipleContractSingleData(
   options?: ListenerOptions,
 ): CallState[] {
   const fragment = useMemo(() => contractInterface.getFunction(methodName), [contractInterface, methodName])
-  // console.log(fragment,isValidMethodArgs(callInputs))
   const callData: string | undefined = useMemo(
     () =>
       fragment && isValidMethodArgs(callInputs)
@@ -231,16 +226,14 @@ export function useMultipleContractSingleData(
     [addresses, callData, fragment],
   )
   
-  // console.log(options)
   const results = useCallsData(calls, options)
   const { chainId } = useActiveWeb3React()
   const { cache } = useSWRConfig()
 
-  // console.log(fragment,'results-----',results)
+
   return useMemo(() => {
-    // console.log('chainId-----',chainId)
+
     const currentBlockNumber = cache.get(unstable_serialize(['blockNumber', chainId]))
-    console.log('results====',results)
     return results.map((result) => toCallState(result, contractInterface, fragment, currentBlockNumber))
   }, [cache, chainId, results, contractInterface, fragment])
 }
