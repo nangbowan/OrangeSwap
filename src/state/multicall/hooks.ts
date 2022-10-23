@@ -18,7 +18,6 @@ import {
   toCallKey,
   ListenerOptions,
 } from './actions'
-import { ConsoleView } from 'react-device-detect'
 
 export interface Result extends ReadonlyArray<any> {
   readonly [key: string]: any
