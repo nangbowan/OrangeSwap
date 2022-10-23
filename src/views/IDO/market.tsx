@@ -1,37 +1,68 @@
-import { FC, ReactElement, useState } from 'react'
+import { FC, ReactElement, useState, useEffect, useCallback } from 'react'
+import { useTranslation } from '@pancakeswap/localization'
 import styled from 'styled-components'
 
 const Market: FC = (): ReactElement => {
+  const { currentLanguage, t } = useTranslation()
   const [index, setIndex] = useState<number>(-1)
-  const list = [
+  const [list, setList] = useState<any[]>([
     {
-      title: 'orange swap IDO邀请机制是如何运作的？',
-      content: '在IDO界面链接钱包，复制您专属的邀请链接发送给您的朋友，通过您的邀请链接进入IDO界面并链接钱包即为绑定成功。'
+      title: t('How does the invitation mechanism of orange swap IDO work'),
+      content: t('Link wallet in IDO interface'),
     },
     {
-      title: 'Orange Swap IDO的邀请奖励机制是什么？',
-      content: '您每邀请一个朋友成功认购IDO，您都可以获得她/他参与认购额度5%的ORG代币。'
+      title: t('What is the invitation reward mechanism of Orange Swap IDO'),
+      content: t('Each time you invite a friend to subscribe to IDO successfully'),
     },
     {
-      title: 'IDO资金将用于何处？',
-      content: 'IDO所募集的资金将用于添加ORG初始流动池、项目营销及团队运营。'
+      title: t('Where will IDO funds be used'),
+      content: t('The funds raised by IDO will be used to add ORG'),
     },
-  ]
+  ])
+
+  const changeLange = useCallback(() => {
+    setTimeout(() => {
+      setList([
+        {
+          title: t('How does the invitation mechanism of orange swap IDO work'),
+          content: t('Link wallet in IDO interface'),
+        },
+        {
+          title: t('What is the invitation reward mechanism of Orange Swap IDO'),
+          content: t('Each time you invite a friend to subscribe to IDO successfully'),
+        },
+        {
+          title: t('Where will IDO funds be used'),
+          content: t('The funds raised by IDO will be used to add ORG'),
+        },
+      ])
+    }, 200)
+  }, [t])
+
+  useEffect(() => {
+    changeLange()
+  }, [currentLanguage, currentLanguage.locale])
   return (
     <Main id="market">
-      
       <Explain>
-        <Header>运作方式</Header>
+        <Header>{t('mode of operation')}</Header>
         <Content>
           {list.map((item, _index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Line key={_index}>
               <Top>
                 <Title>{item.title}</Title>
-                <Detail onClick={() => {setIndex(index === _index ? -1 : _index)}}>
-                  {index === _index ? "隐藏" : "详情"}
-                  <UpIcon className={["pc", index === _index && 'active'].join(' ')} src="/images/ido/up.svg" />
-                  <UpIcon className={["mobile", index === _index && 'active'].join(' ')} src="/images/ido/up_mobile.svg" />
+                <Detail
+                  onClick={() => {
+                    setIndex(index === _index ? -1 : _index)
+                  }}
+                >
+                  {index === _index ? t('hide') : t('detail')}
+                  <UpIcon className={['pc', index === _index && 'active'].join(' ')} src="/images/ido/up.svg" />
+                  <UpIcon
+                    className={['mobile', index === _index && 'active'].join(' ')}
+                    src="/images/ido/up_mobile.svg"
+                  />
                 </Detail>
               </Top>
               {index === _index && <Tip>{item.content}</Tip>}
@@ -111,7 +142,7 @@ const Content = styled.div`
 `
 const Line = styled.div`
   width: 100%;
-  
+
   padding: 56px 0 36px;
   border-bottom: 1px dashed #9b84ff;
   &:last-child {
@@ -140,7 +171,8 @@ const Title = styled.div`
   letter-spacing: 0.025em;
   text-transform: capitalize;
   color: #000000;
-  
+  flex: 1;
+
   @media (max-width: 768px) {
     font-size: 16px;
     line-height: 22px;
@@ -159,6 +191,8 @@ const Detail = styled.div`
   align-items: center;
   cursor: pointer;
   float: right;
+  width: 150px;
+  text-align: right;
   @media (max-width: 768px) {
     width: 92px;
     text-align: right;
@@ -173,11 +207,11 @@ const UpIcon = styled.img`
   height: 14px;
   margin-left: 20px;
   transform: rotate(0deg);
-  transition: all .2s;
+  transition: all 0.2s;
   &.mobile {
     display: none;
   }
-  &.active{
+  &.active {
     transform: rotate(-180deg);
     transform-origin: center center;
   }
@@ -204,7 +238,8 @@ const Icon = styled.img`
     position: relative;
     width: 150px;
     height: auto;
-    right: -120px;
+    left: 50%;
+    transform: translateX(-50%);
     padding: 0 0 50px 0;
   }
 `
@@ -218,7 +253,6 @@ const Tip = styled.div`
   @media (max-width: 768px) {
     font-size: 12px;
     line-height: 17px;
-    
   }
 `
 export default Market

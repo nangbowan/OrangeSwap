@@ -1,6 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
+import { useTranslation } from '@pancakeswap/localization'
 import { useToast, Button } from '@pancakeswap/uikit'
 import { useGasPrice } from 'state/user/hooks'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
@@ -19,8 +20,9 @@ const options = {
 }
 
 // orgido:0x33d98E94e133BC82E52B430dEc41C660a9049D51
-// orgbundrebate:0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3
+// orgbundrebate:0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3 
 const Rebate: FC = (): ReactElement => {
+  const { t } = useTranslation()
   const { address: account } = useAccount()
   const { chainId } = useActiveWeb3React()
   const gasPrice = useGasPrice()
@@ -71,7 +73,7 @@ const Rebate: FC = (): ReactElement => {
       toastSuccess(
         `Harvested!`,
         <ToastDescriptionWithTx txHash={receipt.transactionHash}>
-          提取奖励成功
+          {t('Reward extraction success')}
         </ToastDescriptionWithTx>,
       )
       getReward()
@@ -91,7 +93,7 @@ const Rebate: FC = (): ReactElement => {
         <Invite>
           <InviteLink>
             <Title>
-              <span>你的邀请链接</span>
+              <span>{t('Invitation Link')}</span>
             </Title>
             <LinkCont>
               <Btn>https://orangeswap.org/swap?shareid={account}</Btn>
@@ -101,7 +103,7 @@ const Rebate: FC = (): ReactElement => {
           </InviteLink>
           <InviteLink>
             <Title>
-              <span>已获得总返佣</span>
+              <span>{t('Total Commission')}</span>
             </Title>
             <Count>
               <Text>{money} ORG</Text>
@@ -111,43 +113,43 @@ const Rebate: FC = (): ReactElement => {
         </Invite>
         <RewardRegular>
           <Title>
-            <span>邀请奖励机制</span>
+            <span>{t('Invitation reward system')}</span>
           </Title>
           <Card>
             <Libs>
-              <Header className="exchange">交易奖励</Header>
+              <Header className="exchange">{t('Trading reward')}</Header>
               <Block>
                 <Content>
-                  可获得被邀请人每次交易金额
+                {t('Can obtain the invitee each transaction amount')}
                   <br />
-                  0.1%的ORG代币
+                  0.1%{t('ORG tokens')}
                 </Content>
               </Block>
             </Libs>
             <Libs>
-              <Header className="lp">LP挖矿</Header>
+              <Header className="lp">{t('LP dig')}</Header>
               <Block>
-                <Content>每次提取收益的0.1%</Content>
+                <Content>{t('Each time the income is withdrawn')}0.1%</Content>
               </Block>
             </Libs>
             <Libs>
-              <Header className="stake">ORG质押</Header>
+              <Header className="stake">{t('ORG pledge')}</Header>
               <Block>
                 <Content className="last">
-                  每次提取收益的0.1%
+                {t('Each time the income is withdrawn')}0.1%
                   <br />
-                  您钱包持有或者农场质押的ORG
+                  {t('Your wallet hold or farm pledge ORG')}
                   <br />
-                  代币越多，则邀请奖励越多。
+                  {t('The more tokens, the more rewards are invited')}
                 </Content>
               </Block>
             </Libs>
           </Card>
           <Table>
             <Item>
-              <Lib>等级</Lib>
-              <Lib>持有/质押数量</Lib>
-              <Lib>奖励比例</Lib>
+              <Lib>{t('grade')}</Lib>
+              <Lib>{t('Quantity held pledged')}</Lib>
+              <Lib>{t('Reward ratio')}</Lib>
             </Item>
             {rewardGulars.map((item) => (
               <Item key={item.grade}>

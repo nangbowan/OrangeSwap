@@ -1,7 +1,9 @@
 import { FC, ReactElement } from 'react'
+import { useTranslation } from '@pancakeswap/localization'
 import styled from 'styled-components'
 
 const Join: FC = (): ReactElement => {
+  const { t } = useTranslation()
   return (
     <Main>
       <Content>
@@ -9,17 +11,17 @@ const Join: FC = (): ReactElement => {
         <Imgs className="second" src="/images/ido/yezi.png" />
         <Imgs className="third" src="/images/ido/yezi.png" />
         <Imgs className="four" src="/images/ido/yezi.png" />
-        <Title>如何参与IDO</Title>
+        <Title>{t('How to participate in IDO')}</Title>
         <Cont>
           <Left>
-            <Tip className="tip_frist">准备好200-1000枚USDT在你的钱包里。</Tip>
+            <Tip className="tip_frist">{t('Have USDT in your wallet')}</Tip>
           </Left>
           <Icon className="pc" src="/images/ido/join_pc.png" />
           <Icon className="mobile" src="/images/ido/join_mobile.png" />
           <Right>
-            <Tip className="tip_second">关注社交媒体并链接到您的FSC公链钱包。</Tip>
-            <Tip className="tip_frist">准备好200-1000枚USDT在你的钱包里。</Tip>
-            <Tip className="tip_third">关注IDO时间,在IDO发售时,点击确认参与按钮认购</Tip>
+            <Tip className="tip_second">{t('Follow social media and link to your FSC public wallet')}</Tip>
+            <Tip className="tip_frist">{t('Have USDT in your wallet')}</Tip>
+            <Tip className="tip_third">{t('Pay attention to IDO time and click the confirm participation button to subscribe when IDO is offered')}</Tip>
           </Right>
         </Cont>
       </Content>

@@ -1,6 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
+import { useTranslation } from '@pancakeswap/localization'
 import { useRouter } from 'next/router';
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useToast, Button } from '@pancakeswap/uikit'
@@ -24,6 +25,7 @@ const $hash = (txHash, length = 4, lastLength = 6) => {
   return `${txHash.substring(0, length)}...${txHash.substring(txHash.length - lastLength, txHash.length)}`
 }
 const IdoCard: FC<any> = (): ReactElement => {
+  const {currentLanguage, t } = useTranslation()
   const { address: account } = useAccount()
   const { chainId } = useActiveWeb3React()
   const gasPrice = useGasPrice()
@@ -66,7 +68,7 @@ const IdoCard: FC<any> = (): ReactElement => {
       if (receipt?.status) {
         toastSuccess(
           `Successed!`,
-          <ToastDescriptionWithTx txHash={receipt.transactionHash}>参与成功</ToastDescriptionWithTx>,
+          <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Participate in the success')}</ToastDescriptionWithTx>,
         )
       }
       setLoading(false)
@@ -84,7 +86,7 @@ const IdoCard: FC<any> = (): ReactElement => {
       if (receipt?.status) {
         toastSuccess(
           `Successed!`,
-          <ToastDescriptionWithTx txHash={receipt.transactionHash}>参与成功</ToastDescriptionWithTx>,
+          <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Participate in the success')}</ToastDescriptionWithTx>,
         )
       }
       setWhiteLoading(false)
@@ -148,34 +150,34 @@ const IdoCard: FC<any> = (): ReactElement => {
       <Imgs className="third" src="/images/ido/third_bg.png" />
 
       <Title>IDO:Initial Digital Assects Offering</Title>
-      <Tip>购买在FSC公链上发起的新代币 </Tip>
+      <Tip>{t('Purchase a new token initiated on the FSC public chain')} </Tip>
       <MarketBtn onClick={()=> {
         if(document){
           const element = document.getElementById("market")
           element.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
         }
-      }}>运作方式</MarketBtn>
+      }}>{t('mode of operation')}</MarketBtn>
       <IdoCont>
         <Card>
           <Top>
             {!isStart ? (
               <>
                 <Icon src="/images/ido/orange.png" />
-                <IdoTitle>IDO未开始！</IdoTitle>
+                <IdoTitle>{t('IDO has not started')}</IdoTitle>
               </>
             ) : (
-              <IdoTitles>IDO未开始！</IdoTitles>
+              <IdoTitles>{t('IDO has not started')}</IdoTitles>
             )}
           </Top>
           <Content>
             <Line>
-              <Label>最大代币输入(USDT)</Label>
+              <Label>{t('Maximum token input')}(USDT)</Label>
               <ContFont>
                 <BtnUsdt>200U</BtnUsdt>
               </ContFont>
             </Line>
             <Line>
-              <Label>总提交金额</Label>
+              <Label>{t('Total amount submitted')}</Label>
               <ContFont>
                 {retailidonum} USDT
                 <br />
@@ -183,16 +185,16 @@ const IdoCard: FC<any> = (): ReactElement => {
               </ContFont>
             </Line>
             <Line>
-              <Label>要筹集的资金</Label>
+              <Label>{t('Money to be raised')}</Label>
               <ContFont>{maxretailidonum} USDT</ContFont>
             </Line>
             <Line>
-              <Label>每个ORG的价格</Label>
+              <Label>{t('Price per ORG')}</Label>
               <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
           <Button className="_claimBtn" isLoading={loading} onClick={() => goretailido()}>
-            确认参与
+          {t('Confirm to participate in')}
           </Button>
         </Card>
         <Card>
@@ -200,21 +202,21 @@ const IdoCard: FC<any> = (): ReactElement => {
             {isStart ? (
               <>
                 <Icon src="/images/ido/click.png" />
-                <IdoTitle>IDO未开始！</IdoTitle>
+                <IdoTitle>{t('IDO has not started')}</IdoTitle>
               </>
             ) : (
-              <IdoTitles>白名单发售</IdoTitles>
+              <IdoTitles>{t('Whitelist Sale')}</IdoTitles>
             )}
           </Top>
           <Content>
             <Line>
-              <Label>最大代币输入(USDT)</Label>
+              <Label>{t('Maximum token input')}(USDT)</Label>
               <ContFont>
                 <BtnUsdt>200U</BtnUsdt>
               </ContFont>
             </Line>
             <Line>
-              <Label>总提交金额</Label>
+              <Label>{t('Total amount submitted')}</Label>
               <ContFont>
                 {whiteidonum} USDT
                 <br />
@@ -222,25 +224,25 @@ const IdoCard: FC<any> = (): ReactElement => {
               </ContFont>
             </Line>
             <Line>
-              <Label>要筹集的资金</Label>
+              <Label>{t('Money to be raised')}</Label>
               <ContFont>{maxwhiteidonum} USDT</ContFont>
             </Line>
             <Line>
-              <Label>每个ORG的价格</Label>
+              <Label>{t('Price per ORG')}</Label>
               <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
           <Button className="_claimBtn" isLoading={whiteLoading} onClick={() => gowhiteido()}>
-            {isStart ? '确认参与' : '确认授权'}
+            {isStart ? t('Confirm to participate in') : t('Confirm authorization')}
           </Button>
         </Card>
         <Imgs className="four" src="/images/ido/four_bg.png" />
         <Imgs className="five" src="/images/ido/five_bg.png" />
       </IdoCont>
       <Invite>
-        <InviteCont>
-          <Left>
-            我的邀请链接
+        <InviteCont >
+          <Left currentLanguage={currentLanguage.locale}>
+          {t('My invitation link')}
             <MyLink>{$hash(`https://orangeswap.org/swap?shareid=${account}`, 15, 10)}</MyLink>
             <CopyIcon
               src="/images/ido/copy.svg"
@@ -249,13 +251,13 @@ const IdoCard: FC<any> = (): ReactElement => {
           </Left>
           <Right>
             <PeopleNum>
-              已邀请人数 <b>:</b> <span>{inviterNum}</span>
+            {t('Number of People invited')} <b>:</b> <span>{inviterNum}</span>
             </PeopleNum>
             <RewardCount>
-              我的奖励 <b>:</b> <span>{money} ORG</span>
+            {t('My reward')} <b>:</b> <span>{money} ORG</span>
             </RewardCount>
           </Right>
-          <InviteBtn onClick={()=>router.push('/rebate')}>我的邀请链接</InviteBtn>
+          <InviteBtn onClick={()=>router.push('/rebate')}>{t('My invitation link')}</InviteBtn>
         </InviteCont>
       </Invite>
     </Main>
@@ -374,7 +376,7 @@ const Tip = styled.p`
   }
 `
 const MarketBtn = styled.div`
-  width: 240px;
+  display: inline-block;
   height: 72px;
   line-height: 72px;
   margin: 60px auto 895px;
@@ -386,6 +388,8 @@ const MarketBtn = styled.div`
   color: #ffffff;
   background: linear-gradient(285.68deg, #ff5b36 6.56%, #ffb74a 98.03%);
   position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   cursor: pointer;
   z-index: 2;
   @media (max-width: 768px) {
@@ -465,6 +469,7 @@ const Top = styled.div`
   line-height: 250px;
   width: 100%;
   border-bottom: 1px dashed #ffb233;
+  position: relative;
   @media (max-width: 768px) {
     height: auto;
     display: flex;
@@ -474,9 +479,13 @@ const Top = styled.div`
   }
 `
 const Icon = styled.img`
-  width: 220px;
+  width: 180px;
   height: 183px;
-  margin: 30px 30px 20px 50px;
+  /* margin: 30px 30px 20px 50px; */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0px;
   @media (max-width: 768px) {
     width: 110px;
     height: 87px;
@@ -628,9 +637,9 @@ const InviteCont = styled.div`
   }
 `
 
-const Left = styled.div`
+const Left = styled.div.attrs((props:any)=>({currentLanguage: props.currentLanguage}))`
   font-weight: 600;
-  font-size: 32px;
+  font-size: ${(props:any)=> props.currentLanguage === 'en-US' ? '22px' : '32px'};
   display: flex;
   align-items: center;
   @media (max-width: 768px) {
