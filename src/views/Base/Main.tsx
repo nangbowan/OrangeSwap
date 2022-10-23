@@ -5,12 +5,14 @@ import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useAccount } from 'wagmi'
 import { $toFixed } from 'utils/met'
 import { useOrgbundrebate } from 'hooks/useContract'
+import { useTranslation } from '@pancakeswap/localization'
 
 
 const BaseMain: FC = (): ReactElement => {
   const { address: account } = useAccount()
   const { chainId } = useActiveWeb3React()
   const router = useRouter();
+  const { t } = useTranslation()
   const [info, setInfo] = useState({
     usernum: 0,
     tradenum: 0,
@@ -53,26 +55,26 @@ const BaseMain: FC = (): ReactElement => {
   return (
     <Main>
       <Top>
-        <Start>即将开始</Start>
+        <Start>{t('Coming soon')}</Start>
         <OrgImg src="/images/base/orgidos.png" />
         <TopImg src="/images/base/banner2.png" />
         <TopCont>
           <Btn onClick={()=> router.push('/ido')}>GO</Btn>
           <Arrow src="/images/base/arrow.svg" />
-          <Join>立即参与</Join>
+          <Join>{t('Get involved now')}</Join>
         </TopCont>
       </Top>
       <Notice>
         <NoticeContent>
-          <NoticeTitle>在FSC公链中最受欢迎的去中心化平台上交易、赚取 和赢得加密货币。</NoticeTitle>
+          <NoticeTitle>{t('Trade, earn and win cryptocurrencies on the most popular decentralized platform in the FSC public chain.')}</NoticeTitle>
           <Right>
             <ConnectWallet>
               <Icon src="/images/base/wallet.svg" />
-              连接钱包
+              {t('Connect')}
             </ConnectWallet>
             <ConnectWallet onClick={()=> router.push('/swap')}>
               <Icon src="/images/base/change.svg" />
-              立即交易
+              {t('Trade now')}
             </ConnectWallet>
           </Right>
         </NoticeContent>
@@ -82,31 +84,31 @@ const BaseMain: FC = (): ReactElement => {
         <FoliageIcon className="two" src="/images/base/foliage.png" />
         <FoliageIcon className="thri" src="/images/base/showFoliage.png" />
         <FoliageIcon className="four" src="/images/base/foliage.png" />
-        <Title className="pc">数百万用户使用，数十亿交易价值</Title>
+        <Title className="pc">{t('millions of users')}{t('billions of transactions')}</Title>
         <Title className="mobile">
-          数百万用户使用
+        {t('millions of users')}
           <br />
-          数十亿交易价值
+        {t('billions of transactions')}
         </Title>
 
-        <Tip>在所有去中心化平台中，Orange Swap的用户最多。 这些用户现在正在将超过数以亿计的资金委托给平台。</Tip>
-        <Lib>您会加入他们吗？</Lib>
+        <Tip>{t('Of all the decentralized platforms, Orange Swap has the most users. These users are now entrusting more than hundreds of millions of dollars to the platform')}</Tip>
+        <Lib>{t('Will you join them?')}</Lib>
 
         <CartContent>
           <User>
             <CartIcon src="/images/base/users.png" />
-            <CartTitle>{info.usernum}用户</CartTitle>
-            <CartTip>在过去30天内</CartTip>
+            <CartTitle>{info.usernum}{t('user')}</CartTitle>
+            <CartTip>{t('Within the last 30 days')}</CartTip>
           </User>
           <Change>
             <CartIcon src="/images/base/change.png" />
-            <CartTitle>{info.tradenum}交易</CartTitle>
-            <CartTip>在过去30天内达成</CartTip>
+            <CartTitle>{info.tradenum}{t('transaction')}</CartTitle>
+            <CartTip>{t('Within the last 30 days')}</CartTip>
           </Change>
           <Amount>
             <CartIcon src="/images/base/amount.png" />
-            <CartTitle>已质押{info.impawnnum}美元</CartTitle>
-            <CartTip>锁定的总价值</CartTip>
+            <CartTitle>{t('Staked')}{info.impawnnum}{t('Dollar')}</CartTitle>
+            <CartTip>{t('The total locked')}</CartTip>
           </Amount>
         </CartContent>
 
@@ -114,14 +116,14 @@ const BaseMain: FC = (): ReactElement => {
           <Libs>
             <FontCont>
               <Illustrate>
-                交易任何代币，
+              {t('Trade any token')}
                 <br />
-                无需注册，不必麻烦
+              {t('No register, no hassle')}
               </Illustrate>
-              <IntroduceTip>只需连接您的钱包，即可在FSC公链上快速交易任何代币。</IntroduceTip>
+              <IntroduceTip>{t('Connect your wallet and trade any token on the FSC chain.')}</IntroduceTip>
               <Btns>
-                <LibsBtn onClick={()=> router.push('/swap')}>立即交易</LibsBtn>
-                <LibsBtn>了解</LibsBtn>
+                <LibsBtn onClick={()=> router.push('/swap')}>{t('Trade now')}</LibsBtn>
+                <LibsBtn>{t('understand')}</LibsBtn>
               </Btns>
             </FontCont>
             <Imgs src="/images/base/exchange.png" />
@@ -129,14 +131,14 @@ const BaseMain: FC = (): ReactElement => {
           <Libs>
             <FontCont>
               <Illustrate>
-                利用加密货币赚取
+              {t('With cryptocurrency Passive')}
                 <br />
-                被动收入
+              {t('Earn income')}
               </Illustrate>
-              <IntroduceTip>Orange Swap可以让您轻松地享受加密货币带来的收益。</IntroduceTip>
+              <IntroduceTip>Orange Swap{t('It allows you enjoying the benefits that cryptocurrencies bring.')}</IntroduceTip>
               <Btns>
-                <LibsBtn>探索</LibsBtn>
-                <LibsBtn>了解</LibsBtn>
+                <LibsBtn>{t('explore')}</LibsBtn>
+                <LibsBtn>{t('understand')}</LibsBtn>
               </Btns>
             </FontCont>
             <Imgs className='search' src="/images/base/search.png" />
@@ -144,14 +146,14 @@ const BaseMain: FC = (): ReactElement => {
           <Libs>
             <FontCont>
               <Illustrate>
-                ORG让我们的世界
+                {t('ORG makes our world')}
                 <br />
-                运转起来
+                {t('Get moving')}
               </Illustrate>
-              <IntroduceTip>只需连接您的钱包，即可在FSC公链上快速交易任何代币。</IntroduceTip>
+              <IntroduceTip>{t('Connect your wallet and trade any token on the FSC chain.')}</IntroduceTip>
               <Btns>
-                <LibsBtn onClick={()=> router.push('/swap')}>买ORG</LibsBtn>
-                <LibsBtn>了解</LibsBtn>
+                <LibsBtn onClick={()=> router.push('/swap')}>{t('Buy ORG')}</LibsBtn>
+                <LibsBtn>{t('understand')}</LibsBtn>
               </Btns>
             </FontCont>
             <Imgs className='grod' src="/images/base/grod.png" />
