@@ -66,8 +66,8 @@ export class Pair {
       tokenAmounts[0].currency.chainId,
       Pair.getAddress(tokenAmounts[0].currency, tokenAmounts[1].currency),
       18,
-      'Cake-LP',
-      'Pancake LPs'
+      'Org-LP',
+      'Orange LPs'
     )
     this.tokenAmounts = tokenAmounts as [CurrencyAmount<Token>, CurrencyAmount<Token>]
   }
@@ -84,7 +84,9 @@ export class Pair {
    * Returns the current mid price of the pair in terms of token0, i.e. the ratio of reserve1 to reserve0
    */
   public get token0Price(): Price<Token, Token> {
+    // console.log('=====token0Price this.tokenAmounts', this.tokenAmounts)
     const result = this.tokenAmounts[1].divide(this.tokenAmounts[0])
+    // console.log('=====token0Price', result)
     return new Price(this.token0, this.token1, result.denominator, result.numerator)
   }
 

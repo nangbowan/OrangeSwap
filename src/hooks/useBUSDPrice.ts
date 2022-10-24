@@ -105,9 +105,36 @@ export default function useBUSDPrice(currency?: Currency): Price<Currency, Curre
 
 export const usePriceByPairs = (currencyA?: Currency, currencyB?: Currency) => {
   const [tokenA, tokenB] = [currencyA?.wrapped, currencyB?.wrapped]
-  const pairAddress = getLpAddress(tokenA, tokenB)
+  const pairAddress = getLpAddress( tokenB, tokenA, currencyA.chainId)
   const pairContract = usePairContract(pairAddress)
   const provider = useProvider({ chainId: currencyA.chainId })
+
+  // eslint-disable-next-line consistent-return
+  // const getResult = async () => {
+  //   try{
+  //     console.error('====1', pairAddress, pairContract.connect(provider))
+  //     const reserves = await pairContract.connect(provider).getReserves()
+  //     console.error('====2', reserves)
+  //     if (!reserves) {
+  //       return null
+  //     }
+  //     const { reserve0, reserve1 } = reserves
+  //     const [token0, token1] = tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA]
+  //     console.error('====3', token0, reserve0.toString(), CurrencyAmount.fromRawAmount(token0, reserve0.toString()))
+  //     console.error('====3-1', token1, reserve1.toString(), CurrencyAmount.fromRawAmount(token1, reserve1.toString()))
+  //     const pair = new Pair(
+  //       CurrencyAmount.fromRawAmount(token0, reserve0.toString()),
+  //       CurrencyAmount.fromRawAmount(token1, reserve1.toString()),
+  //     )
+  //     console.log('getResult  4=====', pair.priceOf(tokenB))
+
+  //     return pair.priceOf(tokenB)
+  //   }catch(e){
+  //     console.error('====', e)
+  //   }
+  // }
+  // getResult();
+  
 
   const { data: price } = useSWR(
     currencyA && currencyB && ['pair-price', currencyA, currencyB],
@@ -128,7 +155,6 @@ export const usePriceByPairs = (currencyA?: Currency, currencyB?: Currency) => {
     },
     { dedupingInterval: FAST_INTERVAL, refreshInterval: FAST_INTERVAL },
   )
-
   return price
 }
 
@@ -155,13 +181,12 @@ export const useBUSDCakeAmount = (amount: number): number | undefined => {
 export const useCakeBusdPrice = ({ forceMainnet } = { forceMainnet: false }): Price<Currency, Currency> | undefined => {
   const { chainId } = useActiveWeb3React()
 
-  // 
-  const isTestnet = !forceMainnet && isChainTestnet(chainId)
-  const cake: Token = isTestnet ? CAKE[ChainId.BSC_TESTNET] : CAKE[ChainId.BSC]
+  //
+  // const isTestnet = !forceMainnet && isChainTestnet(chainId)
+  // const cake: Token = isTestnet ? CAKE[ChainId.BSC_TESTNET] : CAKE[ChainId.BSC]
 
-  // const isTestnet:boolean = chainId !== 201022;
-  // const cake: Token = isTestnet ? CAKE[ChainId.BSC_TESTNET] : CAKE[ChainId.FON]
-  // console.log('cake----', isTestnet, cake)
+  const isTestnet: boolean = chainId !== 201022
+  const cake: Token = isTestnet ? CAKE[ChainId.BSC_TESTNET] : CAKE[ChainId.FON]
   return usePriceByPairs(BUSD[cake.chainId], cake)
 }
 
