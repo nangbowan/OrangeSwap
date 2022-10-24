@@ -25,11 +25,10 @@ const ChangeIng: FC = (): ReactElement => {
   const { t } = useTranslation()
   const [money, setMoney] = useState<number>(0)
 
-
   const orgbundrebate = {
     56: '',
     97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3',
-    201022:'0x6C078d5B60674f071f158A09818a461778D538E6',
+    201022: '0x6C078d5B60674f071f158A09818a461778D538E6',
   }
 
   const rebateContract = useOrgbundrebate(orgbundrebate[chainId])
@@ -46,9 +45,7 @@ const ChangeIng: FC = (): ReactElement => {
     if (receipt?.status) {
       toastSuccess(
         `Harvested!`,
-        <ToastDescriptionWithTx txHash={receipt.transactionHash}>
-          提取奖励成功
-        </ToastDescriptionWithTx>,
+        <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Withdrawal of reward successful')}</ToastDescriptionWithTx>,
       )
       getReward()
     }
@@ -70,6 +67,16 @@ const ChangeIng: FC = (): ReactElement => {
             {t('transaction earn ORG')}
           </Header>
           <Content>
+            <Card className='frist'>
+              <Libs>
+                <Title>{t('Supported Trading Pairs')}</Title>
+                <Count>FON/USDT</Count>
+              </Libs>
+              <Libs>
+                <Title>{t('total transaction reward')}</Title>
+                <Count>1000,000 ORG</Count>
+              </Libs>
+            </Card>
             <Card>
               <Libs>
                 <Title>{t('transaction amount')}</Title>
@@ -80,7 +87,9 @@ const ChangeIng: FC = (): ReactElement => {
                 <Count>{money} ORG</Count>
               </Libs>
             </Card>
-            <Button className='_claimBtn' isLoading={pendingTx} disabled={money <= 0} onClick={() => claim()}>{t('Withdraw rewards')}</Button>
+            <Button className="_claimBtn" isLoading={pendingTx} disabled={money <= 0} onClick={() => claim()}>
+              {t('Withdraw rewards')}
+            </Button>
           </Content>
         </Cont>
       </Section>
@@ -96,7 +105,7 @@ const Main = styled.div`
 `
 const Section = styled.div`
   width: 1440px;
-  height: 560px;
+  min-height: 560px;
   margin: 0 auto;
   position: relative;
   z-index: 2;
@@ -111,7 +120,8 @@ const Img = styled.img`
   height: 560px;
   margin-right: 40px;
   position: absolute;
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
   @media (min-width: 769px) {
     left: -40px;
   }
@@ -122,6 +132,7 @@ const Img = styled.img`
     top: -40px;
     margin-right: 10px;
     z-index: 3;
+    transform: none;
   }
 `
 const Cont = styled.div`
@@ -152,7 +163,7 @@ const Header = styled.div`
     }
   }
   @media (max-width: 768px) {
-    background: linear-gradient(180deg, #E466EF 0%, #9B84FF 100%);
+    background: linear-gradient(180deg, #e466ef 0%, #9b84ff 100%);
     border-radius: 16px;
     padding: 20px 0 20px 20px;
     margin-bottom: 20px;
@@ -166,7 +177,7 @@ const Header = styled.div`
 `
 const Content = styled.div`
   width: 578px;
-  ._claimBtn{
+  ._claimBtn {
     width: 100%;
     height: 60px;
     line-height: 60px;
@@ -184,7 +195,7 @@ const Content = styled.div`
   }
   @media (max-width: 768px) {
     width: 100%;
-    ._claimBtn{
+    ._claimBtn {
       font-size: 16px;
     }
   }
@@ -192,6 +203,9 @@ const Content = styled.div`
 const Card = styled.div`
   width: 100%;
   display: flex;
+  &.frist{
+    margin-bottom: 20px;
+  }
 `
 const Libs = styled.div`
   flex: 1;
