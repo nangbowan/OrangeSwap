@@ -55,14 +55,6 @@
       "logoURI": "https://pancakeswap.finance/images/tokens/0x55d398326f99059fF775485246999027B3197955.png"
     },
     {
-      "name": "Orangeswap Token",
-      "symbol": "ORG",
-      "address": "0x6f185F21FE6D5D827328468E18db6a53F4eA862e",
-      "chainId": 201022,
-      "decimals": 18,
-      "logoURI": "https://github.com/nangbowan/OrangeSwap/tree/main/src/config/constants/tokenLists/Orange.png"
-    },
-    {
       "name": "Venus",
       "symbol": "XVS",
       "address": "0xcF6BB5389c92Bdda8a3747Ddb454cB7a64626C63",
@@ -233,6 +225,14 @@
       "logoURI": "https://pancakeswap.finance/images/tokens/0x55d398326f99059fF775485246999027B3197955.png"
     },
     {
+      "name": "Orangeswap Token",
+      "symbol": "ORG",
+      "address": "0x6f185F21FE6D5D827328468E18db6a53F4eA862e",
+      "chainId": 201022,
+      "decimals": 18,
+      "logoURI": ""
+    },
+    {
       "name": "Wrapped FON",
       "symbol": "WFON",
       "address": "0xb582fD9d0D5C3515EEB6b02fF2d6eE0b6E45E7A7",
@@ -241,13 +241,12 @@
       "logoURI": "https://rosswap.com/static/media/bnb.47ab5796.png"
     },
     {
-      "name": "Orangeswap Token",
-      "symbol": "ORG",
-      "address": "0x418D75f65a02b3D53B2418FB8E1fe493759c7605",
+      "name": "FlaminGo Token",
+      "symbol": "FGO",
+      "address": "0xd04E896ef4e770a51e0BaB6Fcf0AF34267B138d8",
       "chainId": 201022,
       "decimals": 18,
-      "logoURI": "https://github.com/nangbowan/OrangeSwap/blob/main/src/config/constants/tokenLists/Orange.png?raw=true"
+      "logoURI": ""
     }
-
   ]
 }
