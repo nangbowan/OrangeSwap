@@ -123,7 +123,7 @@ const BaseMain: FC = (): ReactElement => {
               <IntroduceTip>{t('Connect your wallet and trade any token on the FSC chain.')}</IntroduceTip>
               <Btns>
                 <LibsBtn onClick={()=> router.push('/swap')}>{t('Trade now')}</LibsBtn>
-                <LibsBtn>{t('understand')}</LibsBtn>
+                <LibsBtn><a href="https://orange-swap.gitbook.io/orange-swap-1/" target='_blank' rel="noreferrer">{t('understand')}</a></LibsBtn>
               </Btns>
             </FontCont>
             <Imgs src="/images/base/exchange.png" />
@@ -138,7 +138,7 @@ const BaseMain: FC = (): ReactElement => {
               <IntroduceTip>Orange Swap{t('It allows you enjoying the benefits that cryptocurrencies bring.')}</IntroduceTip>
               <Btns>
                 <LibsBtn>{t('explore')}</LibsBtn>
-                <LibsBtn>{t('understand')}</LibsBtn>
+                <LibsBtn><a href="https://orange-swap.gitbook.io/orange-swap-1/" target='_blank' rel="noreferrer">{t('understand')}</a></LibsBtn>
               </Btns>
             </FontCont>
             <Imgs className='search' src="/images/base/search.png" />
@@ -153,7 +153,7 @@ const BaseMain: FC = (): ReactElement => {
               <IntroduceTip>{t('Connect your wallet and trade any token on the FSC chain.')}</IntroduceTip>
               <Btns>
                 <LibsBtn onClick={()=> router.push('/swap')}>{t('Buy ORG')}</LibsBtn>
-                <LibsBtn>{t('understand')}</LibsBtn>
+                <LibsBtn><a href="https://orange-swap.gitbook.io/orange-swap-1/" target='_blank' rel="noreferrer">{t('understand')}</a></LibsBtn>
               </Btns>
             </FontCont>
             <Imgs className='grod' src="/images/base/grod.png" />

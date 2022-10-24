@@ -1,6 +1,7 @@
 import { vars } from "@pancakeswap/ui/css/vars.css";
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useTranslation } from '@pancakeswap/localization'
 import { Box, Flex } from "../Box";
 import { Link } from "../Link";
 import {
@@ -30,6 +31,7 @@ const MenuItem1212: React.FC<React.PropsWithChildren<FooterProps>> = ({
   buyCakeLabel,
   ...props
 }) => {
+  
   return (
     <StyledFooter data-theme="dark" p={["40px 16px", null, "56px 40px 32px 40px"]} {...props} justifyContent="center">
       <Flex flexDirection="column" width={["100%", null, "1200px;"]}>
@@ -201,6 +203,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
   buyCakeLabel,
   ...props
 }) => {
+  const { t } = useTranslation()
   // useEffect(() => {
   //   console.error('---', cakePriceUsd)
   // },[cakePriceUsd])
@@ -282,9 +285,9 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
           <HrefLink>
             <img src="/images/twier.svg" alt="" width="130px" />
             <img src="/images/telegram.svg" alt="" width="130px" />
-            <span>(中文)</span>
+            <span>({t("zh")})</span>
             <img src="/images/telegram.svg" alt="" width="130px" />
-            <span>(英文)</span>
+            <span>({t("en")})</span>
           </HrefLink>
           <Theme>
             <ThemeSwitcher isDark={isDark} toggleTheme={toggleTheme} />

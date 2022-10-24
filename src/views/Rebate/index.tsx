@@ -107,7 +107,7 @@ const Rebate: FC = (): ReactElement => {
             </Title>
             <Count>
               <Text>{money} ORG</Text>
-              <Button className='_claimBtn' isLoading={pendingTx} disabled={money <= 0} onClick={() => claim()}>提取奖励</Button>
+              <Button className='_claimBtn' isLoading={pendingTx} disabled={money <= 0} onClick={() => claim()}>{t('Reward')}</Button>
             </Count>
           </InviteLink>
         </Invite>
@@ -138,9 +138,9 @@ const Rebate: FC = (): ReactElement => {
                 <Content className="last">
                 {t('Each time the income is withdrawn')}0.1%
                   <br />
-                  {t('Your wallet hold or farm pledge ORG')}
+                  {/* {t('Your wallet hold or farm pledge ORG')}
                   <br />
-                  {t('The more tokens, the more rewards are invited')}
+                  {t('The more tokens, the more rewards are invited')} */}
                 </Content>
               </Block>
             </Libs>

@@ -1985,6 +1985,7 @@
   "Get moving":"运转起来",
   "Buy ORG":"买ORG",
   "Invitation Link":"你的邀请链接",
+  "Reward":"提取奖励",
   "Total Commission":"已获得总返佣",
   "Invitation reward system":"邀请奖励机制",
   "Trading reward":"交易奖励",
@@ -1996,8 +1997,8 @@
   "Your wallet hold or farm pledge ORG":"您钱包持有或者农场质押的ORG",
   "The more tokens, the more rewards are invited":"代币越多，则邀请奖励越多。",
   "grade":"等级",
-  "Quantity held pledged":"持有/质押数量",
-  "Reward ratio":"奖励比例",
+  "Quantity held pledged":"质押数量",
+  "Reward ratio":"交易返佣比例",
   "Reward extraction success":"提取奖励成功",
   "Participate in the success":"参与成功",
   "Purchase a new token initiated on the FSC public chain":"购买在FSC公链上发起的新代币",
@@ -2024,5 +2025,11 @@
   "Where will IDO funds be used":"IDO资金将用于何处？",
   "The funds raised by IDO will be used to add ORG":"IDO所募集的资金将用于添加ORG初始流动池、项目营销及团队运营。",
   "hide":"隐藏",
-  "detail":"详情"
+  "detail":"详情",
+  "Withdrawal of reward successful":"提取奖励成功",
+  "Supported Trading Pairs":"支持交易对",
+  "total transaction reward":"总交易奖励",
+  "en":"英文",
+  "zh":"中文",
+  "lange":"语言"
 }

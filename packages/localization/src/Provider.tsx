@@ -43,13 +43,13 @@ export const LanguageProvider: React.FC<React.PropsWithChildren> = ({ children }
     const fetchInitialLocales = async () => {
       const codeFromStorage = getLanguageCodeFromLS()
 
-      if (codeFromStorage !== EN.locale) {
+      // if (codeFromStorage !== EN.locale) {
         const currentLocale = await fetchLocale(codeFromStorage)
         if (currentLocale) {
           languageMap.set(codeFromStorage, currentLocale)
           refresh()
         }
-      }
+      // }
 
       setState((prevState) => ({
         ...prevState,
@@ -61,7 +61,7 @@ export const LanguageProvider: React.FC<React.PropsWithChildren> = ({ children }
   }, [refresh])
 
   const setLanguage = useCallback(async (language: Language) => {
-    if (!languageMap.has(language.locale)) {
+    // if (!languageMap.has(language.locale)) {
       setState((prevState) => ({
         ...prevState,
         isFetching: true,
@@ -82,14 +82,14 @@ export const LanguageProvider: React.FC<React.PropsWithChildren> = ({ children }
           isFetching: false,
         }))
       }
-    } else {
-      localStorage?.setItem(LS_KEY, language.locale)
-      setState((prevState) => ({
-        ...prevState,
-        isFetching: false,
-        currentLanguage: language,
-      }))
-    }
+    // } else {
+    //   localStorage?.setItem(LS_KEY, language.locale)
+    //   setState((prevState) => ({
+    //     ...prevState,
+    //     isFetching: false,
+    //     currentLanguage: language,
+    //   }))
+    // }
   }, [])
 
   const translate: TranslateFunction = useCallback(
