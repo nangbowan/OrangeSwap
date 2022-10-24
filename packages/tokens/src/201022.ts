@@ -7,4 +7,5 @@ export const fonTokens = {
     fon: ORG_MAINNET,
     usdt:USDT_FON,
     org:ORG_MAINNET,
+    
   }
