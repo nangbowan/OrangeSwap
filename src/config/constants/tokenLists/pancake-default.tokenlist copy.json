@@ -53,8 +53,8 @@
     {
       "name": "Orangeswap Token",
       "symbol": "ORG",
-      "address": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
-      "chainId": 56,
+      "address": "0x6f185F21FE6D5D827328468E18db6a53F4eA862e",
+      "chainId": 201022,
       "decimals": 18,
       "logoURI": "https://github.com/nangbowan/OrangeSwap/tree/main/src/config/constants/tokenLists/Orange.png"
     },
