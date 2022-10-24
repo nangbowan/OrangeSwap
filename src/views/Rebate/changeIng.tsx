@@ -65,18 +65,18 @@ const ChangeIng: FC = (): ReactElement => {
         <Img src="/images/rebate/coin.png" />
         <Cont>
           <Header>
-            {t('Transaction mining')}
+            {t('Genesis swap mining')}
             <br />
-            {t('is underway')}
+            {t('transaction earn ORG')}
           </Header>
           <Content>
             <Card>
               <Libs>
-                <Title>{t('My transaction amount')}</Title>
+                <Title>{t('transaction amount')}</Title>
                 <Count>{money * 1000} ORG</Count>
               </Libs>
               <Libs>
-                <Title>{t('My Trading Rewards')}</Title>
+                <Title>{t('Trading Rewards')}</Title>
                 <Count>{money} ORG</Count>
               </Libs>
             </Card>
