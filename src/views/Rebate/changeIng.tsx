@@ -80,7 +80,7 @@ const ChangeIng: FC = (): ReactElement => {
             <Card>
               <Libs>
                 <Title>{t('transaction amount')}</Title>
-                <Count>{money * 1000} ORG</Count>
+                <Count>{money * 10000} ORG</Count>
               </Libs>
               <Libs>
                 <Title>{t('Trading Rewards')}</Title>
