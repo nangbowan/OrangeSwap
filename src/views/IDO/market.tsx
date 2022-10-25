@@ -77,14 +77,17 @@ const Market: FC = (): ReactElement => {
 
 const Main = styled.div`
   width: 1440px;
-  height: 667px;
-  margin: 200px auto 132px;
+  height: auto;
+  margin-top: 200px;
+  padding-bottom: 132px;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
   @media (max-width: 768px) {
-    margin: 81px auto 32px;
+    margin-top: 81px;
+    margin-bottom: 52px;
+    /* padding-bottom: 32px; */
     width: 100%;
     height: auto;
     display: block;
@@ -233,7 +236,7 @@ const Icon = styled.img`
   width: 450px;
   height: 450px;
   right: 80px;
-  top: 50px;
+  top: 100px;
   @media (max-width: 768px) {
     position: relative;
     width: 150px;
@@ -241,6 +244,7 @@ const Icon = styled.img`
     left: 50%;
     transform: translateX(-50%);
     padding: 0 0 50px 0;
+    top: 40px;
   }
 `
 const Tip = styled.div`
