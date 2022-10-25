@@ -18,7 +18,7 @@ export function useStableFarms() {
 
     return farms.map(({ token, quoteToken, lpAddress, ...rest }) => ({
       ...rest,
-      liquidityToken: new Token(chainId, lpAddress, 18, 'Stable-LP', 'Pancake StableSwap LPs'),
+      liquidityToken: new Token(chainId, lpAddress, 18, 'Stable-LP', 'Orange StableSwap LPs'),
       token0: deserializeToken(token),
       token1: deserializeToken(quoteToken),
     }))

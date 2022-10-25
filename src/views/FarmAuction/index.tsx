@@ -25,6 +25,7 @@ const CAKE_BURN_TOP_FILL_LIGHT = 'radial-gradient(ellipse at bottom, #f0f1f6, #E
 const CAKE_BURN_BG_DARK = 'radial-gradient(103.12% 50% at 50% 50%, #152534 0%, #191326 100%)'
 const CAKE_BURN_TOP_FILL_DARK = '#191326'
 
+
 const StyledHeader = styled(PageHeader)`
   max-height: max-content;
   margin-bottom: -40px;
