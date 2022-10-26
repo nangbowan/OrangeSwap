@@ -107,7 +107,7 @@ const IdoCard: FC<any> = (): ReactElement => {
     try{
       setWhiteLoading(true)
       const receipt = await fetchWithCatchTxError(() => {
-        return erc20Contract.approve(orgIdo[chainId], $shiftedByFixed(200, 18))
+        return erc20Contract.approve(orgIdo[chainId], $shiftedByFixed(400, 18))
       })
       if (receipt?.status) {
         setAllowance(200)
