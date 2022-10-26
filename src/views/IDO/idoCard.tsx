@@ -34,6 +34,7 @@ const IdoCard: FC<any> = (): ReactElement => {
   const { fetchWithCatchTxError } = useCatchTxError()
 
   const [loading, setLoading] = useState<boolean>(false)
+  const [approveLoading, setApproveLoading] = useState<boolean>(false)
   const [whiteLoading, setWhiteLoading] = useState<boolean>(false)
 
   const [retailidonum, setRetailidonum] = useState(0)
@@ -105,7 +106,7 @@ const IdoCard: FC<any> = (): ReactElement => {
 
   const approve = async () => {
     try{
-      setWhiteLoading(true)
+      setApproveLoading(true)
       const receipt = await fetchWithCatchTxError(() => {
         return erc20Contract.approve(orgIdo[chainId], $shiftedByFixed(400, 18))
       })
@@ -116,9 +117,9 @@ const IdoCard: FC<any> = (): ReactElement => {
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Participate in the success')}</ToastDescriptionWithTx>,
         )
       }
-      setWhiteLoading(false)
+      setApproveLoading(false)
     }catch(e){
-      setWhiteLoading(false)
+      setApproveLoading(false)
     }
   }
   const getAllowance = async () => {
@@ -224,7 +225,7 @@ const IdoCard: FC<any> = (): ReactElement => {
               <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
-          <Button className="_claimBtn" isLoading={loading} onClick={() => allowance >= 200 ? goretailido() : approve()}>
+          <Button className="_claimBtn" isLoading={loading || approveLoading} onClick={() => allowance >= 200 ? goretailido() : approve()}>
           {allowance >= 200 ? t('Confirm to participate in') : t('Confirm authorization')}
           </Button>
         </Card>
@@ -263,7 +264,7 @@ const IdoCard: FC<any> = (): ReactElement => {
               <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
-          <Button className="_claimBtn" isLoading={whiteLoading} onClick={() => allowance >= 200 ? gowhiteido() : approve()}>
+          <Button className="_claimBtn" isLoading={whiteLoading || approveLoading} onClick={() => allowance >= 200 ? gowhiteido() : approve()}>
             {allowance >= 200 ? t('Confirm to participate in') : t('Confirm authorization')}
           </Button>
         </Card>
