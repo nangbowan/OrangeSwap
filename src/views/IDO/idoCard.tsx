@@ -123,6 +123,7 @@ const IdoCard: FC<any> = (): ReactElement => {
   }
   const getAllowance = async () => {
     const result = await erc20Contract.allowance(account, orgIdo[chainId])
+    console.log('getAllowance---', $shiftedBy(result.toString(), -18, 6))
     setAllowance($shiftedBy(result.toString(), -18, 6))
   }
   const getReward = async () => {
@@ -263,7 +264,7 @@ const IdoCard: FC<any> = (): ReactElement => {
             </Line>
           </Content>
           <Button className="_claimBtn" isLoading={whiteLoading} onClick={() => allowance >= 200 ? gowhiteido() : approve()}>
-            {allowance >= 200 ? t('Confirm authorization') : t('Confirm to participate in')}
+            {allowance >= 200 ? t('Confirm to participate in') : t('Confirm authorization')}
           </Button>
         </Card>
         <Imgs className="four" src="/images/ido/four_bg.png" />
