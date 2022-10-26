@@ -10,7 +10,7 @@ import { copyText } from '@pancakeswap/utils/copyText'
 import { BOOSTED_FARM_GAS_LIMIT } from 'config'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
-import { $shiftedBy, $toFixed } from 'utils/met'
+import { $shiftedBy, $toFixed, $shiftedByFixed } from 'utils/met'
 import { useERC20, useTokenContract, useOrgbundrebate, useOrgIdo } from 'hooks/useContract'
 
 const options = {
@@ -42,6 +42,7 @@ const IdoCard: FC<any> = (): ReactElement => {
   const [whiteidonum, setWhiteidonum] = useState(0)
   const [maxwhiteidonum, setMaxwhiteidonum] = useState(0)
   const [money, setMoney] = useState<number>(0)
+  const [allowance, setAllowance] = useState<number>(0)
   const [inviterNum, setInviterNum] = useState<number>(0)
   const isStart = false
 
@@ -55,9 +56,15 @@ const IdoCard: FC<any> = (): ReactElement => {
     97: '0xb0410bfdC49e4c101A5C82dEAB6187db76E40eC3',
     201022:'0x6C078d5B60674f071f158A09818a461778D538E6',
   }
+  const usdtAddress = {
+    56: '',
+    97: '',
+    201022:'0x9a9eD7440a3850c4D7240c9FcA8B7C96802615f0',
+  }
 
   const rebateContract = useOrgbundrebate(orgbundrebate[chainId])
   const orgIdoContract = useOrgIdo(orgIdo[chainId])
+  const erc20Contract = useERC20(usdtAddress[chainId])
 
   const goretailido = async () => {
     try {
@@ -96,6 +103,28 @@ const IdoCard: FC<any> = (): ReactElement => {
     }
   }
 
+  const approve = async () => {
+    try{
+      setWhiteLoading(true)
+      const receipt = await fetchWithCatchTxError(() => {
+        return erc20Contract.approve(orgIdo[chainId], $shiftedByFixed(200, 18))
+      })
+      if (receipt?.status) {
+        setAllowance(200)
+        toastSuccess(
+          `Successed!`,
+          <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Participate in the success')}</ToastDescriptionWithTx>,
+        )
+      }
+      setWhiteLoading(false)
+    }catch(e){
+      setWhiteLoading(false)
+    }
+  }
+  const getAllowance = async () => {
+    const result = await erc20Contract.allowance(account, orgIdo[chainId])
+    setAllowance($shiftedBy(result.toString(), -18, 6))
+  }
   const getReward = async () => {
     const result = await rebateContract.reward(account)
     setMoney($shiftedBy(result.toString(), -18, 6))
@@ -132,7 +161,7 @@ const IdoCard: FC<any> = (): ReactElement => {
   }
 
   useEffect(() => {
-    if (orgIdoContract && chainId && account) {
+    if (orgIdoContract && erc20Contract && chainId && account) {
       getRetailidonum()
       getMaxretailidonum()
       getWhiteidonum()
@@ -140,8 +169,9 @@ const IdoCard: FC<any> = (): ReactElement => {
       getOrgprice()
       getReward()
       getInviterNum()
+      getAllowance()
     }
-  }, [orgIdoContract, chainId, account])
+  }, [orgIdoContract, erc20Contract, chainId, account])
 
   return (
     <Main>
@@ -232,8 +262,8 @@ const IdoCard: FC<any> = (): ReactElement => {
               <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
-          <Button className="_claimBtn" isLoading={whiteLoading} onClick={() => gowhiteido()}>
-            {isStart ? t('Confirm to participate in') : t('Confirm authorization')}
+          <Button className="_claimBtn" isLoading={whiteLoading} onClick={() => allowance >= 200 ? gowhiteido() : approve()}>
+            {allowance >= 200 ? t('Confirm authorization') : t('Confirm to participate in')}
           </Button>
         </Card>
         <Imgs className="four" src="/images/ido/four_bg.png" />
