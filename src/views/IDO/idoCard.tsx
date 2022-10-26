@@ -224,8 +224,8 @@ const IdoCard: FC<any> = (): ReactElement => {
               <ContFont>${orgprice}</ContFont>
             </Line>
           </Content>
-          <Button className="_claimBtn" isLoading={loading} onClick={() => goretailido()}>
-          {t('Confirm to participate in')}
+          <Button className="_claimBtn" isLoading={loading} onClick={() => allowance >= 200 ? goretailido() : approve()}>
+          {allowance >= 200 ? t('Confirm to participate in') : t('Confirm authorization')}
           </Button>
         </Card>
         <Card>
