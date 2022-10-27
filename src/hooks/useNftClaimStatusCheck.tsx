@@ -14,11 +14,13 @@ const useNftClaimStatusCheck = () => {
   useEffect(() => {
     const checkClaimStatus = async () => {
       try {
-        const canClaim = await getBunnySpecialXmasContract(bscRpcProvider).canClaim(account)
+        // const canClaim = await getBunnySpecialXmasContract(bscRpcProvider).canClaim(account)
+        const canClaim = false
         if (canClaim) {
           onPresentNftClaimModal()
           setHasDisplayedModal(true)
         }
+        
       } catch (error) {
         // User not registered throws here
         noop()

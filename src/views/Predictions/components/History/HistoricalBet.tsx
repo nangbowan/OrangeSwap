@@ -60,7 +60,8 @@ const HistoricalBet: React.FC<React.PropsWithChildren<BetProps>> = ({ bet }) => 
 
   const currentEpoch = useGetCurrentEpoch()
   const status = useGetPredictionsStatus()
-  const canClaim = useGetIsClaimable(bet.round.epoch)
+  // const canClaim = useGetIsClaimable(bet.round.epoch)
+  const canClaim = false
   const dispatch = useLocalDispatch()
   const { account } = useWeb3React()
   const { displayedDecimals } = useConfig()
