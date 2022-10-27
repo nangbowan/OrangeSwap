@@ -96,9 +96,20 @@ const Img = styled.img`
 
 const Cont = styled.div`
   width: 1218px;
+  height: auto;
   min-height: 600px;
   margin: 0 auto;
   position: relative;
+  display: grid;
+  /* grid-template-rows: repeat(3, 150px); // 行决定高
+  grid-template-columns: repeat(auto-fill, 300px); //列决定宽 */
+
+  /* grid-template-rows: repeat(3, 1fr); // 行决定高 */
+  grid-template-columns: repeat(3, 1fr); //列决定宽
+
+  /* column-gap: 50px; //列间距
+  row-gap: 100px; // 行间距 */
+  gap: 40px 106px; //简写 row column
   @media (max-width: 768px) {
     width: 100%;
     
@@ -113,7 +124,7 @@ const OrangeImg = styled.img`
   }
   &._bottom_icon {
     bottom: 50px;
-    right: -150px;
+    right: -100px;
   }
 `
 export default Farm
