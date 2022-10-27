@@ -31,7 +31,7 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ hasLowNativeBalance, onDismiss 
     logout()
   }
 
-  const isBSC = native.chainId === ChainId.BSC
+  const isFON = native.chainId === ChainId.FON
 
   return (
     <>
@@ -57,17 +57,17 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ hasLowNativeBalance, onDismiss 
       )}
       <Flex alignItems="center" justifyContent="space-between">
         <Flex>
-          {!isBSC && <ChainLogo chainId={native.chainId} />}
-          <Text ml={isBSC ? 0 : '8px'} color="textSubtle">
+          {!isFON && <ChainLogo chainId={native.chainId} />}
+          <Text ml={isFON ? 0 : '8px'} color="textSubtle">
             {native.symbol} {t('Balance')}
           </Text>
         </Flex>
         {!isFetched ? <Skeleton height="22px" width="60px" /> : <Text>{formatBigNumber(data.value, 6)}</Text>}
       </Flex>
       <Flex alignItems="center" justifyContent="space-between" mb="24px" mt="12px">
-        <Flex alignItems="center">
-          {!isBSC && <ChainLogo chainId={56} />}
-          <Text ml={isBSC ? 0 : '8px'} color="textSubtle">
+        {/* <Flex alignItems="center">
+          {!isFON && <ChainLogo chainId={201022} />}
+          <Text ml={isFON ? 0 : '8px'} color="textSubtle">
             {t('CAKE Balance')}
           </Text>
         </Flex>
@@ -75,7 +75,7 @@ const WalletInfo: React.FC<WalletInfoProps> = ({ hasLowNativeBalance, onDismiss 
           <Skeleton height="22px" width="60px" />
         ) : (
           <Text>{formatBigNumber(cakeBalance, 3)}</Text>
-        )}
+        )} */}
       </Flex>
       <Flex alignItems="center" justifyContent="end" mb="24px">
         <LinkExternal href={getBlockExploreLink(account, 'address', chainId)}>
