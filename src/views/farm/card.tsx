@@ -95,15 +95,16 @@ const Main = styled.div`
 
   position: relative;
   z-index: 3;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
   @media (max-width: 768px) {
-    padding: 40px 0 72px;
+    padding: 26px 18 35px;
   }
 `
 const Header = styled.div`
   height: 64px;
   display: flex;
   justify-content: space-between;
+  
 `
 const Symbol = styled.div`
   position: relative;
@@ -114,6 +115,7 @@ const BaseSymbolImg = styled.img`
   position: absolute;
   top: 0;
   left: 0;
+  
 `
 const SymbolImg = styled.img`
   height: 48px;
@@ -204,17 +206,24 @@ const CalculateIcon = styled.img`
   height: 15px;
   margin-left: 8px;
 `
+
 const Section = styled.div`
   margin-top: 6px;
   width: 100%;
   margin-bottom: 44px;
+  /* @media (max-width: 768px) {
+    margin-bottom: 24px;
+  } */
 `
 const Lib = styled.div`
-  height: 57px; // 33 - 16 + 40(btn:height)
+  height: 57px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 21px;
+  &:last-child{
+    margin-bottom: 0;
+  }
 `
 const Left = styled.div`
   flex: 1;
@@ -241,7 +250,6 @@ const BtnBlock = styled.div`
   width: 125px;
   height: 100%;
   position: relative;
-  
 `
 const Nodes = styled.div`
   height: 40px;
@@ -288,6 +296,9 @@ const Nodes = styled.div`
 
 const Footer = styled.div`
   margin-top: 18px;
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
 `
 const Item = styled.div`
   font-family: 'PingFang SC';

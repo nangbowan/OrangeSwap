@@ -112,7 +112,9 @@ const Cont = styled.div`
   gap: 40px 106px; //简写 row column
   @media (max-width: 768px) {
     width: 100%;
-    
+    grid-template-columns: repeat(1, 1fr);
+    gap: 25px 0;
+    padding: 0 20px;
   }
 `
 const OrangeImg = styled.img`
