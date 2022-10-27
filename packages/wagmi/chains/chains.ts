@@ -125,8 +125,8 @@ export const fon: Chain = {
     symbol: 'FON',
   },
   rpcUrls: {
-    public: 'https://fsc-dataseed1.fonscan.io/',
-    default: 'https://fsc-dataseed1.fonscan.io/',
+    public: 'https://fsc-dataseed2.fonscan.io/',
+    default: 'https://fsc-dataseed2.fonscan.io/',
   },
   blockExplorers: {
     default: { name: 'FonScan', url: 'https://fonscan.io/' },
