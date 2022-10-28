@@ -130,7 +130,7 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
   return (
     <MenuContext.Provider value={{ linkComponent }}>
       <Wrapper>
-        <FixedContainer showMenu={showMenu} height={totalTopMenuHeight}>
+        <FixedContainer id="_nav_top_dom" showMenu={showMenu} height={totalTopMenuHeight}>
           {banner && <TopBannerContainer height={topBannerHeight}>{banner}</TopBannerContainer>}
           <StyledNav>
             <Flex>

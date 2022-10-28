@@ -16,10 +16,45 @@ const options = {
   gasLimit: BOOSTED_FARM_GAS_LIMIT,
 }
 
+const clearNoNum = (val: string) => {
+  let _val = val.replace(/[^\d.]/g, '')
+  _val = _val.replace(/\.{2,}/g, '.')
+  _val = _val.replace(/^\./g, '')
+  _val = _val.replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')
+  return _val
+}
+
 const CardContent: FC = (): ReactElement => {
   const { address: account } = useAccount()
   const { chainId } = useActiveWeb3React()
   const [loadding, setLoadding] = useState<boolean>(true)
+  const [open, setOpen] = useState<boolean>(false)
+  const [amount, setAmount] = useState('')
+  
+  const listener = () => {
+    try{
+      if (open) {
+        document.documentElement.style.overflow = 'hidden';
+        document.getElementById('_nav_footer_dom').style.display = 'none';
+        // document.getElementById('_nav_top_dom').style.display = 'none'
+      } else {
+        document.documentElement.style.overflow = 'scroll';
+        document.getElementById('_nav_footer_dom').style.display = 'flex';
+        // document.getElementById('_nav_top_dom').style.display = 'flex'
+      }
+    }catch(e){
+      console.log('')
+    }
+  }
+
+  const openDialog = (data?) => {
+    setOpen(true);
+    setAmount('');
+  }
+
+  useEffect(() => {
+    listener();
+  }, [open])
 
   return (
     <Main>
@@ -72,8 +107,8 @@ const CardContent: FC = (): ReactElement => {
             <BtnBlock>
               <Nodes>
                 {/* <Button className='_btns' disabled={loadding}>批准合约</Button> */}
-                <Button className="_btns dos">-</Button>
-                <Button className="_btns dos">+</Button>
+                <Button className="_btns dos" onClick={()=> openDialog()}>-</Button>
+                <Button className="_btns dos" onClick={()=> openDialog()}>+</Button>
               </Nodes>
             </BtnBlock>
           </Lib>
@@ -91,37 +126,38 @@ const CardContent: FC = (): ReactElement => {
           查看合约 <Icon src="/images/farm/open.svg" />
         </Item>
       </Footer>
-
-      <Dialog>
-        <Mask> </Mask>
-        <Cont>
-          <LabelText>Stake LP tokens</LabelText>
-          <DialogCont>
-            <Top>
-              Stake <RightCont>Balance：0</RightCont>
-            </Top>
-            <Bottom>
-              <Input placeholder="0" />
-              <RightCont>
-                <Max>MAX</Max>
-                ORG-BNB LP
-              </RightCont>
-            </Bottom>
-          </DialogCont>
-          <Btns>
-            <Button className="_dialog_btn">Cancel</Button>
-            <Button className="_dialog_btn" disabled={loadding}>
-              Confirm
-            </Button>
-          </Btns>
-          <See>
-            <span>
-              Get ORG-BNB LP
-              <Icon src="/images/farm/open.svg" />
-            </span>
-          </See>
-        </Cont>
-      </Dialog>
+      {open && (
+        <Dialog>
+          <Mask onClick={()=> setOpen(false)}> </Mask>
+          <Cont>
+            <LabelText>Stake LP tokens</LabelText>
+            <DialogCont>
+              <Top>
+                Stake <RightCont>Balance：0</RightCont>
+              </Top>
+              <Bottom>
+                <Input placeholder="0" value={amount} onChange={(e) => setAmount(clearNoNum(e.target.value))} />
+                <RightCont className="_operation">
+                  <Max>MAX</Max>
+                  ORG-BNB LP
+                </RightCont>
+              </Bottom>
+            </DialogCont>
+            <Btns>
+              <Button className="_dialog_btn">Cancel</Button>
+              <Button className="_dialog_btn" disabled={loadding}>
+                Confirm
+              </Button>
+            </Btns>
+            <See>
+              <span>
+                Get ORG-BNB LP
+                <Icon src="/images/farm/open.svg" />
+              </span>
+            </See>
+          </Cont>
+        </Dialog>
+      )}
     </Main>
   )
 }
@@ -132,7 +168,6 @@ const Dialog = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 999;
 `
 const Mask = styled.div`
   position: absolute;
@@ -140,8 +175,7 @@ const Mask = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.05);
-  z-index: 999;
+  background: rgba(0, 0, 0, 0.3);
 `
 const Cont = styled.div`
   position: absolute;
@@ -206,6 +240,11 @@ const RightCont = styled.div`
   display: flex;
   align-items: center;
   color: #000000;
+  white-space: nowrap;
+  &._operation {
+    position: relative;
+    left: -17px;
+  }
 `
 const Bottom = styled.div`
   height: 27px;
@@ -251,6 +290,7 @@ const Max = styled.div`
     height: 25px;
     line-height: 25px;
     font-size: 12px;
+    margin-right: 10px;
   }
 `
 const Btns = styled.div`
@@ -281,6 +321,7 @@ const Btns = styled.div`
     height: 36px;
     padding: 0 17px;
     ._dialog_btn {
+      width: 130px;
       font-size: 14px;
     }
   }
