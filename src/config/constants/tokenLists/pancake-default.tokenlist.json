@@ -239,14 +239,7 @@
       "chainId": 201022,
       "decimals": 18,
       "logoURI": "https://rosswap.com/static/media/bnb.47ab5796.png"
-    },
-    {
-      "name": "FlaminGo Token",
-      "symbol": "FGO",
-      "address": "0xd04E896ef4e770a51e0BaB6Fcf0AF34267B138d8",
-      "chainId": 201022,
-      "decimals": 18,
-      "logoURI": ""
     }
+    
   ]
 }
