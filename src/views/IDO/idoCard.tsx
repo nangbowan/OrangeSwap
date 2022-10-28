@@ -218,11 +218,13 @@ const IdoCard: FC<any> = (): ReactElement => {
             </Line>
             <Line>
               <Label>{t('Money to be raised')}</Label>
-              <ContFont>{maxretailidonum} USDT</ContFont>
+              {/* <ContFont>{maxretailidonum} USDT</ContFont> */}
+              <ContFont>{10000} USDT</ContFont>
             </Line>
             <Line>
               <Label>{t('Price per ORG')}</Label>
-              <ContFont>${orgprice}</ContFont>
+              {/* <ContFont>${orgprice}</ContFont> */}
+              <ContFont>${0.1}</ContFont>
             </Line>
           </Content>
           <Button className="_claimBtn" isLoading={loading || approveLoading} onClick={() => allowance >= 200 ? goretailido() : approve()}>
@@ -257,11 +259,13 @@ const IdoCard: FC<any> = (): ReactElement => {
             </Line>
             <Line>
               <Label>{t('Money to be raised')}</Label>
-              <ContFont>{maxwhiteidonum} USDT</ContFont>
+              {/* <ContFont>{maxretailidonum} USDT</ContFont> */}
+              <ContFont>{10000} USDT</ContFont>
             </Line>
             <Line>
               <Label>{t('Price per ORG')}</Label>
-              <ContFont>${orgprice}</ContFont>
+              {/* <ContFont>${orgprice}</ContFont> */}
+              <ContFont>${0.1}</ContFont>
             </Line>
           </Content>
           <Button className="_claimBtn" isLoading={whiteLoading || approveLoading} onClick={() => allowance >= 200 ? gowhiteido() : approve()}>

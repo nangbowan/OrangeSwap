@@ -106,7 +106,7 @@ export const bscProvider = new StaticJsonRpcProvider(
 )
 export const fonProvider = new StaticJsonRpcProvider(
   {
-    url: 'https://fsc-dataseed1.fonscan.io',
+    url: 'https://fsc-dataseed2.fonscan.io',
     skipFetchSetup: true,
   },
   201022,

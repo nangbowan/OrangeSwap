@@ -4,6 +4,7 @@ export const BSC_RPC_URLS = [
   'https://bsc-dataseed.binance.org',
 ]
 export const FON_RPC_URLS = [
+  'https://fsc-dataseed2.fonscan.io',
   'https://fsc-dataseed1.fonscan.io',
 ]
 

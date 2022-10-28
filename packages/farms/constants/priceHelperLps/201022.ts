@@ -1,5 +1,5 @@
 import { SerializedFarmConfig } from '@pancakeswap/farms'
 
-const priceHelperLps: SerializedFarmConfig[] = []
+// const priceHelperLps: SerializedFarmConfig[] = []
 
-export default priceHelperLps
+// export default priceHelperLps

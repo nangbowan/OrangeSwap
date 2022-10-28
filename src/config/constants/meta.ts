@@ -16,6 +16,7 @@ interface PathList {
 
 const getPathList = (t: ContextApi['t']): PathList => {
   return {
+    
     paths: {
       '/': { title: t('Home') },
       '/swap': { basePath: true, title: t('Exchange') },

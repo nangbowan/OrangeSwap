@@ -74,7 +74,7 @@ export const bsc: Chain = {
   name: 'BNB Smart Chain',
   network: 'bsc',
   rpcUrls: {
-    public: 'https://bsc-dataseed1.binance.org',
+    public: 'https://bsc-dataseed2.binance.org',
     default: 'https://bsc-dataseed1.binance.org',
   },
   blockExplorers: {
@@ -103,7 +103,7 @@ export const bscTest: Chain = {
   },
   rpcUrls: {
     public: 'https://data-seed-prebsc-1-s2.binance.org:8545/',
-    default: 'https://data-seed-prebsc-1-s2.binance.org:8545/',
+    default:'https://data-seed-prebsc-1-s2.binance.org:8545/',
   },
   blockExplorers: {
     default: { name: 'BscScan', url: 'https://testnet.bscscan.com' },
@@ -118,7 +118,7 @@ export const bscTest: Chain = {
 export const fon: Chain = {
   id: 201022,
   name: 'FON Smart Chain',
-  network: 'FON',
+  network: 'fon',
   nativeCurrency: {
     decimals: 18,
     name: 'FON Chain Native Token',
@@ -132,8 +132,8 @@ export const fon: Chain = {
     default: { name: 'FonScan', url: 'https://fonscan.io/' },
   },
   multicall: {
-    address: '0xcA11bde05977b3631167028862bE2a173976CA11',
-    blockCreated: 17422483,
+    address: '0x2E87e64A31fd353af41f5c4f3468EafE3FA9288D',
+    blockCreated: 489291,
   },
   testnet: true,
 }
