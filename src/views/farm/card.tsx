@@ -20,7 +20,6 @@ enum dialogType {
   'add',
   'reomve',
 }
-
 const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement => {
   const { address: account } = useAccount()
   const { fetchWithCatchTxError } = useCatchTxError()
@@ -244,7 +243,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
                 </Button>
               </Btns>
               <See>
-                <a href={`https://fonscan.io/address/${info.lpToken}`} target="blank">
+                <a href={`/add/${info.symbolAddress}/${info.symbolBddress}`}>
                   Get {info.symbolA}-{info.symbolB} LP
                   <Icon src="/images/farm/open.svg" />
                 </a>
@@ -374,7 +373,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       </Content>
       <Footer>
         <Item>
-          <a href={`https://fonscan.io/address/${info.lpToken}`} target="blank">
+          <a href={`/add/${info.symbolAddress}/${info.symbolBddress}`}>
             {t('Get')} {info.symbolA}-{info.symbolB} <Icon src="/images/farm/open.svg" />
           </a>
         </Item>
