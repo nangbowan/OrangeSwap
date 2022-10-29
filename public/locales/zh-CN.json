@@ -2031,5 +2031,19 @@
   "total transaction reward":"总交易奖励",
   "en":"英文",
   "zh":"中文",
-  "lange":"语言"
+  "lange":"语言",
+  "farm":"农场",
+  "Stake LP tokens to earn money":"质押LP代币以赚钱",
+  "core":"核心",
+  "Annualized interest rate":"年化利率",
+  "earned":"已赚取",
+  "claim":"收割",
+  "staked":"已质押",
+  "Approve":"批准合约",
+  "total liquidity":"总流动性",
+  "Get":"获取",
+  "earn":"赚取",
+  "cost":"费用",
+  "View contract":"查看合约",
+  "Stake LP token":"质押LP"
 }

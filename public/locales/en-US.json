@@ -2014,5 +2014,19 @@
   "total transaction reward": "total transaction reward",
   "en": "en",
   "zh": "zh",
-  "lange": "lange"
+  "lange": "lange",
+  "farm": "Farm",
+  "Stake LP tokens to earn money": "Stake LP tokens to earn money",
+  "core": "Core",
+  "Annualized interest rate": "ARY",
+  "earned": "Earned",
+  "claim": "Claim",
+  "staked": "Staked",
+  "Approve": "Approve",
+  "total liquidity": "Total liquidity",
+  "Get": "Get",
+  "earn": "Earn",
+  "cost": "Cost",
+  "View contract": "View contract",
+  "Stake LP token": "Stake LP tokens"
 }

@@ -2,35 +2,63 @@ import { FC, ReactElement, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
 import { useTranslation } from '@pancakeswap/localization'
-import { useToast, Button } from '@pancakeswap/uikit'
-import { useGasPrice } from 'state/user/hooks'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { $shiftedBy } from 'utils/met'
-import { copyText } from '@pancakeswap/utils/copyText'
-import { BOOSTED_FARM_GAS_LIMIT } from 'config'
-import { BIG_ZERO } from 'utils/bigNumber'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import useCatchTxError from 'hooks/useCatchTxError'
-import { useERC20, useTokenContract, useOrgbundrebate } from 'hooks/useContract'
+import { useOrgMineContract } from 'hooks/useContract'
 
 import CardContent from './card'
+import { farmConfig } from './config'
 
-const options = {
-  gasLimit: BOOSTED_FARM_GAS_LIMIT,
-}
 
 const Farm: FC = (): ReactElement => {
   const { t } = useTranslation()
   const { address: account } = useAccount()
   const { chainId } = useActiveWeb3React()
+  const [list, setList] = useState<any[]>([])
+
+  const orgbundrebate = {
+    56: '',
+    97: '0xC3c4853bB2F8fbaC5b736f850EF9B8562EDdE9cA',
+    201022:'0x85244742B5Efa4aFC10e3E951fA5aB2F602A069E',
+  }
+  
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const orgMineContract = useOrgMineContract(orgbundrebate[chainId])
+
+  const getFarmList = async () => {
+    const poolLength = await orgMineContract.poolLength();
+    let i = 0; 
+    const _list = [];
+    for(i ; i < Number(poolLength.toString()); i++){
+      // eslint-disable-next-line no-await-in-loop
+      const _info = await orgMineContract.poolInfos(i);
+      // eslint-disable-next-line no-await-in-loop
+      const pid = await orgMineContract.getPid(_info.lpToken);
+      const info = {
+        accORGPerShare: _info.accORGPerShare.toString(),
+        allocPoint: _info.allocPoint.toString(),
+        lastRewardBlock: _info.lastRewardBlock.toString(),
+        lpToken: _info.lpToken,
+        ...farmConfig[_info.lpToken],
+        pid: pid.toString()
+      }
+      _list.push(info);
+    }
+    setList(_list)
+  }
+
+  useEffect(() => {
+    if (orgMineContract && chainId && account) {
+      getFarmList()
+    }
+  }, [orgMineContract, chainId, account])
 
   return (
     <Main>
       <Header>
         <HeaderCont>
           <Left>
-            <Title>农场</Title>
-            <Tip>质押LP代币以赚钱</Tip>
+            <Title>{t('farm')}</Title>
+            <Tip>{t('Stake LP tokens to earn money')}</Tip>
           </Left>
           <Img src="/images/farm/people.png" />
         </HeaderCont>
@@ -38,8 +66,8 @@ const Farm: FC = (): ReactElement => {
       <Cont>
         <OrangeImg className="_top_icon" src="/images/farm/orange.png" />
         <OrangeImg className="_bottom_icon" src="/images/farm/orange.png" />
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
-          <CardContent />
+        {list.map(item => (
+          <CardContent info={item} Contract={orgMineContract} contractAddress={orgbundrebate[chainId]} key={item.lpToken} />
         ))}
       </Cont>
     </Main>
@@ -128,6 +156,7 @@ const Cont = styled.div`
   height: auto;
   min-height: 600px;
   margin: 0 auto;
+  padding-bottom: 80px;
   position: relative;
   display: grid;
   /* grid-template-rows: repeat(3, 150px); // 行决定高
@@ -143,7 +172,7 @@ const Cont = styled.div`
     width: 100%;
     grid-template-columns: repeat(1, 1fr);
     gap: 25px 0;
-    padding: 0 20px;
+    padding: 0 20px 40px;
   }
 `
 const OrangeImg = styled.img`

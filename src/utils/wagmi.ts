@@ -17,7 +17,7 @@ const CHAINS = [
   fon,
   // TODO: ETH
   // mainnet,
-  // bscTest,
+  bscTest,
   // rinkeby,
   // goerli,
 ]

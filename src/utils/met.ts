@@ -12,7 +12,7 @@ export const $shiftedBy = (data: number | string, decimals: number, acc = 0):num
   return Number($BigNumber(data).shiftedBy(decimals).toFixed(acc, 1));
 };
 
-export const $shiftedByFixed = (data: number, decimals: number) => {
+export const $shiftedByFixed = (data: number | string, decimals: number) => {
   if (!data) return 0;
   // eslint-disable-next-line no-param-reassign
   decimals = Number(decimals);

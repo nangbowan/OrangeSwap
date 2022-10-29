@@ -51,6 +51,7 @@ import bunnyFactoryAbi from 'config/abi/bunnyFactory.json'
 import bunnySpecialAbi from 'config/abi/bunnySpecial.json'
 import orgIdoAbi from 'config/abi/orgIdo.json'
 import orgbundrebateAbi from 'config/abi/orgbundrebate.json'
+import orgmineAbi from 'config/abi/ORGMine.json'
 import bep20Abi from 'config/abi/erc20.json'
 import erc721Abi from 'config/abi/erc721.json'
 import lpTokenAbi from 'config/abi/lpToken.json'
@@ -181,6 +182,9 @@ export const getOrgIdoContract = (address: string, signer?: Signer | Provider) =
 }
 export const getOrgbundrebateContract = (address: string, signer?: Signer | Provider) => {
   return getContract({ abi: orgbundrebateAbi, address, signer }) as any
+}
+export const getOrgMineContract = (address: string, signer?: Signer | Provider) => {
+  return getContract({ abi: orgmineAbi, address, signer }) as any
 }
 export const getBep20Contract = (address: string, signer?: Signer | Provider) => {
   return getContract({ abi: bep20Abi, address, signer }) as Erc20
