@@ -86,7 +86,6 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
   }
   const getPendingReward = async () => {
     const reward = await Contract.getPendingReward(info.lpToken, account);
-    // console.log('getPendingReward', reward.toString())
     setUserLpInfo((_val: any) => {
       // eslint-disable-next-line no-param-reassign
       _val.reward = $shiftedBy(reward.toString(), -18, 4)
@@ -146,7 +145,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
     try {
       setClaimLoadding(true)
       const receipt = await fetchWithCatchTxError(() => {
-        return Contract.approve(info.lpToken)
+        return Contract.claim(info.lpToken)
       })
       if (receipt?.status) {
         getPendingReward()
@@ -312,7 +311,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
         <Line>
           <Label>{t('Annualized interest rate')}:</Label>
           <Right>
-            95.64% <CalculateIcon src="/images/farm/calculation.svg" />
+            {info.apy}% <CalculateIcon src="/images/farm/calculation.svg" />
           </Right>
         </Line>
         <Line>
@@ -324,13 +323,13 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
           <Lib>
             <Left>
               <Title>{info.rewardSymbol} {t('earned')}</Title>
-              <Number>{userLpInfo.rewardDebt}</Number>
+              <Number>{userLpInfo.reward}</Number>
             </Left>
             <BtnBlock>
               <Nodes>
                 <Button
                   className="_btns"
-                  disabled={userLpInfo.rewardDebt <= 0}
+                  disabled={userLpInfo.reward <= 0}
                   isLoading={claimLoadding}
                   onClick={() => claim()}
                 >

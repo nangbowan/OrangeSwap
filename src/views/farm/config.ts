@@ -5,6 +5,7 @@ export const farmConfig = {
         symbolAddress: '',
         symbolB: 'ORG',
         symbolBddress: '',
+        apy: '20',
         rewardSymbol: 'ORG'
     },
     "0xd379CcF60eaec5E0B426ec8E7fF55faE1fDaDdc5": {
@@ -12,6 +13,7 @@ export const farmConfig = {
         symbolAddress: '',
         symbolB: 'ORG',
         symbolBddress: '',
+        apy: '30',
         rewardSymbol: 'ORG'
     }
 }
