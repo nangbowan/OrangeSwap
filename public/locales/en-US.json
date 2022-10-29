@@ -2028,5 +2028,9 @@
   "earn": "Earn",
   "cost": "Cost",
   "View contract": "View contract",
-  "Stake LP token": "Stake LP tokens"
+  "Stake LP token": "Stake LP tokens",
+  "Stake in the success": "Stake in the success",
+  "UnStake in the success": "UnStake in the success",
+  "Approve in the success": "Approve in the success",
+  "Claim in the success": "Claim in the success"
 }

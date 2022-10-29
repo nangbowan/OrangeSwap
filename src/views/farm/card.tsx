@@ -110,7 +110,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
-            {t('Participate in the success')}
+            {t('Stake in the success')}
           </ToastDescriptionWithTx>,
         )
       }
@@ -132,7 +132,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
-            {t('Participate in the success')}
+            {t('UnStake in the success')}
           </ToastDescriptionWithTx>,
         )
       }
@@ -152,7 +152,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
-            {t('Participate in the success')}
+            {t('Claim in the success')}
           </ToastDescriptionWithTx>,
         )
       }
@@ -172,7 +172,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
-            {t('Participate in the success')}
+            {t('Approve in the success')}
           </ToastDescriptionWithTx>,
         )
       }

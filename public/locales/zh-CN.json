@@ -2045,5 +2045,9 @@
   "earn":"赚取",
   "cost":"费用",
   "View contract":"查看合约",
-  "Stake LP token":"质押LP"
+  "Stake LP token":"质押LP",
+  "Stake in the success": "质押成功",
+  "UnStake in the success": "提取成功",
+  "Approve in the success": "授权成功",
+  "Claim in the success": "收取成功"
 }
