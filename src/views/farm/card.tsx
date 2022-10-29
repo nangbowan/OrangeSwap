@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useAccount } from 'wagmi'
 import { useToast, Button } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
-import { $shiftedBy, $shiftedByFixed } from 'utils/met'
+import { $shiftedBy, $shiftedByFixed, $BigNumber } from 'utils/met'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
 import { useERC20 } from 'hooks/useContract'
@@ -42,6 +42,8 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
   })
 
   const erc20Contract = useERC20(info.lpToken)
+  const usdtErc20Contract = useERC20(info.symbolBddress)
+  const tokenAErc20Contract = useERC20(info.symbolAddress)
 
   const listener = () => {
     try {
@@ -65,6 +67,18 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
     setOpenType(type)
   }
 
+  const calcTotalLpValue = async () => {
+    const usdt = await usdtErc20Contract.balanceOf(info.lpToken);
+    const tokenA = await tokenAErc20Contract.balanceOf(info.lpToken);
+    const _tokenA = $shiftedBy(tokenA.toString(),-18,4);
+    const _usdt = $shiftedBy(usdt.toString(),-18,4);
+    if($BigNumber(_tokenA).lte(0) || $BigNumber(_usdt).lte(0)){
+      setLpTotalAmount(0)
+    }else{
+      setLpTotalAmount($BigNumber(_usdt).dividedBy(_tokenA).toFixed(4,1))
+    }
+  }
+ 
   const getUserInfo = async () => {
     if (!info.pid && !['0', 0].includes(info.pid)) return
     const result = await Contract.userInfo(info.pid, account)
@@ -106,7 +120,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       if (receipt?.status) {
         setAmount('')
         setOpen(false)
-        Promise.all([getUserInfo(), getBalance(), getLpTotalAmount()])
+        Promise.all([getUserInfo(), getBalance(), calcTotalLpValue()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
@@ -128,7 +142,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       if (receipt?.status) {
         setAmount('')
         setOpen(false)
-        Promise.all([getUserInfo(), getBalance(), getLpTotalAmount()])
+        Promise.all([getUserInfo(), getBalance(), calcTotalLpValue()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
@@ -255,7 +269,6 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
   }
 
   useEffect(() => {
-    // console.error('----->')
     listener()
     const getRootNode = document.querySelector('#modalWrap')
     if (open) {
@@ -284,7 +297,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
 
   useEffect(() => {
     if (Contract && erc20Contract && Object.keys(info).length > 0) {
-      Promise.all([getUserInfo(), getBalance(), getPendingReward(), getAllowance(), getLpTotalAmount()])
+      Promise.all([getUserInfo(), getBalance(), getPendingReward(), getAllowance(), calcTotalLpValue()])
     }
   }, [info, Contract, erc20Contract])
 
@@ -367,7 +380,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
         </Section>
         <Line>
           <Label>{t('total liquidity')}:</Label>
-          <Right className="bold luidity">${lpTotalAmount} </Right>
+          <Right className="bold luidity">{lpTotalAmount > 0 ? "$" : ''}{lpTotalAmount} </Right>
         </Line>
       </Content>
       <Footer>
