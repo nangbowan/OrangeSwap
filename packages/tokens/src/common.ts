@@ -2,7 +2,7 @@ import { ChainId, Token } from '@pancakeswap/sdk'
 
 export const ORG_MAINNET = new Token(
   ChainId.FON,
-  '0x6f185F21FE6D5D827328468E18db6a53F4eA862e',
+  '0xFa61BD0B233A6E8112D8F8D06E88EA128B9E5D7b',
   18,
   'ORG',
   'OrangeSwap Token',
