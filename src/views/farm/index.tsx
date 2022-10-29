@@ -26,6 +26,8 @@ const Farm: FC = (): ReactElement => {
 
   const getFarmList = async () => {
     const poolLength = await orgMineContract.poolLength();
+    // const result = await orgMineContract.orgRewardVault();
+    // console.log('orgRewardVault', result)
     let i = 0; 
     const _list = [];
     for(i ; i < Number(poolLength.toString()); i++){

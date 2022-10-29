@@ -86,7 +86,8 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
     })
   }
   const getPendingReward = async () => {
-    const reward = await Contract.getPendingReward(info.lpToken, account)
+    const reward = await Contract.getPendingReward(info.lpToken, account);
+    // console.log('getPendingReward', reward.toString())
     setUserLpInfo((_val: any) => {
       // eslint-disable-next-line no-param-reassign
       _val.reward = $shiftedBy(reward.toString(), -18, 4)
