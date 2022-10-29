@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useState } from 'react'
+import { FC, ReactElement, useEffect, useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
 import { useToast, Button } from '@pancakeswap/uikit'
@@ -33,6 +33,8 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
   const [openType, setOpenType] = useState<dialogType>(dialogType.add)
   const [amount, setAmount] = useState<string | number>('')
   const [lpTotalAmount, setLpTotalAmount] = useState<string | number>('0')
+  const [lpPrice, setLpPrice] = useState<string | number>('0')
+  // const [apy, setApy] = useState<string | number>(0)
   const [rootNode, setRootNode] = useState(null)
   const [userLpInfo, setUserLpInfo] = useState({
     balance: 0,
@@ -44,6 +46,8 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
   const erc20Contract = useERC20(info.lpToken)
   const usdtErc20Contract = useERC20(info.symbolBddress)
   const tokenAErc20Contract = useERC20(info.symbolAddress)
+
+  
 
   const listener = () => {
     try {
@@ -67,16 +71,34 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
     setOpenType(type)
   }
 
-  const calcTotalLpValue = async () => {
+  const calcTotalLpPrice = async () => {
     const usdt = await usdtErc20Contract.balanceOf(info.lpToken);
     const tokenA = await tokenAErc20Contract.balanceOf(info.lpToken);
     const _tokenA = $shiftedBy(tokenA.toString(),-18,4);
     const _usdt = $shiftedBy(usdt.toString(),-18,4);
+    let _lpPrice:any = 0;
     if($BigNumber(_tokenA).lte(0) || $BigNumber(_usdt).lte(0)){
-      setLpTotalAmount(0)
+      _lpPrice = 0;
     }else{
-      setLpTotalAmount($BigNumber(_usdt).dividedBy(_tokenA).toFixed(4,1))
+      _lpPrice = $BigNumber(_usdt).dividedBy(_tokenA).toFixed(4,1);
     }
+    setLpPrice(_lpPrice)
+  }
+
+  const calcApy = (): string | number => {
+    // 假设这个LP池子，总质押进来的数量为100，这个池子的每区块奖励是500个币，那么年化收益：500个币*一年的区块数*币的价格 / (101 * (1个LP的价值U))
+    // orgPerBlock:  全网每区块奖励 
+    // 某个池子的占比就是：allocPoint / totalAllocPoint
+
+    // 某个池子的占比 rate =   allocPoint / totalAllocPoint
+    // 一年区块数 blockTotal =  365 * 24 * 60 * 60 / 3 = 10512000
+    // APY =  orgPerBlock   *    rate            *      10512000     *    币的价格    /     该池子的总质押量
+    //        全网每区块奖励  *    某个池子的占比     *      一年区块数    *     币的价格    /     该池子的总质押量
+
+    if($BigNumber(lpPrice).lte(0) || $BigNumber(lpTotalAmount).lte(0)) return '0';
+    const rate = $BigNumber(info.allocPoint).dividedBy(info.totalAllocPoint).toFixed(2,1)
+    const _apy = $BigNumber(info.orgPerBlock).multipliedBy(rate).multipliedBy(10512000).multipliedBy(lpPrice).dividedBy(lpTotalAmount).toFixed(2, 1);
+    return _apy
   }
  
   const getUserInfo = async () => {
@@ -120,7 +142,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       if (receipt?.status) {
         setAmount('')
         setOpen(false)
-        Promise.all([getUserInfo(), getBalance(), calcTotalLpValue()])
+        Promise.all([getUserInfo(), getBalance(), getLpTotalAmount()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
@@ -142,7 +164,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       if (receipt?.status) {
         setAmount('')
         setOpen(false)
-        Promise.all([getUserInfo(), getBalance(), calcTotalLpValue()])
+        Promise.all([getUserInfo(), getBalance(), getLpTotalAmount()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
@@ -268,6 +290,9 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       : null
   }
 
+  const apy = useMemo(() => calcApy(), [lpPrice, lpTotalAmount])
+  const liquidityValue = useMemo(() => $shiftedBy($BigNumber(lpPrice).multipliedBy(lpTotalAmount).toFixed(), 4), [lpPrice, lpTotalAmount])
+
   useEffect(() => {
     listener()
     const getRootNode = document.querySelector('#modalWrap')
@@ -297,7 +322,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
 
   useEffect(() => {
     if (Contract && erc20Contract && Object.keys(info).length > 0) {
-      Promise.all([getUserInfo(), getBalance(), getPendingReward(), getAllowance(), calcTotalLpValue()])
+      Promise.all([getUserInfo(), getBalance(), getPendingReward(), getAllowance(), getLpTotalAmount(), calcTotalLpPrice()])
     }
   }, [info, Contract, erc20Contract])
 
@@ -324,7 +349,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
         <Line>
           <Label>{t('Annualized interest rate')}:</Label>
           <Right>
-            {info.apy}% <CalculateIcon src="/images/farm/calculation.svg" />
+            {apy}% <CalculateIcon src="/images/farm/calculation.svg" />
           </Right>
         </Line>
         <Line>
@@ -380,7 +405,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
         </Section>
         <Line>
           <Label>{t('total liquidity')}:</Label>
-          <Right className="bold luidity">{lpTotalAmount > 0 ? "$" : ''}{lpTotalAmount} </Right>
+          <Right className="bold luidity">{liquidityValue > 0 ? "$" : ''}{liquidityValue} </Right>
         </Line>
       </Content>
       <Footer>

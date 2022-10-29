@@ -4,6 +4,7 @@ import { useAccount } from 'wagmi'
 import { useTranslation } from '@pancakeswap/localization'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useOrgMineContract } from 'hooks/useContract'
+import { $shiftedBy, $shiftedByFixed, $BigNumber } from 'utils/met'
 
 import CardContent from './card'
 import { farmConfig } from './config'
@@ -26,6 +27,11 @@ const Farm: FC = (): ReactElement => {
 
   const getFarmList = async () => {
     const poolLength = await orgMineContract.poolLength();
+    const _orgPerBlock = await orgMineContract.orgPerBlock();
+    const _totalAllocPoint = await orgMineContract.totalAllocPoint();
+    // console.log('_orgPerBlock=====', $shiftedBy(_orgPerBlock.toString(), -18, 4), _totalAllocPoint.toString() )
+    const orgPerBlock = $shiftedBy(_orgPerBlock.toString(), -18, 4);
+    const totalAllocPoint = _totalAllocPoint.toString();
     // const result = await orgMineContract.orgRewardVault();
     // console.log('orgRewardVault', result)
     let i = 0; 
@@ -37,9 +43,11 @@ const Farm: FC = (): ReactElement => {
       const pid = await orgMineContract.getPid(_info.lpToken);
       const info = {
         accORGPerShare: _info.accORGPerShare.toString(),
-        allocPoint: _info.allocPoint.toString(),
+        allocPoint: _info.allocPoint.toString(),  // 当前LP奖励占比
         lastRewardBlock: _info.lastRewardBlock.toString(),
         lpToken: _info.lpToken,
+        orgPerBlock, // 全网每区块奖励
+        totalAllocPoint, // 总LP奖励分量
         ...farmConfig[_info.lpToken],
         pid: pid.toString()
       }
