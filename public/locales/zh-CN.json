@@ -1990,7 +1990,7 @@
   "Invitation reward system":"邀请奖励机制",
   "Trading reward":"交易奖励",
   "Can obtain the invitee each transaction amount":"可获得被邀请人每次交易金额",
-  "ORG tokens":"的ORG代币",
+  "ORG tokens(0.01% under mining transaction)":"的ORG代币(交易挖矿期间该奖励为0.01%)",
   "LP dig":"LP挖矿",
   "Each time the income is withdrawn":"每次提取收益的",
   "ORG pledge":"ORG质押",

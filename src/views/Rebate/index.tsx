@@ -122,7 +122,7 @@ const Rebate: FC = (): ReactElement => {
                 <Content>
                 {t('Can obtain the invitee each transaction amount')}
                   <br />
-                  0.01%{t('ORG tokens')}
+                  0.05%{t('ORG tokens(0.01% under mining transaction)')}
                 </Content>
               </Block>
             </Libs>

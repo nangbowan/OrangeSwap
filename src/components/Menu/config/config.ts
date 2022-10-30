@@ -92,7 +92,7 @@ const config: (
       items: [
         {
           label: t('Farms'),
-          href: '/farms',
+          href: '/farm',
         },
         {
           label: t('Pools'),
