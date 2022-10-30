@@ -19,7 +19,7 @@ const Farm: FC = (): ReactElement => {
   const orgbundrebate = {
     56: '',
     97: '0xC3c4853bB2F8fbaC5b736f850EF9B8562EDdE9cA',
-    201022:'0x85244742B5Efa4aFC10e3E951fA5aB2F602A069E',
+    201022:'0xFAdffE48d8974715303F1f904Fe1deE795d95C97',
   }
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -29,9 +29,9 @@ const Farm: FC = (): ReactElement => {
     const poolLength = await orgMineContract.poolLength();
     const _orgPerBlock = await orgMineContract.orgPerBlock();
     const _totalAllocPoint = await orgMineContract.totalAllocPoint();
-    // console.log('_orgPerBlock=====', $shiftedBy(_orgPerBlock.toString(), -18, 4), _totalAllocPoint.toString() )
     const orgPerBlock = $shiftedBy(_orgPerBlock.toString(), -18, 4);
     const totalAllocPoint = _totalAllocPoint.toString();
+
     // const result = await orgMineContract.orgRewardVault();
     // console.log('orgRewardVault', result)
     let i = 0; 
