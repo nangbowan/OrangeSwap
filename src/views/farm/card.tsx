@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useAccount } from 'wagmi'
 import { useToast, Button } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
-import { $shiftedBy, $shiftedByFixed, $BigNumber } from 'utils/met'
+import { $shiftedBy, $shiftedByFixed, $BigNumber, $toFixed } from 'utils/met'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
 import { useERC20 } from 'hooks/useContract'
@@ -291,7 +291,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
   }
 
   const apy = useMemo(() => calcApy(), [lpPrice, lpTotalAmount])
-  const liquidityValue = useMemo(() => $shiftedBy($BigNumber(lpPrice).multipliedBy(lpTotalAmount).toFixed(), 4), [lpPrice, lpTotalAmount])
+  const liquidityValue = useMemo(() => $toFixed($BigNumber(lpPrice).multipliedBy(lpTotalAmount).toFixed(), 4), [lpPrice, lpTotalAmount])
 
   useEffect(() => {
     listener()
@@ -405,7 +405,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
         </Section>
         <Line>
           <Label>{t('total liquidity')}:</Label>
-          <Right className="bold luidity">{liquidityValue > 0 ? "$" : ''}{liquidityValue} </Right>
+          <Right className="bold luidity">{liquidityValue > 0 ? "$" : ''}{liquidityValue}</Right>
         </Line>
       </Content>
       <Footer>
