@@ -279,7 +279,7 @@ const TopImg = styled.img`
   top: 50%;
   transform: translateY(-50%);
   @media (max-width: 768px) {
-    width: 250px;
+    width: 220px;
     height: 250px;
     position: relative;
     right: 0;

@@ -244,7 +244,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
               <LabelText>{t('Stake LP token')}</LabelText>
               <DialogCont>
                 <Top>
-                  {openType === dialogType.add ? 'Stake' : 'UnStart'}{' '}
+                  {openType === dialogType.add ? 'Stake' : 'UnStake'}{' '}
                   <RightCont>{t('Balance')}：{openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount}</RightCont>
                 </Top>
                 <Bottom>
