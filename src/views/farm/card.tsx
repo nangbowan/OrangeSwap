@@ -433,6 +433,8 @@ const Main = styled.div`
   height: 487px;
   position: relative;
   z-index: 3;
+  border: 1px solid #FF6F42;
+  border-bottom-width: 3px;
   @media (max-width: 768px) {
     padding: 26px 18 35px;
     height: auto;
