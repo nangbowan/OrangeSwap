@@ -92,12 +92,12 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
 
     // 某个池子的占比 rate =   allocPoint / totalAllocPoint
     // 一年区块数 blockTotal =  365 * 24 * 60 * 60 / 3 = 10512000
-    // APY =  orgPerBlock   *    rate            *      10512000     *    币的价格    /     该池子的总质押量
-    //        全网每区块奖励  *    某个池子的占比     *      一年区块数    *     币的价格    /     该池子的总质押量
+    // APY =  orgPerBlock   *    rate            *      10512000     *    币的价格(ORG)    /     该池子的总质押量
+    //        全网每区块奖励  *    某个池子的占比     *      一年区块数    *     币的价格(ORG)    /     该池子的总质押量
 
     if($BigNumber(lpPrice).lte(0) || $BigNumber(lpTotalAmount).lte(0)) return '0';
     const rate = $BigNumber(info.allocPoint).dividedBy(info.totalAllocPoint).toFixed(2,1)
-    const _apy = $BigNumber(info.orgPerBlock).multipliedBy(rate).multipliedBy(10512000).multipliedBy(lpPrice).dividedBy(lpTotalAmount).toFixed(2, 1);
+    const _apy = $BigNumber(info.orgPerBlock).multipliedBy(rate).multipliedBy(10512000).multipliedBy(0.1).dividedBy(lpTotalAmount).toFixed(2, 1);
     return _apy
   }
  

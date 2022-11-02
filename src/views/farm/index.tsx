@@ -16,14 +16,14 @@ const Farm: FC = (): ReactElement => {
   const { chainId } = useActiveWeb3React()
   const [list, setList] = useState<any[]>([])
 
-  const orgbundrebate = {
+  const orgfarm = {
     56: '',
     97: '0xC3c4853bB2F8fbaC5b736f850EF9B8562EDdE9cA',
     201022:'0xFAdffE48d8974715303F1f904Fe1deE795d95C97',
   }
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const orgMineContract = useOrgMineContract(orgbundrebate[chainId])
+  const orgMineContract = useOrgMineContract(orgfarm[chainId])
 
   const getFarmList = async () => {
     const poolLength = await orgMineContract.poolLength();
@@ -77,7 +77,7 @@ const Farm: FC = (): ReactElement => {
         <OrangeImg className="_top_icon" src="/images/farm/orange.png" />
         <OrangeImg className="_bottom_icon" src="/images/farm/orange.png" />
         {list.map(item => (
-          <CardContent info={item} Contract={orgMineContract} contractAddress={orgbundrebate[chainId]} key={item.lpToken} />
+          <CardContent info={item} Contract={orgMineContract} contractAddress={orgfarm[chainId]} key={item.lpToken} />
         ))}
       </Cont>
     </Main>
