@@ -2049,5 +2049,7 @@
   "Stake in the success": "质押成功",
   "UnStake in the success": "提取成功",
   "Approve in the success": "授权成功",
-  "Claim in the success": "收取成功"
+  "Claim in the success": "收取成功",
+  "Pool Title": "只需要质押一些代币即可赚取。高年化利率表，低风险",
+  "Total Stake":"质押总计"
 }
