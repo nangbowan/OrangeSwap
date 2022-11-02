@@ -198,7 +198,7 @@ const OrangeImg = styled.img`
   }
   &._bottom_icon {
     bottom: 50px;
-    right: -100px;
+    right: -180px;
   }
   @media (max-width: 768px) {
     display: none;

@@ -408,10 +408,13 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
                 {allowance > 0 ? (
                   <>
                     <Button className="_btns dos" onClick={() => openDialog(dialogType.reomve)}>
-                      -
+                      质押
+                    </Button>
+                    <Button className="_btns dos" onClick={() => openDialog(dialogType.reomve)}>
+                      增加ORG
                     </Button>
                     <Button className="_btns dos" onClick={() => openDialog(dialogType.add)}>
-                      +
+                      取消质押
                     </Button>
                   </>
                 ) : (
