@@ -681,7 +681,7 @@ const Cont = styled.div`
   width: 500px;
   background: #ffffff;
   border-radius: 20px;
-  padding: 41px 25px 19px;
+  padding: 36px 25px 30px;
   @media (min-width: 769px) {
     top: 50%;
     left: 50%;
@@ -699,10 +699,10 @@ const LabelText = styled.div`
   font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
-  line-height: 34px;
+  font-size: 20px;
+  line-height: 28px;
   color: #ff8c14;
-  padding-bottom: 26px;
+  padding-bottom: 23px;
   border-bottom: 1px solid #f3f3f3;
   @media (max-width: 768px) {
     font-size: 20px;
@@ -711,13 +711,12 @@ const LabelText = styled.div`
   }
 `
 const DialogCont = styled.div`
-  margin: 26px 0 28px;
+  margin: 23px 0;
   padding: 14px 19px 10px 25px;
   background: #f3eee7;
   border-radius: 12px;
   width: 100%;
   @media (max-width: 768px) {
-    margin: 23px 0;
     padding: 12px 15px 13px 29px;
   }
 `
@@ -834,7 +833,7 @@ const See = styled.div`
   line-height: 21px;
   color: #ff8c14;
   text-align: center;
-  margin-top: 32px;
+  margin-top: 14px;
   span {
     cursor: pointer;
   }

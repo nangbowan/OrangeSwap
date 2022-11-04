@@ -32,6 +32,7 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
   const [open, setOpen] = useState<boolean>(false)
   const [openType, setOpenType] = useState<dialogType>(dialogType.add)
   const [amount, setAmount] = useState<string | number>('')
+  const [week, setWeek] = useState<string | number>('5')
   const [lpTotalAmount, setLpTotalAmount] = useState<string | number>('0')
   const [lpPrice, setLpPrice] = useState<string | number>('0')
   // const [apy, setApy] = useState<string | number>(0)
@@ -46,6 +47,14 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
   const erc20Contract = useERC20(info.lpToken)
   const usdtErc20Contract = useERC20(info.symbolBddress)
   const tokenAErc20Contract = useERC20(info.symbolAddress)
+
+  const weekList: any[] = [
+    { title: '1W', key: 1 },
+    { title: '5W', key: 5 },
+    { title: '10W', key: 10 },
+    { title: '25W', key: 25 },
+    { title: '52W', key: 52 },
+  ]
 
   const listener = () => {
     try {
@@ -240,7 +249,7 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
           <Dialog>
             <Mask onClick={() => setOpen(false)}> </Mask>
             <Cont>
-              <LabelText>{t('Stake LP token')}</LabelText>
+              <LabelText>Stake ORG</LabelText>
               <DialogCont>
                 <Top>
                   {openType === dialogType.add ? 'Stake' : 'UnStake'}{' '}
@@ -261,10 +270,30 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
                     >
                       MAX
                     </Max>
-                    {info.symbolA}-{info.symbolB} LP
+                    ORG
                   </RightCont>
                 </Bottom>
               </DialogCont>
+              <Weeks>
+                <WeeksTop>
+                  {weekList.map((item) => (
+                    <WeeksItem key={item.key}>{item.title}</WeeksItem>
+                  ))}
+                </WeeksTop>
+                <WeekCont>
+                  <Input
+                    placeholder="0"
+                    value={week}
+                    onChange={(e) => setAmount(clearNoNum(e.target.value))}
+                    onBlur={() => changeInput()}
+                  />
+                  <Unit>周</Unit>
+                </WeekCont>
+              </Weeks>
+              <ApyCont>
+                APY
+                <ApyValue>20.1%</ApyValue>
+              </ApyCont>
               <Btns>
                 <Button className="_dialog_btn" onClick={() => setOpen(false)}>
                   {t('Cancel')}
@@ -360,9 +389,7 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
         <Section>
           <Lib>
             <Left>
-              <Title>
-                ORG即将解锁：
-              </Title>
+              <Title>ORG即将解锁：</Title>
               <Number>{userLpInfo.reward}</Number>
             </Left>
             <BtnBlock>
@@ -426,18 +453,16 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
             </BtnBlock>
           </Lib>
         </Section>
-        <Line className='bottom'>
+        <Line className="bottom">
           <Label>{t('Total Stake')}:</Label>
           <Right className="bold luidity">
             {liquidityValue > 0 ? '$' : ''}
             {liquidityValue}
           </Right>
         </Line>
-        <Line className='bottom'>
+        <Line className="bottom">
           <Label>我的APY:</Label>
-          <Right className="bold luidity">
-          12.1%
-          </Right>
+          <Right className="bold luidity">12.1%</Right>
         </Line>
       </Content>
       <Footer>
@@ -456,6 +481,79 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
     </Main>
   )
 }
+
+const Weeks = styled.div`
+  margin-bottom: 19px;
+`
+const WeeksTop = styled.div`
+  display: flex;
+  height: 40px;
+  line-height: 40px;
+  margin-bottom: 18px;
+`
+const WeeksItem = styled.div`
+  flex: 1;
+  height: 100%;
+  margin-right: 7px;
+  background: #f8f8f8;
+  border-radius: 16px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  color: #ffad34;
+  &.active {
+    background: linear-gradient(120.51deg, #ff6a43 1.69%, #ffad34 100%);
+    border-radius: 14px;
+    color: #ffffff;
+  }
+  &:nth-of-type(2) {
+    background: linear-gradient(120.51deg, #ff6a43 1.69%, #ffad34 100%);
+    border-radius: 14px;
+    color: #ffffff;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+`
+const WeekCont = styled.div`
+  height: 38px;
+  line-height: 38px;
+  display: flex;
+  & > input {
+    height: 100%;
+    background: #f3eee7;
+    border-radius: 16px;
+    flex: 1;
+    font-size: 16px;
+    text-align: right;
+    color: #000000;
+    padding-right: 19px;
+  }
+`
+const Unit = styled.div`
+  margin-left: 8px;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  color: #000000;
+`
+const ApyCont = styled.div`
+  height: 64px;
+  width: 100%;
+  background: #f3eee7;
+  border-radius: 16px;
+  padding: 0 15px 0 21px;
+  font-family: 'Arimo Hebrew Subset';
+  font-size: 16px;
+  line-height: 64px;
+  color: #000000;
+`
+const ApyValue = styled.div`
+  float: right;
+`
 
 const Main = styled.div`
   background: #ffffff;
@@ -525,7 +623,7 @@ const Line = styled.div`
   font-size: 20px;
   line-height: 28px;
   color: #9e9fa4;
-  &.bottom{
+  &.bottom {
     font-size: 16px;
     line-height: 22px;
     height: 22px;
@@ -705,7 +803,7 @@ const Cont = styled.div`
   width: 500px;
   background: #ffffff;
   border-radius: 20px;
-  padding: 41px 25px 19px;
+  padding: 36px 22px 19px;
   @media (min-width: 769px) {
     top: 50%;
     left: 50%;
@@ -723,11 +821,12 @@ const LabelText = styled.div`
   font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
-  line-height: 34px;
+  font-size: 20px;
+  line-height: 28px;
   color: #ff8c14;
   padding-bottom: 26px;
   border-bottom: 1px solid #f3f3f3;
+  margin-bottom: 23px;
   @media (max-width: 768px) {
     font-size: 20px;
     line-height: 28px;
@@ -735,13 +834,13 @@ const LabelText = styled.div`
   }
 `
 const DialogCont = styled.div`
-  margin: 26px 0 28px;
+  margin-bottom: 25px;
   padding: 14px 19px 10px 25px;
   background: #f3eee7;
   border-radius: 12px;
   width: 100%;
   @media (max-width: 768px) {
-    margin: 23px 0;
+    margin-bottom: 23px;
     padding: 12px 15px 13px 29px;
   }
 `
@@ -822,6 +921,7 @@ const Btns = styled.div`
   padding: 0 23px;
   display: flex;
   justify-content: space-between;
+  margin-top: 32px;
   ._dialog_btn {
     width: 179px;
     height: 41px;
@@ -858,7 +958,7 @@ const See = styled.div`
   line-height: 21px;
   color: #ff8c14;
   text-align: center;
-  margin-top: 32px;
+  margin-top: 25px;
   span {
     cursor: pointer;
   }
