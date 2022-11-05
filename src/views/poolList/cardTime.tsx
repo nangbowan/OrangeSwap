@@ -19,6 +19,8 @@ const clearNoNum = (val: string) => {
 enum dialogType {
   'add',
   'reomve',
+  'addTime',
+  'addStake',
 }
 const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement => {
   const { address: account } = useAccount()
@@ -28,7 +30,7 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
   const [loadding, setLoadding] = useState<boolean>(false)
   const [claimLoadding, setClaimLoadding] = useState<boolean>(false)
   const [approveLoading, setApproveLoading] = useState<boolean>(false)
-  const [allowance, setAllowance] = useState<number>(0)
+  const [allowance, setAllowance] = useState<number>(1000)
   const [open, setOpen] = useState<boolean>(false)
   const [openType, setOpenType] = useState<dialogType>(dialogType.add)
   const [amount, setAmount] = useState<string | number>('')
@@ -249,51 +251,62 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
           <Dialog>
             <Mask onClick={() => setOpen(false)}> </Mask>
             <Cont>
-              <LabelText>Stake ORG</LabelText>
-              <DialogCont>
-                <Top>
-                  {openType === dialogType.add ? 'Stake' : 'UnStake'}{' '}
-                  <RightCont>
-                    {t('Balance')}：{openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount}
-                  </RightCont>
-                </Top>
-                <Bottom>
-                  <Input
-                    placeholder="0"
-                    value={amount}
-                    onChange={(e) => setAmount(clearNoNum(e.target.value))}
-                    onBlur={() => changeInput()}
-                  />
-                  <RightCont className="_operation">
-                    <Max
-                      onClick={() => setAmount(openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount)}
-                    >
-                      MAX
-                    </Max>
-                    ORG
-                  </RightCont>
-                </Bottom>
-              </DialogCont>
-              <Weeks>
-                <WeeksTop>
-                  {weekList.map((item) => (
-                    <WeeksItem key={item.key}>{item.title}</WeeksItem>
-                  ))}
-                </WeeksTop>
-                <WeekCont>
-                  <Input
-                    placeholder="0"
-                    value={week}
-                    onChange={(e) => setAmount(clearNoNum(e.target.value))}
-                    onBlur={() => changeInput()}
-                  />
-                  <Unit>周</Unit>
-                </WeekCont>
-              </Weeks>
-              <ApyCont>
-                APY
-                <ApyValue>20.1%</ApyValue>
-              </ApyCont>
+              <LabelText>
+                {openType === dialogType.add && 'Stake ORG'}
+                {openType === dialogType.reomve && 'UnStake ORG'}
+                {openType === dialogType.addTime && '选择最新固定质押时长'}
+              </LabelText>
+              {![dialogType.addTime].includes(openType) && (
+                <DialogCont>
+                  <Top>
+                    {openType === dialogType.add ? 'Stake' : 'UnStake'}
+                    <RightCont>
+                      {t('Balance')}：{openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount}
+                    </RightCont>
+                  </Top>
+                  <Bottom>
+                    <Input
+                      placeholder="0"
+                      value={amount}
+                      onChange={(e) => setAmount(clearNoNum(e.target.value))}
+                      onBlur={() => changeInput()}
+                    />
+                    <RightCont className="_operation">
+                      <Max
+                        onClick={() => setAmount(openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount)}
+                      >
+                        MAX
+                      </Max>
+                      ORG
+                    </RightCont>
+                  </Bottom>
+                </DialogCont>
+              )}
+              {![dialogType.addStake].includes(openType) && (
+                <Weeks>
+                  <WeeksTop>
+                    {weekList.map((item) => (
+                      <WeeksItem key={item.key}>{item.title}</WeeksItem>
+                    ))}
+                  </WeeksTop>
+                  <WeekCont>
+                    <Input
+                      placeholder="0"
+                      value={week}
+                      onChange={(e) => setAmount(clearNoNum(e.target.value))}
+                      onBlur={() => changeInput()}
+                    />
+                    <Unit>周</Unit>
+                  </WeekCont>
+                </Weeks>
+              )}
+              {![dialogType.addStake].includes(openType) && (
+                <ApyCont>
+                  APY
+                  <ApyValue>20.1%</ApyValue>
+                </ApyCont>
+              )}
+
               <Btns>
                 <Button className="_dialog_btn" onClick={() => setOpen(false)}>
                   {t('Cancel')}
@@ -309,7 +322,7 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
               </Btns>
               <See>
                 <a href={`/add/${info.symbolAddress}/${info.symbolBddress}`}>
-                  Get {info.symbolA}-{info.symbolB} LP
+                  Get ORG
                   <Icon src="/images/farm/open.svg" />
                 </a>
               </See>
@@ -398,7 +411,7 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
                   className="_btns"
                   disabled={userLpInfo.reward <= 0}
                   isLoading={claimLoadding}
-                  onClick={() => claim()}
+                  onClick={() => openDialog(dialogType.addTime)}
                 >
                   延长
                 </Button>
@@ -434,13 +447,13 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
               <Nodes>
                 {allowance > 0 ? (
                   <>
-                    <Button className="_btns dos" onClick={() => openDialog(dialogType.reomve)}>
+                    {/* <Button className="_btns dos" onClick={() => openDialog(dialogType.add)}>
                       质押
-                    </Button>
-                    <Button className="_btns dos" onClick={() => openDialog(dialogType.reomve)}>
+                    </Button> */}
+                    {/* <Button className="_btns dos" onClick={() => openDialog(dialogType.addStake)}>
                       增加ORG
-                    </Button>
-                    <Button className="_btns dos" onClick={() => openDialog(dialogType.add)}>
+                    </Button> */}
+                    <Button className="_btns dos" onClick={() => openDialog(dialogType.reomve)}>
                       取消质押
                     </Button>
                   </>
@@ -503,6 +516,7 @@ const WeeksItem = styled.div`
   font-size: 16px;
   text-align: center;
   color: #ffad34;
+  cursor: pointer;
   &.active {
     background: linear-gradient(120.51deg, #ff6a43 1.69%, #ffad34 100%);
     border-radius: 14px;
