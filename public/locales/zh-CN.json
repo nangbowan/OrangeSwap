@@ -2051,5 +2051,22 @@
   "Approve in the success": "授权成功",
   "Claim in the success": "收取成功",
   "Pool Title": "只需要质押一些代币即可赚取。高年化利率表，低风险",
-  "Total Stake":"质押总计"
+  "Total Stake":"质押总计",
+
+  "Flexible pledge ORG":"灵活质押ORG",
+  "Stake Earn and More Surprises":"质押，赚取-以及更多惊喜",
+  "Cancellation fee charged to":"2%取消质押费用收取至",
+  "ORG has been flexibly pledged":"ORG已灵活质押",
+  "View token contracts":"查看代币合约",
+  "View tutorial":"查看教程",
+
+  "Fixed term pledge":"固定期限质押",
+  "is about to unlock":"即将解锁",
+  "has fixed pledge":"已固定质押",
+  "Add Stake":"增加",
+  "UnStake":"取消质押",
+  "My":"我的",
+  "Max fixed term":"最长固定期限",
+  "Select the latest fixed pledge duration":"选择最新固定质押时长",
+  "Successful operation":"操作成功"
 }

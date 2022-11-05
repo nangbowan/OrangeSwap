@@ -2034,5 +2034,21 @@
   "Approve in the success": "Approve in the success",
   "Claim in the success": "Claim in the success",
   "Pool Title": "Just stake some tokens to earn. High annualized interest rate table, low risk",
-  "Total Stake":"Total Stake"
+  "Total Stake":"Total Stake",
+  "Flexible pledge ORG":"Flexible ORG",
+  "Stake Earn and More Surprises":"Stake, Earn, More Surpris",
+  "Cancellation fee charged to":"Fee charged to",
+  "ORG has been flexibly pledged":"ORG has been pledged",
+  "View token contracts":"View token contracts",
+  "View tutorial":"View tutorial",
+
+  "Fixed term pledge":"Fixed ",
+  "is about to unlock":"is about to unlock",
+  "has fixed pledge":"has fixed pledge",
+  "Add Stake":"Add ",
+  "UnStake":"UnStake",
+  "My":"My ",
+  "Max fixed term":"Max fixed term",
+  "Select the latest fixed pledge duration": "Select latest pledge duration",
+  "Successful operation": "Successful operation"
 }

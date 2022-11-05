@@ -46,6 +46,8 @@ import {
   getOrgIdoContract,
   getOrgbundrebateContract,
   getOrgMineContract,
+  getOrgMineFixedContract,
+  getOrgMineUnFixedContract,
   getNftSaleContract,
   getPancakeBunniesContract,
   getPancakeSquadContract,
@@ -115,6 +117,14 @@ export const useOrgbundrebate = (address: string) => {
 export const useOrgMineContract = (address: string) => {
   const { data: signer } = useSigner()
   return useMemo(() => getOrgMineContract(address, signer), [address, signer])
+}
+export const useOrgMineFixedContract = (address: string) => {
+  const { data: signer } = useSigner()
+  return useMemo(() => getOrgMineFixedContract(address, signer), [address, signer])
+}
+export const useOrgMineUnFixedContract = (address: string) => {
+  const { data: signer } = useSigner()
+  return useMemo(() => getOrgMineUnFixedContract(address, signer), [address, signer])
 }
 
 export const useERC20 = (address: string, withSignerIfPossible = true) => {

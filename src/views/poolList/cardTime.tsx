@@ -1,12 +1,14 @@
 import { FC, ReactElement, useEffect, useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
-import { useToast, Button } from '@pancakeswap/uikit'
+import { useToast, Button, Link } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
 import { $shiftedBy, $shiftedByFixed, $BigNumber, $toFixed } from 'utils/met'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
-import { useERC20 } from 'hooks/useContract'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+
+import { useERC20, useOrgMineFixedContract } from 'hooks/useContract'
 import ReactDOM from 'react-dom'
 
 const clearNoNum = (val: string) => {
@@ -18,44 +20,61 @@ const clearNoNum = (val: string) => {
 }
 enum dialogType {
   'add',
-  'reomve',
   'addTime',
   'addStake',
 }
-const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement => {
+
+// 问题一： 定期   增加ORG(deposit)     50个     合约增加数量大于50
+// 问题二： 定期   延长周期(extend)      上链成功  合约数据还是之前的  新设置的不生效
+// 问题三： 定期   取消质押(withdraw)    报错 (怀疑是锁仓时间没到引起的)
+const CardTimeContent: FC<any> = (): ReactElement => {
   const { address: account } = useAccount()
+  const { chainId } = useActiveWeb3React()
   const { fetchWithCatchTxError } = useCatchTxError()
-  const { currentLanguage, t } = useTranslation()
+  const { t } = useTranslation()
   const { toastSuccess } = useToast()
   const [loadding, setLoadding] = useState<boolean>(false)
   const [claimLoadding, setClaimLoadding] = useState<boolean>(false)
+  const [extendLoadding, setExtendLoadding] = useState<boolean>(false)
   const [approveLoading, setApproveLoading] = useState<boolean>(false)
   const [allowance, setAllowance] = useState<number>(1000)
   const [open, setOpen] = useState<boolean>(false)
   const [openType, setOpenType] = useState<dialogType>(dialogType.add)
   const [amount, setAmount] = useState<string | number>('')
-  const [week, setWeek] = useState<string | number>('5')
-  const [lpTotalAmount, setLpTotalAmount] = useState<string | number>('0')
-  const [lpPrice, setLpPrice] = useState<string | number>('0')
-  // const [apy, setApy] = useState<string | number>(0)
+  const [week, setWeek] = useState<number>(0)
+  const [querWeek, setQuerWeek] = useState<number>(1)
+  const [rewardPerBlock, setRewardPerBlock] = useState<string | number>('0')
   const [rootNode, setRootNode] = useState(null)
   const [userLpInfo, setUserLpInfo] = useState({
     balance: 0,
     amount: 0,
-    rewardDebt: 0,
+    totalSupply: 0,
+    lastStackedTime: 0,
+    stakeTerm: 0, // 周期 0-4  对应weekList key
     reward: 0,
+    days: 0,
   })
 
-  const erc20Contract = useERC20(info.lpToken)
-  const usdtErc20Contract = useERC20(info.symbolBddress)
-  const tokenAErc20Contract = useERC20(info.symbolAddress)
+  const orgMineFixed = {
+    97: '0xe7eDfd5Ea591124b45996F01872f8d425D94686D',
+    201022: '',
+  }
+  const orgAddress = {
+    97: '0xFd8755535B187Da3c0653c450641180382C75521',
+    201022: '',
+  }
+
+  const contractAddress = orgMineFixed[chainId]
+
+  const erc20Contract = useERC20(orgAddress[chainId])
+  const orgMineFixedContract = useOrgMineFixedContract(orgMineFixed[chainId])
 
   const weekList: any[] = [
-    { title: '1W', key: 1 },
-    { title: '5W', key: 5 },
-    { title: '10W', key: 10 },
-    { title: '25W', key: 25 },
-    { title: '52W', key: 52 },
+    { title: '1W', key: 0, value: 1, rate: 1 },
+    { title: '5W', key: 1, value: 5, rate: 1.5 },
+    { title: '10W', key: 2, value: 10, rate: 2.25 },
+    { title: '25W', key: 3, value: 25, rate: 3 },
+    { title: '52W', key: 4, value: 52, rate: 4.6 },
   ]
 
   const listener = () => {
@@ -63,14 +82,12 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
       if (open) {
         document.documentElement.style.overflow = 'hidden'
         document.getElementById('_nav_footer_dom').style.display = 'none'
-        // document.getElementById('_nav_top_dom').style.display = 'none'
       } else {
         document.documentElement.style.overflow = 'scroll'
         document.getElementById('_nav_footer_dom').style.display = 'flex'
-        // document.getElementById('_nav_top_dom').style.display = 'flex'
       }
     } catch (e) {
-      console.log('')
+      // console.log('')
     }
   }
 
@@ -80,52 +97,47 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
     setOpenType(type)
   }
 
-  const calcTotalLpPrice = async () => {
-    const usdt = await usdtErc20Contract.balanceOf(info.lpToken)
-    const tokenA = await tokenAErc20Contract.balanceOf(info.lpToken)
-    const _tokenA = $shiftedBy(tokenA.toString(), -18, 4)
-    const _usdt = $shiftedBy(usdt.toString(), -18, 4)
-    let _lpPrice: any = 0
-    if ($BigNumber(_tokenA).lte(0) || $BigNumber(_usdt).lte(0)) {
-      _lpPrice = 0
-    } else {
-      _lpPrice = $BigNumber(_usdt).dividedBy(_tokenA).toFixed(4, 1)
-    }
-    setLpPrice(_lpPrice)
-  }
-
-  const calcApy = (): string | number => {
-    // 假设这个LP池子，总质押进来的数量为100，这个池子的每区块奖励是500个币，那么年化收益：500个币*一年的区块数*币的价格 / (101 * (1个LP的价值U))
-    // orgPerBlock:  全网每区块奖励
-    // 某个池子的占比就是：allocPoint / totalAllocPoint
-
-    // 某个池子的占比 rate =   allocPoint / totalAllocPoint
-    // 一年区块数 blockTotal =  365 * 24 * 60 * 60 / 3 = 10512000
-    // APY =  orgPerBlock   *    rate            *      10512000     *    币的价格    /     该池子的总质押量
-    //        全网每区块奖励  *    某个池子的占比     *      一年区块数    *     币的价格    /     该池子的总质押量
-
-    if ($BigNumber(lpPrice).lte(0) || $BigNumber(lpTotalAmount).lte(0)) return '0'
-    const rate = $BigNumber(info.allocPoint).dividedBy(info.totalAllocPoint).toFixed(2, 1)
-    const _apy = $BigNumber(info.orgPerBlock)
-      .multipliedBy(rate)
+  // ----
+  const calcBaseUnitApy = () => {
+    // apy:  1/totalSupply * 每区块的奖励数 (rewardTokenInfo.rewardPerBlock)* 一年有多少个区块 * 周期比例rate
+    if ($BigNumber(rewardPerBlock).lte(0) || $BigNumber(userLpInfo.totalSupply).lte(0)) return '0'
+    return $BigNumber(1)
+      .dividedBy(userLpInfo.totalSupply)
+      .multipliedBy(rewardPerBlock)
       .multipliedBy(10512000)
-      .multipliedBy(lpPrice)
-      .dividedBy(lpTotalAmount)
       .toFixed(2, 1)
-    return _apy
   }
 
+  // ----
   const getUserInfo = async () => {
-    if (!info.pid && !['0', 0].includes(info.pid)) return
-    const result = await Contract.userInfo(info.pid, account)
+    const _totalSupply = await orgMineFixedContract.totalSupply()
+    const totalSupply = $shiftedBy(_totalSupply.toString(), -18, 4)
+    const result = await orgMineFixedContract.userInfo(account)
+    const balanceOf = await orgMineFixedContract.balanceOf(account)
+    const _balance = $shiftedBy(balanceOf.toString(), -18, 4)
+    const stakeTerm = $toFixed(result.stakeTerm.toString(), 0) as number
+    // const stakeTerm = 0
+    const lastStakedTime = ($toFixed(result.lastStakedTime.toString(), 0) as number) * 1000
+    if (_balance > 0) {
+      setWeek(stakeTerm)
+      setQuerWeek(weekList[stakeTerm].value)
+    }
+    const endTime = lastStakedTime + stakeTerm * weekList[stakeTerm].value * 7 * 24 * 60 * 60 * 1000
+    const days = Math.ceil((endTime - lastStakedTime) / (24 * 60 * 60 * 1000))
     setUserLpInfo((_val: any) => {
       // eslint-disable-next-line no-param-reassign
-      _val.amount = $shiftedBy(result.amount.toString(), -18, 4)
+      _val.stakeTerm = _balance > 0 ? stakeTerm : 0
       // eslint-disable-next-line no-param-reassign
-      _val.rewardDebt = $shiftedBy(result.rewardDebt.toString(), -18, 4)
+      _val.totalSupply = totalSupply
+      // eslint-disable-next-line no-param-reassign
+      _val.amount = _balance
+      // eslint-disable-next-line no-param-reassign
+      _val.days = Math.max(days, 0)
       return { ..._val }
     })
   }
+
+  // ----
   const getBalance = async () => {
     const balance = await erc20Contract.balanceOf(account)
     setUserLpInfo((_val: any) => {
@@ -134,29 +146,35 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
       return { ..._val }
     })
   }
+
+  // ----
   const getPendingReward = async () => {
-    const reward = await Contract.getPendingReward(info.lpToken, account)
+    const reward = await orgMineFixedContract.getPendingReward(account)
     setUserLpInfo((_val: any) => {
       // eslint-disable-next-line no-param-reassign
       _val.reward = $shiftedBy(reward.toString(), -18, 4)
       return { ..._val }
     })
   }
-  const getLpTotalAmount = async () => {
-    const reward = await erc20Contract.balanceOf(contractAddress)
-    setLpTotalAmount($shiftedBy(reward.toString(), -18, 4))
+
+  // ----
+  const getRewardTokenInfo = async () => {
+    const rewardInfo = await orgMineFixedContract.rewardTokenInfo()
+    setRewardPerBlock($shiftedBy(rewardInfo.rewardPerBlock.toString(), -18, 4))
   }
 
+  // ---
   const deposit = async () => {
     try {
       setLoadding(true)
+      console.log('=======deposit week:', week, amount)
       const receipt = await fetchWithCatchTxError(() => {
-        return Contract.deposit(info.lpToken, $shiftedByFixed(amount, 18))
+        return orgMineFixedContract.deposit($shiftedByFixed(amount, 18), week)
       })
       if (receipt?.status) {
         setAmount('')
         setOpen(false)
-        Promise.all([getUserInfo(), getBalance(), getLpTotalAmount()])
+        Promise.all([getPendingReward(), getBalance(), getUserInfo()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Stake in the success')}</ToastDescriptionWithTx>,
@@ -167,16 +185,39 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
       setLoadding(false)
     }
   }
+
+  // ---
+  const extend = async () => {
+    try {
+      setExtendLoadding(true)
+      console.log('=======extend week:', week)
+      const receipt = await fetchWithCatchTxError(() => {
+        return orgMineFixedContract.extend(week)
+      })
+      if (receipt?.status) {
+        setOpen(false)
+        getUserInfo()
+        toastSuccess(
+          `Successed!`,
+          <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Successful operation')}</ToastDescriptionWithTx>,
+        )
+      }
+      setExtendLoadding(false)
+    } catch (e) {
+      setExtendLoadding(false)
+    }
+  }
+
   const withdraw = async () => {
     try {
       setLoadding(true)
       const receipt = await fetchWithCatchTxError(() => {
-        return Contract.withdraw(info.lpToken, $shiftedByFixed(amount, 18))
+        return orgMineFixedContract.withdraw()
       })
       if (receipt?.status) {
         setAmount('')
         setOpen(false)
-        Promise.all([getUserInfo(), getBalance(), getLpTotalAmount()])
+        Promise.all([getPendingReward(), getBalance(), getUserInfo()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
@@ -189,14 +230,16 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
       setLoadding(false)
     }
   }
+
+  // ---
   const claim = async () => {
     try {
       setClaimLoadding(true)
       const receipt = await fetchWithCatchTxError(() => {
-        return Contract.claim(info.lpToken)
+        return orgMineFixedContract.claimReward()
       })
       if (receipt?.status) {
-        getPendingReward()
+        Promise.all([getPendingReward(), getBalance(), getUserInfo()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Claim in the success')}</ToastDescriptionWithTx>,
@@ -207,6 +250,8 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
       setClaimLoadding(false)
     }
   }
+
+  // ---
   const approve = async () => {
     try {
       setApproveLoading(true)
@@ -227,12 +272,16 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
       setApproveLoading(false)
     }
   }
+
+  // ---
   const getAllowance = async () => {
     const result = await erc20Contract.allowance(account, contractAddress)
     setAllowance($shiftedBy(result.toString(), -18, 6))
   }
+
+  // --
   const changeInput = () => {
-    const maxVal = openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount
+    const maxVal = userLpInfo.balance
     setAmount(Math.min(maxVal, amount as any))
 
     // const values = value.split('.');
@@ -245,6 +294,21 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
     // }
   }
 
+  const submit = () => {
+    if ([dialogType.addStake, dialogType.add].includes(openType)) {
+      deposit()
+    } else if (openType === dialogType.addTime) {
+      extend()
+    } else {
+      withdraw()
+    }
+  }
+
+  const baseUnitApy = useMemo(() => calcBaseUnitApy(), [userLpInfo, rewardPerBlock])
+  const maxApy = useMemo(() => $BigNumber(baseUnitApy).multipliedBy(weekList[4].rate).toFixed(2, 1), [baseUnitApy, userLpInfo])
+  const apy = useMemo(() => $BigNumber(baseUnitApy).multipliedBy(weekList[userLpInfo.stakeTerm].rate).toFixed(2, 1), [baseUnitApy, userLpInfo])
+  const newApy = useMemo(() => $BigNumber(baseUnitApy).multipliedBy(weekList[week].rate).toFixed(2, 1), [baseUnitApy, week])
+
   const DialogComponents = (): ReactElement => {
     return rootNode
       ? ReactDOM.createPortal(
@@ -252,16 +316,15 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
             <Mask onClick={() => setOpen(false)}> </Mask>
             <Cont>
               <LabelText>
-                {openType === dialogType.add && 'Stake ORG'}
-                {openType === dialogType.reomve && 'UnStake ORG'}
-                {openType === dialogType.addTime && '选择最新固定质押时长'}
+                {[dialogType.add, dialogType.addStake].includes(openType) && 'Stake ORG'}
+                {openType === dialogType.addTime && t('Select the latest fixed pledge duration')}
               </LabelText>
               {![dialogType.addTime].includes(openType) && (
                 <DialogCont>
                   <Top>
-                    {openType === dialogType.add ? 'Stake' : 'UnStake'}
+                    {openType === dialogType.add ? t('Stake') : t('UnStake')}
                     <RightCont>
-                      {t('Balance')}：{openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount}
+                      {t('Balance')}：{userLpInfo.balance}
                     </RightCont>
                   </Top>
                   <Bottom>
@@ -272,11 +335,7 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
                       onBlur={() => changeInput()}
                     />
                     <RightCont className="_operation">
-                      <Max
-                        onClick={() => setAmount(openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount)}
-                      >
-                        MAX
-                      </Max>
+                      <Max onClick={() => setAmount(userLpInfo.balance)}>MAX</Max>
                       ORG
                     </RightCont>
                   </Bottom>
@@ -286,24 +345,56 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
                 <Weeks>
                   <WeeksTop>
                     {weekList.map((item) => (
-                      <WeeksItem key={item.key}>{item.title}</WeeksItem>
+                      <WeeksItem
+                        key={item.key}
+                        className={[
+                          week === item.key && 'active',
+                          openType === dialogType.addTime &&
+                            userLpInfo.balance > 0 &&
+                            item.key < userLpInfo.stakeTerm &&
+                            'disbable',
+                        ].join(' ')}
+                        onClick={() => {
+                          if (
+                            openType === dialogType.addTime &&
+                            userLpInfo.balance > 0 &&
+                            item.key < userLpInfo.stakeTerm
+                          ) {
+                            //
+                          } else {
+                            setWeek(item.key)
+                            setQuerWeek(item.value)
+                          }
+                        }}
+                      >
+                        {item.title}
+                      </WeeksItem>
                     ))}
                   </WeeksTop>
                   <WeekCont>
                     <Input
                       placeholder="0"
-                      value={week}
-                      onChange={(e) => setAmount(clearNoNum(e.target.value))}
-                      onBlur={() => changeInput()}
+                      value={querWeek}
+                      disabled
+                      // onChange={(e) => setAmount(clearNoNum(e.target.value))}
+                      // onBlur={() => changeInput()}
                     />
-                    <Unit>周</Unit>
+                    <Unit>{t('Week')}</Unit>
                   </WeekCont>
                 </Weeks>
               )}
               {![dialogType.addStake].includes(openType) && (
                 <ApyCont>
                   APY
-                  <ApyValue>20.1%</ApyValue>
+                  <ApyValue>
+                    <b className={openType === dialogType.addTime && '_tr'}>{apy}%</b>
+                    {openType === dialogType.addTime && (
+                      <>
+                        <img src="/images/poolList/jiantou.svg" alt="" />
+                        <NewApy>{newApy}%</NewApy>
+                      </>
+                    )}
+                  </ApyValue>
                 </ApyCont>
               )}
 
@@ -313,18 +404,18 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
                 </Button>
                 <Button
                   className="_dialog_btn"
-                  disabled={!amount}
+                  disabled={[dialogType.add, dialogType.addStake].includes(openType) && !amount}
                   isLoading={loadding}
-                  onClick={() => (openType === dialogType.add ? deposit() : withdraw())}
+                  onClick={() => submit()}
                 >
                   {t('Confirm')}
                 </Button>
               </Btns>
               <See>
-                <a href={`/add/${info.symbolAddress}/${info.symbolBddress}`}>
+                <Link href="/swap">
                   Get ORG
                   <Icon src="/images/farm/open.svg" />
-                </a>
+                </Link>
               </See>
             </Cont>
           </Dialog>,
@@ -332,12 +423,6 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
         )
       : null
   }
-
-  const apy = useMemo(() => calcApy(), [lpPrice, lpTotalAmount])
-  const liquidityValue = useMemo(
-    () => $toFixed($BigNumber(lpPrice).multipliedBy(lpTotalAmount).toFixed(), 4),
-    [lpPrice, lpTotalAmount],
-  )
 
   useEffect(() => {
     listener()
@@ -367,24 +452,21 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
   }, [rootNode, open])
 
   useEffect(() => {
-    if (Contract && erc20Contract && Object.keys(info).length > 0) {
-      Promise.all([
-        getUserInfo(),
-        getBalance(),
-        getPendingReward(),
-        getAllowance(),
-        getLpTotalAmount(),
-        calcTotalLpPrice(),
-      ])
+    if (orgMineFixedContract && erc20Contract) {
+      Promise.all([getUserInfo(), getBalance(), getPendingReward(), getAllowance(), getRewardTokenInfo()])
     }
-  }, [info, Contract, erc20Contract])
+  }, [orgMineFixedContract, erc20Contract])
+
+  useEffect(() => {
+    calcBaseUnitApy()
+  }, [userLpInfo, rewardPerBlock])
 
   return (
     <Main>
       <Header>
         <HeaderCont>
-          <SymbolName>固定期限质押ORG</SymbolName>
-          <SymbolInfo>质押，赚取-以及更多惊喜</SymbolInfo>
+          <SymbolName>{t('Fixed term pledge')} ORG</SymbolName>
+          <SymbolInfo>{t('Stake Earn and More Surprises')}</SymbolInfo>
         </HeaderCont>
         <Symbol>
           <BaseSymbolImg src="/images/poolList/ORG.png" />
@@ -393,36 +475,34 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
       </Header>
       <Content>
         <Line>
-          <Label>最长固定期限APY:</Label>
+          <Label>{t('Max fixed term')}APY:</Label>
           <Right>
-            {apy}% <CalculateIcon src="/images/farm/calculation.svg" />
+            {maxApy}% <CalculateIcon src="/images/farm/calculation.svg" />
           </Right>
         </Line>
 
         <Section>
           <Lib>
             <Left>
-              <Title>ORG即将解锁：</Title>
-              <Number>{userLpInfo.reward}</Number>
+              <Title>ORG {t('is about to unlock')}：</Title>
+              <Number className={userLpInfo.days === 0 && 'final'}>{userLpInfo.days} days</Number>
             </Left>
             <BtnBlock>
               <Nodes>
                 <Button
                   className="_btns"
-                  disabled={userLpInfo.reward <= 0}
-                  isLoading={claimLoadding}
+                  disabled={userLpInfo.days === 0}
+                  isLoading={extendLoadding}
                   onClick={() => openDialog(dialogType.addTime)}
                 >
-                  延长
+                  {t('Extend')}
                 </Button>
               </Nodes>
             </BtnBlock>
           </Lib>
           <Lib>
             <Left>
-              <Title>
-                {info.rewardSymbol} {t('earned')}
-              </Title>
+              <Title>ORG {t('earned')}</Title>
               <Number>{userLpInfo.reward}</Number>
             </Left>
             <BtnBlock>
@@ -440,22 +520,28 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
           </Lib>
           <Lib>
             <Left>
-              <Title>ORG已灵活质押</Title>
+              <Title>ORG {t('has fixed pledge')}</Title>
               <Number>{userLpInfo.amount}</Number>
             </Left>
             <BtnBlock>
               <Nodes>
                 {allowance > 0 ? (
                   <>
-                    {/* <Button className="_btns dos" onClick={() => openDialog(dialogType.add)}>
-                      质押
-                    </Button> */}
-                    {/* <Button className="_btns dos" onClick={() => openDialog(dialogType.addStake)}>
-                      增加ORG
-                    </Button> */}
-                    <Button className="_btns dos" onClick={() => openDialog(dialogType.reomve)}>
-                      取消质押
-                    </Button>
+                    {!userLpInfo.amount && (
+                      <Button className="_btns dos" onClick={() => openDialog(dialogType.add)}>
+                        {t('Stake')}
+                      </Button>
+                    )}
+                    {userLpInfo.amount && userLpInfo.days > 0 && (
+                      <Button className="_btns dos" onClick={() => openDialog(dialogType.addStake)}>
+                        {t('Add Stake')}ORG
+                      </Button>
+                    )}
+                    {userLpInfo.amount > 0 && userLpInfo.days === 0 && (
+                      <Button className="_btns dos" isLoading={loadding} onClick={() => withdraw()}>
+                        {t('UnStake')}
+                      </Button>
+                    )}
                   </>
                 ) : (
                   <Button className="_btns" isLoading={approveLoading} onClick={() => approve()}>
@@ -468,25 +554,22 @@ const CardTimeContent: FC<any> = ({ info, Contract, contractAddress }): ReactEle
         </Section>
         <Line className="bottom">
           <Label>{t('Total Stake')}:</Label>
-          <Right className="bold luidity">
-            {liquidityValue > 0 ? '$' : ''}
-            {liquidityValue}
-          </Right>
+          <Right className="bold luidity">{userLpInfo.totalSupply}</Right>
         </Line>
         <Line className="bottom">
-          <Label>我的APY:</Label>
-          <Right className="bold luidity">12.1%</Right>
+          <Label>{t('My')}APY:</Label>
+          <Right className="bold luidity">{apy}%</Right>
         </Line>
       </Content>
       <Footer>
         <Item>
-          <a href={`/add/${info.symbolAddress}/${info.symbolBddress}`}>
-            {t('Get')} {info.symbolA}-{info.symbolB} <Icon src="/images/farm/open.svg" />
+          <a href={`https://fonscan.io/address/${orgAddress[chainId]}`}>
+            {t('View token contracts')} <Icon src="/images/farm/open.svg" />
           </a>
         </Item>
         <Item>
-          <a href={`https://fonscan.io/address/${contractAddress}`} target="blank">
-            {t('View contract')} <Icon src="/images/farm/open.svg" />
+          <a href="https://orange-swap.gitbook.io/orange-swap-1/zhuan-qu" target="blank">
+            {t('View tutorial')} <Icon src="/images/farm/open.svg" />
           </a>
         </Item>
       </Footer>
@@ -517,16 +600,24 @@ const WeeksItem = styled.div`
   text-align: center;
   color: #ffad34;
   cursor: pointer;
+  &:hover{
+    background: linear-gradient(120.51deg, #FF6A43 1.69%, #FFAD34 100%);
+    color: #FFFFFF;
+  }
   &.active {
     background: linear-gradient(120.51deg, #ff6a43 1.69%, #ffad34 100%);
     border-radius: 14px;
     color: #ffffff;
   }
-  &:nth-of-type(2) {
-    background: linear-gradient(120.51deg, #ff6a43 1.69%, #ffad34 100%);
-    border-radius: 14px;
-    color: #ffffff;
+  &.disbable {
+    cursor: not-allowed;
+    color: #DFDFDF;
+    &:hover{
+      background: #f8f8f8;
+      color: #DFDFDF;
+    }
   }
+  
   &:last-child {
     margin-right: 0;
   }
@@ -567,6 +658,17 @@ const ApyCont = styled.div`
 `
 const ApyValue = styled.div`
   float: right;
+  ._tr {
+    color: #717171;
+    text-decoration: line-through;
+  }
+  img {
+    height: 8px;
+    margin: 0 8px;
+  }
+`
+const NewApy = styled.span`
+  color: #ff8c14;
 `
 
 const Main = styled.div`
@@ -658,18 +760,6 @@ const Right = styled.div`
   }
 `
 
-const LineTip = styled.div`
-  margin-top: 9px;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 17px;
-  color: #000000;
-  span {
-    float: right;
-    margin-right: 27px;
-  }
-`
-
 const CalculateIcon = styled.img`
   height: 15px;
   margin-left: 8px;
@@ -715,6 +805,9 @@ const Number = styled.div`
   line-height: 28px;
   /* color: #DCDCDC; */
   color: #000000;
+  &.final {
+    color: #dcdcdc;
+  }
 `
 const BtnBlock = styled.div`
   display: flex;
@@ -946,6 +1039,11 @@ const Btns = styled.div`
     font-size: 16px;
     background: #fff;
     box-shadow: none;
+    &:hover{
+      background: linear-gradient(120.51deg, #FF6A43 1.69%, #FFAD34 100%);
+      color: #FFFFFF;
+      opacity: 1 !important;
+    }
     &:disabled,
     &.pancake-button--disabled,
     .pancake-button--loading {
@@ -973,6 +1071,9 @@ const See = styled.div`
   color: #ff8c14;
   text-align: center;
   margin-top: 25px;
+  a {
+    display: inline;
+  }
   span {
     cursor: pointer;
   }

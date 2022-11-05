@@ -1,13 +1,16 @@
 import { FC, ReactElement, useEffect, useState, useMemo } from 'react'
 import styled from 'styled-components'
 import { useAccount } from 'wagmi'
-import { useToast, Button } from '@pancakeswap/uikit'
+import { useToast, Button, Link } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
-import { $shiftedBy, $shiftedByFixed, $BigNumber, $toFixed } from 'utils/met'
+import { $shiftedBy, $shiftedByFixed, $BigNumber } from 'utils/met'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import useCatchTxError from 'hooks/useCatchTxError'
-import { useERC20 } from 'hooks/useContract'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import { useERC20, useOrgMineUnFixedContract } from 'hooks/useContract'
 import ReactDOM from 'react-dom'
+import { format } from 'date-fns';
+
 
 const clearNoNum = (val: string) => {
   let _val = val.replace(/[^\d.]/g, '')
@@ -20,10 +23,11 @@ enum dialogType {
   'add',
   'reomve',
 }
-const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement => {
+const CardContent: FC<any> = (): ReactElement => {
   const { address: account } = useAccount()
+  const { chainId } = useActiveWeb3React()
   const { fetchWithCatchTxError } = useCatchTxError()
-  const { currentLanguage, t } = useTranslation()
+  const { t } = useTranslation()
   const { toastSuccess } = useToast()
   const [loadding, setLoadding] = useState<boolean>(false)
   const [claimLoadding, setClaimLoadding] = useState<boolean>(false)
@@ -32,34 +36,42 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
   const [open, setOpen] = useState<boolean>(false)
   const [openType, setOpenType] = useState<dialogType>(dialogType.add)
   const [amount, setAmount] = useState<string | number>('')
-  const [lpTotalAmount, setLpTotalAmount] = useState<string | number>('0')
-  const [lpPrice, setLpPrice] = useState<string | number>('0')
-  // const [apy, setApy] = useState<string | number>(0)
+  const [rewardPerBlock, setRewardPerBlock] = useState<string | number>('0')
   const [rootNode, setRootNode] = useState(null)
   const [userLpInfo, setUserLpInfo] = useState({
     balance: 0,
     amount: 0,
-    rewardDebt: 0,
+    totalSupply: 0,
+    lastStackedTime: 0,
+    freeFeeTime: '',
     reward: 0,
   })
 
-  const erc20Contract = useERC20(info.lpToken)
-  const usdtErc20Contract = useERC20(info.symbolBddress)
-  const tokenAErc20Contract = useERC20(info.symbolAddress)
+  const orgMineUnFixed = {
+    97: '0xF8dc23EB30206041C638D57A099f395851EbB75d',
+    201022:'',
+  }
+  const orgAddress = {
+    97: '0xFd8755535B187Da3c0653c450641180382C75521',
+    201022:'',
+  }
+
+  const contractAddress = orgMineUnFixed[chainId];
+
+  const erc20Contract = useERC20(orgAddress[chainId])
+  const orgMineUnFixedContract = useOrgMineUnFixedContract(orgMineUnFixed[chainId])
 
   const listener = () => {
     try {
       if (open) {
         document.documentElement.style.overflow = 'hidden'
         document.getElementById('_nav_footer_dom').style.display = 'none'
-        // document.getElementById('_nav_top_dom').style.display = 'none'
       } else {
         document.documentElement.style.overflow = 'scroll'
         document.getElementById('_nav_footer_dom').style.display = 'flex'
-        // document.getElementById('_nav_top_dom').style.display = 'flex'
       }
     } catch (e) {
-      console.log('')
+      // console.log('')
     }
   }
 
@@ -68,53 +80,33 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
     setAmount('')
     setOpenType(type)
   }
-
-  const calcTotalLpPrice = async () => {
-    const usdt = await usdtErc20Contract.balanceOf(info.lpToken)
-    const tokenA = await tokenAErc20Contract.balanceOf(info.lpToken)
-    const _tokenA = $shiftedBy(tokenA.toString(), -18, 4)
-    const _usdt = $shiftedBy(usdt.toString(), -18, 4)
-    let _lpPrice: any = 0
-    if ($BigNumber(_tokenA).lte(0) || $BigNumber(_usdt).lte(0)) {
-      _lpPrice = 0
-    } else {
-      _lpPrice = $BigNumber(_usdt).dividedBy(_tokenA).toFixed(4, 1)
-    }
-    setLpPrice(_lpPrice)
-  }
-
+ 
   const calcApy = (): string | number => {
-    // 假设这个LP池子，总质押进来的数量为100，这个池子的每区块奖励是500个币，那么年化收益：500个币*一年的区块数*币的价格 / (101 * (1个LP的价值U))
-    // orgPerBlock:  全网每区块奖励
-    // 某个池子的占比就是：allocPoint / totalAllocPoint
-
-    // 某个池子的占比 rate =   allocPoint / totalAllocPoint
-    // 一年区块数 blockTotal =  365 * 24 * 60 * 60 / 3 = 10512000
-    // APY =  orgPerBlock   *    rate            *      10512000     *    币的价格    /     该池子的总质押量
-    //        全网每区块奖励  *    某个池子的占比     *      一年区块数    *     币的价格    /     该池子的总质押量
-
-    if ($BigNumber(lpPrice).lte(0) || $BigNumber(lpTotalAmount).lte(0)) return '0'
-    const rate = $BigNumber(info.allocPoint).dividedBy(info.totalAllocPoint).toFixed(2, 1)
-    const _apy = $BigNumber(info.orgPerBlock)
-      .multipliedBy(rate)
-      .multipliedBy(10512000)
-      .multipliedBy(lpPrice)
-      .dividedBy(lpTotalAmount)
-      .toFixed(2, 1)
-    return _apy
+    // apy:  1/totalSupply * 每区块的奖励数 (rewardTokenInfo.rewardPerBlock)* 一年有多少个区块
+    if ($BigNumber(rewardPerBlock).lte(0) || $BigNumber(userLpInfo.totalSupply).lte(0)) return '0'
+    return $BigNumber(1).dividedBy(userLpInfo.totalSupply).multipliedBy(rewardPerBlock).multipliedBy(10512000).toFixed(2, 1)
   }
 
   const getUserInfo = async () => {
-    if (!info.pid && !['0', 0].includes(info.pid)) return
-    const result = await Contract.userInfo(info.pid, account)
+    const _totalSupply = await orgMineUnFixedContract.totalSupply();
+    const totalSupply = $shiftedBy(_totalSupply.toString(), -18, 4)
+    const result = await orgMineUnFixedContract.userInfo(account)
+    const balanceOf = await orgMineUnFixedContract.balanceOf(account);
+    const _freeFeeTime = format(result.lastStackedTime.toString() * 1000 + 48 * 60 * 60 * 1000 , 'yyyy-MM-dd hh:mm:ss');
     setUserLpInfo((_val: any) => {
       // eslint-disable-next-line no-param-reassign
-      _val.amount = $shiftedBy(result.amount.toString(), -18, 4)
+      _val.freeFeeTime = _freeFeeTime;
       // eslint-disable-next-line no-param-reassign
-      _val.rewardDebt = $shiftedBy(result.rewardDebt.toString(), -18, 4)
+      _val.lastStackedTime = result.lastStackedTime.toString();
+      // eslint-disable-next-line no-param-reassign
+      _val.totalSupply = totalSupply;
+      // eslint-disable-next-line no-param-reassign
+      _val.amount = $shiftedBy(balanceOf.toString(), -18, 4);
       return { ..._val }
     })
   }
+
+  
   const getBalance = async () => {
     const balance = await erc20Contract.balanceOf(account)
     setUserLpInfo((_val: any) => {
@@ -123,29 +115,32 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       return { ..._val }
     })
   }
+
+  
   const getPendingReward = async () => {
-    const reward = await Contract.getPendingReward(info.lpToken, account)
+    const reward = await orgMineUnFixedContract.getPendingReward(account)
     setUserLpInfo((_val: any) => {
       // eslint-disable-next-line no-param-reassign
       _val.reward = $shiftedBy(reward.toString(), -18, 4)
       return { ..._val }
     })
   }
-  const getLpTotalAmount = async () => {
-    const reward = await erc20Contract.balanceOf(contractAddress)
-    setLpTotalAmount($shiftedBy(reward.toString(), -18, 4))
-  }
 
+  const getRewardTokenInfo = async () => {
+    const rewardInfo = await orgMineUnFixedContract.rewardTokenInfo();
+    setRewardPerBlock($shiftedBy(rewardInfo.rewardPerBlock.toString(), -18, 4))
+  }
+  
   const deposit = async () => {
     try {
       setLoadding(true)
       const receipt = await fetchWithCatchTxError(() => {
-        return Contract.deposit(info.lpToken, $shiftedByFixed(amount, 18))
+        return orgMineUnFixedContract.deposit($shiftedByFixed(amount, 18))
       })
       if (receipt?.status) {
         setAmount('')
         setOpen(false)
-        Promise.all([getUserInfo(), getBalance(), getLpTotalAmount()])
+        Promise.all([getUserInfo(), getBalance(), getPendingReward()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Stake in the success')}</ToastDescriptionWithTx>,
@@ -156,16 +151,17 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       setLoadding(false)
     }
   }
+
   const withdraw = async () => {
     try {
       setLoadding(true)
       const receipt = await fetchWithCatchTxError(() => {
-        return Contract.withdraw(info.lpToken, $shiftedByFixed(amount, 18))
+        return orgMineUnFixedContract.withdraw($shiftedByFixed(amount, 18))
       })
       if (receipt?.status) {
         setAmount('')
         setOpen(false)
-        Promise.all([getUserInfo(), getBalance(), getLpTotalAmount()])
+        Promise.all([getUserInfo(), getBalance(), getPendingReward()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>
@@ -178,14 +174,16 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       setLoadding(false)
     }
   }
+
+  
   const claim = async () => {
     try {
       setClaimLoadding(true)
       const receipt = await fetchWithCatchTxError(() => {
-        return Contract.claim(info.lpToken)
+        return orgMineUnFixedContract.claimReward()
       })
       if (receipt?.status) {
-        getPendingReward()
+        Promise.all([getPendingReward(), getBalance(), getUserInfo()])
         toastSuccess(
           `Successed!`,
           <ToastDescriptionWithTx txHash={receipt.transactionHash}>{t('Claim in the success')}</ToastDescriptionWithTx>,
@@ -196,6 +194,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       setClaimLoadding(false)
     }
   }
+
   const approve = async () => {
     try {
       setApproveLoading(true)
@@ -216,22 +215,15 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       setApproveLoading(false)
     }
   }
+
   const getAllowance = async () => {
     const result = await erc20Contract.allowance(account, contractAddress)
     setAllowance($shiftedBy(result.toString(), -18, 6))
   }
+  
   const changeInput = () => {
     const maxVal = openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount
     setAmount(Math.min(maxVal, amount as any))
-
-    // const values = value.split('.');
-    // const maxVal = openType === dialogType.add ? userLpInfo.balance:  userLpInfo.amount;
-    // console.log('changeInput',value, values, values.length, values.indexOf('.'), values.length >= 2 || values.indexOf('.') !== -1)
-    // if(!values[1] || values.indexOf('.') === -1){
-    //   setAmount(Math.min(maxVal, value))
-    // }else{
-    //   setAmount(value)
-    // }
   }
 
   const DialogComponents = (): ReactElement => {
@@ -240,10 +232,13 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
           <Dialog>
             <Mask onClick={() => setOpen(false)}> </Mask>
             <Cont>
-              <LabelText>{t('Stake LP token')}</LabelText>
+              <LabelText>
+                {openType === dialogType.add && 'Stake ORG'}
+                {openType === dialogType.reomve && 'UnStake ORG'}
+              </LabelText>
               <DialogCont>
                 <Top>
-                  {openType === dialogType.add ? 'Stake' : 'UnStake'}{' '}
+                  {openType === dialogType.add ? 'Stake' : 'UnStake'}
                   <RightCont>
                     {t('Balance')}：{openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount}
                   </RightCont>
@@ -261,7 +256,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
                     >
                       MAX
                     </Max>
-                    {info.symbolA}-{info.symbolB} LP
+                    ORG
                   </RightCont>
                 </Bottom>
               </DialogCont>
@@ -279,10 +274,10 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
                 </Button>
               </Btns>
               <See>
-                <a href={`/add/${info.symbolAddress}/${info.symbolBddress}`}>
-                  Get {info.symbolA}-{info.symbolB} LP
+                <Link href="/swap">
+                  Get ORG
                   <Icon src="/images/farm/open.svg" />
-                </a>
+                </Link>
               </See>
             </Cont>
           </Dialog>,
@@ -291,11 +286,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
       : null
   }
 
-  const apy = useMemo(() => calcApy(), [lpPrice, lpTotalAmount])
-  const liquidityValue = useMemo(
-    () => $toFixed($BigNumber(lpPrice).multipliedBy(lpTotalAmount).toFixed(), 4),
-    [lpPrice, lpTotalAmount],
-  )
+  const apy = useMemo(() => calcApy(), [userLpInfo, rewardPerBlock])
 
   useEffect(() => {
     listener()
@@ -325,24 +316,23 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
   }, [rootNode, open])
 
   useEffect(() => {
-    if (Contract && erc20Contract && Object.keys(info).length > 0) {
+    if (orgMineUnFixedContract && erc20Contract) {
       Promise.all([
         getUserInfo(),
         getBalance(),
         getPendingReward(),
         getAllowance(),
-        getLpTotalAmount(),
-        calcTotalLpPrice(),
+        getRewardTokenInfo(),
       ])
     }
-  }, [info, Contract, erc20Contract])
+  }, [orgMineUnFixedContract, erc20Contract])
 
   return (
     <Main>
       <Header>
         <HeaderCont>
-          <SymbolName>灵活质押ORG</SymbolName>
-          <SymbolInfo>质押，赚取-以及更多惊喜</SymbolInfo>
+          <SymbolName>{t('Flexible pledge ORG')}</SymbolName>
+          <SymbolInfo>{t('Stake Earn and More Surprises')}</SymbolInfo>
         </HeaderCont>
         <Symbol>
           <BaseSymbolImg src="/images/poolList/ORG.png" />
@@ -357,14 +347,14 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
           </Right>
         </Line>
         <LineTip>
-          2%取消质押费用收取至
-          <span>0d:0h:0m</span>
+          2% {t('Cancellation fee charged to')}
+          <span>{userLpInfo.freeFeeTime}</span>
         </LineTip>
         <Section>
           <Lib>
             <Left>
               <Title>
-                {info.rewardSymbol} {t('earned')}
+                ORG {t('earned')}
               </Title>
               <Number>{userLpInfo.reward}</Number>
             </Left>
@@ -383,9 +373,7 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
           </Lib>
           <Lib>
             <Left>
-              <Title>
-                ORG已灵活质押
-              </Title>
+              <Title>{t('ORG has been flexibly pledged')}</Title>
               <Number>{userLpInfo.amount}</Number>
             </Left>
             <BtnBlock>
@@ -408,23 +396,22 @@ const CardContent: FC<any> = ({ info, Contract, contractAddress }): ReactElement
             </BtnBlock>
           </Lib>
         </Section>
-        <Line className='bottom'>
+        <Line className="bottom">
           <Label>{t('Total Stake')}:</Label>
           <Right className="bold luidity">
-            {liquidityValue > 0 ? '$' : ''}
-            {liquidityValue}
+            {userLpInfo.totalSupply} ORG
           </Right>
         </Line>
       </Content>
       <Footer>
         <Item>
-          <a href={`/add/${info.symbolAddress}/${info.symbolBddress}`}>
-            {t('Get')} {info.symbolA}-{info.symbolB} <Icon src="/images/farm/open.svg" />
+          <a href={`https://fonscan.io/address/${orgAddress[chainId]}`}>
+            {t('View token contracts')} <Icon src="/images/farm/open.svg" />
           </a>
         </Item>
         <Item>
-          <a href={`https://fonscan.io/address/${contractAddress}`} target="blank">
-            {t('View contract')} <Icon src="/images/farm/open.svg" />
+          <a href="https://orange-swap.gitbook.io/orange-swap-1/zhuan-qu" target="blank">
+            {t('View tutorial')} <Icon src="/images/farm/open.svg" />
           </a>
         </Item>
       </Footer>
@@ -438,7 +425,6 @@ const Main = styled.div`
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.02);
   border-radius: 20px;
   padding: 26px 20px 35px;
-  /* height: 487px; */
   position: relative;
   z-index: 3;
   border: 1px solid #ff6f42;
@@ -501,7 +487,7 @@ const Line = styled.div`
   font-size: 20px;
   line-height: 28px;
   color: #9e9fa4;
-  &.bottom{
+  &.bottom {
     font-size: 16px;
     line-height: 22px;
     height: 22px;
@@ -807,6 +793,11 @@ const Btns = styled.div`
     font-size: 16px;
     background: #fff;
     box-shadow: none;
+    &:hover{
+      background: linear-gradient(120.51deg, #FF6A43 1.69%, #FFAD34 100%);
+      color: #FFFFFF;
+      opacity: 1 !important;
+    }
     &:disabled,
     &.pancake-button--disabled,
     .pancake-button--loading {
@@ -834,6 +825,9 @@ const See = styled.div`
   color: #ff8c14;
   text-align: center;
   margin-top: 14px;
+  a{
+    display: inline;
+  }
   span {
     cursor: pointer;
   }

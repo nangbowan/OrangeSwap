@@ -96,7 +96,7 @@ const config: (
         },
         {
           label: t('Pools'),
-          href: '/fackpools',
+          href: '/pool-list',
           supportChainIds: SUPPORT_FON,
         },
       ].map((item) => addMenuItemSupported(item, chainId)),
