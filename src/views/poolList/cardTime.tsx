@@ -484,7 +484,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
         <Section>
           <Lib>
             <Left>
-              <Title>ORG {t('is about to unlock')}：</Title>
+              <Title>ORG{t('is about to unlock')}：</Title>
               <Number className={userLpInfo.days === 0 && 'final'}>{userLpInfo.days} days</Number>
             </Left>
             <BtnBlock>
@@ -502,7 +502,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
           </Lib>
           <Lib>
             <Left>
-              <Title>ORG {t('earned')}</Title>
+              <Title>ORG{t('earned')}</Title>
               <Number>{userLpInfo.reward}</Number>
             </Left>
             <BtnBlock>
@@ -520,7 +520,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
           </Lib>
           <Lib>
             <Left>
-              <Title>ORG {t('has fixed pledge')}</Title>
+              <Title>ORG{t('has fixed pledge')}</Title>
               <Number>{userLpInfo.amount}</Number>
             </Left>
             <BtnBlock>
