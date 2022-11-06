@@ -24,9 +24,6 @@ enum dialogType {
   'addStake',
 }
 
-// 问题一： 定期   增加ORG(deposit)     50个     合约增加数量大于50
-// 问题二： 定期   延长周期(extend)      上链成功  合约数据还是之前的  新设置的不生效
-// 问题三： 定期   取消质押(withdraw)    报错 (怀疑是锁仓时间没到引起的)
 const CardTimeContent: FC<any> = (): ReactElement => {
   const { address: account } = useAccount()
   const { chainId } = useActiveWeb3React()
@@ -53,15 +50,16 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     stakeTerm: 0, // 周期 0-4  对应weekList key
     reward: 0,
     days: 0,
+    canWithdraw: false,
   })
 
   const orgMineFixed = {
-    97: '0xe7eDfd5Ea591124b45996F01872f8d425D94686D',
+    97: '0x903762fE3A9cc9c629f8886Dce6adF2B80BCc4D9',
     201022: '',
   }
   const orgAddress = {
     97: '0xFd8755535B187Da3c0653c450641180382C75521',
-    201022: '',
+    201022: '0xFa61BD0B233A6E8112D8F8D06E88EA128B9E5D7b',
   }
 
   const contractAddress = orgMineFixed[chainId]
@@ -97,7 +95,6 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     setOpenType(type)
   }
 
-  // ----
   const calcBaseUnitApy = () => {
     // apy:  1/totalSupply * 每区块的奖励数 (rewardTokenInfo.rewardPerBlock)* 一年有多少个区块 * 周期比例rate
     if ($BigNumber(rewardPerBlock).lte(0) || $BigNumber(userLpInfo.totalSupply).lte(0)) return '0'
@@ -108,23 +105,23 @@ const CardTimeContent: FC<any> = (): ReactElement => {
       .toFixed(2, 1)
   }
 
-  // ----
   const getUserInfo = async () => {
-    const _totalSupply = await orgMineFixedContract.totalSupply()
+    const canWithdraw = await orgMineFixedContract.canWithdraw(account);
+    const _totalSupply = await orgMineFixedContract.totalStakedAmount()
     const totalSupply = $shiftedBy(_totalSupply.toString(), -18, 4)
     const result = await orgMineFixedContract.userInfo(account)
-    const balanceOf = await orgMineFixedContract.balanceOf(account)
-    const _balance = $shiftedBy(balanceOf.toString(), -18, 4)
+    const _balance = $shiftedBy(result.stakedAmounts.toString(), -18, 4)
     const stakeTerm = $toFixed(result.stakeTerm.toString(), 0) as number
-    // const stakeTerm = 0
     const lastStakedTime = ($toFixed(result.lastStakedTime.toString(), 0) as number) * 1000
     if (_balance > 0) {
       setWeek(stakeTerm)
       setQuerWeek(weekList[stakeTerm].value)
     }
-    const endTime = lastStakedTime + stakeTerm * weekList[stakeTerm].value * 7 * 24 * 60 * 60 * 1000
+    const endTime = lastStakedTime + weekList[stakeTerm].value * 7 * 24 * 60 * 60 * 1000
     const days = Math.ceil((endTime - lastStakedTime) / (24 * 60 * 60 * 1000))
     setUserLpInfo((_val: any) => {
+      // eslint-disable-next-line no-param-reassign
+      _val.canWithdraw = canWithdraw;
       // eslint-disable-next-line no-param-reassign
       _val.stakeTerm = _balance > 0 ? stakeTerm : 0
       // eslint-disable-next-line no-param-reassign
@@ -137,7 +134,6 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     })
   }
 
-  // ----
   const getBalance = async () => {
     const balance = await erc20Contract.balanceOf(account)
     setUserLpInfo((_val: any) => {
@@ -147,7 +143,6 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     })
   }
 
-  // ----
   const getPendingReward = async () => {
     const reward = await orgMineFixedContract.getPendingReward(account)
     setUserLpInfo((_val: any) => {
@@ -157,17 +152,14 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     })
   }
 
-  // ----
   const getRewardTokenInfo = async () => {
     const rewardInfo = await orgMineFixedContract.rewardTokenInfo()
     setRewardPerBlock($shiftedBy(rewardInfo.rewardPerBlock.toString(), -18, 4))
   }
 
-  // ---
   const deposit = async () => {
     try {
       setLoadding(true)
-      console.log('=======deposit week:', week, amount)
       const receipt = await fetchWithCatchTxError(() => {
         return orgMineFixedContract.deposit($shiftedByFixed(amount, 18), week)
       })
@@ -186,11 +178,9 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     }
   }
 
-  // ---
   const extend = async () => {
     try {
       setExtendLoadding(true)
-      console.log('=======extend week:', week)
       const receipt = await fetchWithCatchTxError(() => {
         return orgMineFixedContract.extend(week)
       })
@@ -231,7 +221,6 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     }
   }
 
-  // ---
   const claim = async () => {
     try {
       setClaimLoadding(true)
@@ -251,7 +240,6 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     }
   }
 
-  // ---
   const approve = async () => {
     try {
       setApproveLoading(true)
@@ -273,13 +261,11 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     }
   }
 
-  // ---
   const getAllowance = async () => {
     const result = await erc20Contract.allowance(account, contractAddress)
     setAllowance($shiftedBy(result.toString(), -18, 6))
   }
 
-  // --
   const changeInput = () => {
     const maxVal = userLpInfo.balance
     setAmount(Math.min(maxVal, amount as any))
@@ -485,13 +471,13 @@ const CardTimeContent: FC<any> = (): ReactElement => {
           <Lib>
             <Left>
               <Title>ORG{t('is about to unlock')}：</Title>
-              <Number className={userLpInfo.days === 0 && 'final'}>{userLpInfo.days} days</Number>
+              <Number className={userLpInfo.canWithdraw && 'final'}>{userLpInfo.days} days</Number>
             </Left>
             <BtnBlock>
               <Nodes>
                 <Button
                   className="_btns"
-                  disabled={userLpInfo.days === 0}
+                  disabled={userLpInfo.canWithdraw}
                   isLoading={extendLoadding}
                   onClick={() => openDialog(dialogType.addTime)}
                 >
@@ -532,12 +518,12 @@ const CardTimeContent: FC<any> = (): ReactElement => {
                         {t('Stake')}
                       </Button>
                     )}
-                    {userLpInfo.amount && userLpInfo.days > 0 && (
+                    {userLpInfo.amount && !userLpInfo.canWithdraw && (
                       <Button className="_btns dos" onClick={() => openDialog(dialogType.addStake)}>
                         {t('Add Stake')}ORG
                       </Button>
                     )}
-                    {userLpInfo.amount > 0 && userLpInfo.days === 0 && (
+                    {userLpInfo.amount > 0 && userLpInfo.canWithdraw && (
                       <Button className="_btns dos" isLoading={loadding} onClick={() => withdraw()}>
                         {t('UnStake')}
                       </Button>

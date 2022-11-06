@@ -45,6 +45,7 @@ const CardContent: FC<any> = (): ReactElement => {
     lastStackedTime: 0,
     freeFeeTime: '',
     reward: 0,
+    
   })
 
   const orgMineUnFixed = {
@@ -53,7 +54,7 @@ const CardContent: FC<any> = (): ReactElement => {
   }
   const orgAddress = {
     97: '0xFd8755535B187Da3c0653c450641180382C75521',
-    201022:'',
+    201022:'0xFa61BD0B233A6E8112D8F8D06E88EA128B9E5D7b',
   }
 
   const contractAddress = orgMineUnFixed[chainId];
@@ -88,6 +89,7 @@ const CardContent: FC<any> = (): ReactElement => {
   }
 
   const getUserInfo = async () => {
+    
     const _totalSupply = await orgMineUnFixedContract.totalSupply();
     const totalSupply = $shiftedBy(_totalSupply.toString(), -18, 4)
     const result = await orgMineUnFixedContract.userInfo(account)
