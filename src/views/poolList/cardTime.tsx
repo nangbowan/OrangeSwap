@@ -690,6 +690,9 @@ const Header = styled.div`
   height: 81px;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `
 const Symbol = styled.div`
   position: relative;
@@ -701,12 +704,21 @@ const BaseSymbolImg = styled.img`
   position: absolute;
   top: 12px;
   left: 0;
+  @media (max-width: 768px) {
+    height: 48px;
+    top: 4px;
+  }
 `
 const SymbolImg = styled.img`
   height: 31px;
   position: absolute;
   top: 38px;
   left: 32px;
+  @media (max-width: 768px) {
+    height: 28px;
+    top: 28px;
+    left: 30px;
+  }
 `
 
 const HeaderCont = styled.div``
@@ -715,19 +727,30 @@ const SymbolName = styled.div`
   font-weight: 600;
   color: #121211;
   margin-bottom: 8px;
-  font-size: 32px;
-  line-height: 45px;
+  font-size: 28px;
+  line-height: 38px;
+  @media (max-width: 768px) {
+    font-size: 22px;
+    line-height: 30px;
+  }
 `
 const SymbolInfo = styled.div`
   font-weight: 500;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 19px;
+  line-height: 26px;
   color: #9e9fa4;
+  @media (max-width: 768px) {
+    font-size: 17px;
+    line-height: 24px;
+  }
 `
 
 const Content = styled.div`
-  margin-top: 35px;
+  margin-top: 30px;
   width: 100%;
+  @media (max-width: 768px) {
+    margin-top: 28px;
+  }
 `
 const Line = styled.div`
   margin-bottom: 4px;
@@ -736,9 +759,12 @@ const Line = styled.div`
   font-weight: 500;
   display: flex;
   justify-content: space-between;
-  font-size: 20px;
+  font-size: 19px;
   line-height: 28px;
   color: #9e9fa4;
+  @media (max-width: 768px) {
+    font-size: 17px;
+  }
   &.bottom {
     font-size: 16px;
     line-height: 22px;
@@ -770,7 +796,7 @@ const CalculateIcon = styled.img`
 const Section = styled.div`
   margin-top: 6px;
   width: 100%;
-  margin-top: 36px;
+  margin-top: 30px;
   margin-bottom: 44px;
   /* @media (max-width: 768px) {
     margin-bottom: 24px;
@@ -861,7 +887,7 @@ const Nodes = styled.div`
 const Footer = styled.div`
   margin-top: 18px;
   @media (max-width: 768px) {
-    margin-top: 0px;
+    margin-top: 15px;
   }
 `
 const Item = styled.div`

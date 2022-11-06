@@ -63,7 +63,11 @@ const HeaderCont = styled.div`
     padding: 0 18px;
   }
 `
-const Left = styled.div``
+const Left = styled.div`
+  @media (max-width: 768px) {
+    width: 58%;
+  }
+`
 const Title = styled.div`
   font-family: 'FZLanTingHeiS-B-GB';
   font-style: normal;
