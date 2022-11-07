@@ -136,12 +136,12 @@ const CardContent: FC<any> = (): ReactElement => {
   const deposit = async () => {
     try {
       setLoadding(true)
+      setOpen(false)
       const receipt = await fetchWithCatchTxError(() => {
         return orgMineUnFixedContract.deposit($shiftedByFixed(amount, 18))
       })
       if (receipt?.status) {
         setAmount('')
-        setOpen(false)
         Promise.all([getUserInfo(), getBalance(), getPendingReward()])
         toastSuccess(
           `Successed!`,
@@ -157,12 +157,12 @@ const CardContent: FC<any> = (): ReactElement => {
   const withdraw = async () => {
     try {
       setLoadding(true)
+      setOpen(false)
       const receipt = await fetchWithCatchTxError(() => {
         return orgMineUnFixedContract.withdraw($shiftedByFixed(amount, 18))
       })
       if (receipt?.status) {
         setAmount('')
-        setOpen(false)
         Promise.all([getUserInfo(), getBalance(), getPendingReward()])
         toastSuccess(
           `Successed!`,
@@ -237,6 +237,7 @@ const CardContent: FC<any> = (): ReactElement => {
               <LabelText>
                 {openType === dialogType.add && 'Stake ORG'}
                 {openType === dialogType.reomve && 'UnStake ORG'}
+                <CloseIcon src="/images/poolList/cancel.svg" alt="" onClick={() => setOpen(false)} />
               </LabelText>
               <DialogCont>
                 <Top>
@@ -718,12 +719,28 @@ const LabelText = styled.div`
   color: #ff8c14;
   padding-bottom: 23px;
   border-bottom: 1px solid #f3f3f3;
+  position: relative;
   @media (max-width: 768px) {
     font-size: 20px;
     line-height: 28px;
     padding-bottom: 23px;
   }
 `
+
+const CloseIcon = styled.img`
+  position: absolute;
+  right: 8px;
+  width: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  @media (max-width: 768px) {
+    width: 15px;
+  }
+  /* &:hover{
+    transform: rotate(180deg);
+  } */
+`
+
 const DialogCont = styled.div`
   margin: 23px 0;
   padding: 14px 19px 10px 25px;

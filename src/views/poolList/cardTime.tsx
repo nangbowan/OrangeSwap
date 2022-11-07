@@ -160,12 +160,12 @@ const CardTimeContent: FC<any> = (): ReactElement => {
   const deposit = async () => {
     try {
       setLoadding(true)
+      setOpen(false)
       const receipt = await fetchWithCatchTxError(() => {
         return orgMineFixedContract.deposit($shiftedByFixed(amount, 18), week)
       })
       if (receipt?.status) {
         setAmount('')
-        setOpen(false)
         Promise.all([getPendingReward(), getBalance(), getUserInfo()])
         toastSuccess(
           `Successed!`,
@@ -181,11 +181,11 @@ const CardTimeContent: FC<any> = (): ReactElement => {
   const extend = async () => {
     try {
       setExtendLoadding(true)
+      setOpen(false)
       const receipt = await fetchWithCatchTxError(() => {
         return orgMineFixedContract.extend(week)
       })
       if (receipt?.status) {
-        setOpen(false)
         getUserInfo()
         toastSuccess(
           `Successed!`,
@@ -201,12 +201,12 @@ const CardTimeContent: FC<any> = (): ReactElement => {
   const withdraw = async () => {
     try {
       setLoadding(true)
+      setOpen(false)
       const receipt = await fetchWithCatchTxError(() => {
         return orgMineFixedContract.withdraw()
       })
       if (receipt?.status) {
         setAmount('')
-        setOpen(false)
         Promise.all([getPendingReward(), getBalance(), getUserInfo()])
         toastSuccess(
           `Successed!`,
@@ -304,6 +304,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
               <LabelText>
                 {[dialogType.add, dialogType.addStake].includes(openType) && 'Stake ORG'}
                 {openType === dialogType.addTime && t('Select the latest fixed pledge duration')}
+                <CloseIcon src="/images/poolList/cancel.svg" alt="" onClick={() => setOpen(false)} />
               </LabelText>
               {![dialogType.addTime].includes(openType) && (
                 <DialogCont>
@@ -946,11 +947,25 @@ const LabelText = styled.div`
   padding-bottom: 26px;
   border-bottom: 1px solid #f3f3f3;
   margin-bottom: 23px;
+  position: relative;
   @media (max-width: 768px) {
     font-size: 20px;
     line-height: 28px;
     padding-bottom: 23px;
   }
+`
+const CloseIcon = styled.img`
+  position: absolute;
+  right: 8px;
+  width: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  @media (max-width: 768px) {
+    width: 15px;
+  }
+  /* &:hover{
+    transform: rotate(180deg);
+  } */
 `
 const DialogCont = styled.div`
   margin-bottom: 25px;
