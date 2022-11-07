@@ -55,7 +55,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
 
   const orgMineFixed = {
     97: '0x903762fE3A9cc9c629f8886Dce6adF2B80BCc4D9',
-    201022: '',
+    201022: '0x3214d17bfEF6cEc0f675C6267C98bB46696A029E',
   }
   const orgAddress = {
     97: '0xFd8755535B187Da3c0653c450641180382C75521',

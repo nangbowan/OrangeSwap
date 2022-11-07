@@ -50,7 +50,7 @@ const CardContent: FC<any> = (): ReactElement => {
 
   const orgMineUnFixed = {
     97: '0xF8dc23EB30206041C638D57A099f395851EbB75d',
-    201022:'',
+    201022:'0xaD4B6f7c037b0aEeB2CF9ca94008C28bAA97EF6D',
   }
   const orgAddress = {
     97: '0xFd8755535B187Da3c0653c450641180382C75521',
