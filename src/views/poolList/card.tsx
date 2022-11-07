@@ -9,7 +9,6 @@ import useCatchTxError from 'hooks/useCatchTxError'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useERC20, useOrgMineUnFixedContract } from 'hooks/useContract'
 import ReactDOM from 'react-dom'
-import { format } from 'date-fns'
 
 const clearNoNum = (val: string) => {
   let _val = val.replace(/[^\d.]/g, '')
@@ -18,6 +17,19 @@ const clearNoNum = (val: string) => {
   _val = _val.replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')
   return _val
 }
+
+function formats(dat:any){
+  const year = dat.getFullYear();
+  const mon = (dat.getMonth()+1) < 10 ? `0${dat.getMonth()+1}` : dat.getMonth()+1;
+  const data = dat.getDate()  < 10 ? `0${dat.getDate()}` : dat.getDate();
+  const hour = dat.getHours()  < 10 ? `0${dat.getHours()}` : dat.getHours();
+  const min =  dat.getMinutes()  < 10 ? `0${dat.getMinutes()}` : dat.getMinutes();
+  const seon = dat.getSeconds() < 10 ? `0${dat.getSeconds()}` : dat.getSeconds();
+               
+  const newDate = `${year }-${ mon }-${ data } ${ hour }:${ min }:${ seon}`;
+  return newDate;
+}
+
 enum dialogType {
   'add',
   'reomve',
@@ -94,12 +106,13 @@ const CardContent: FC<any> = (): ReactElement => {
     const _totalSupply = await orgMineUnFixedContract.totalSupply()
     const totalSupply = $shiftedBy(_totalSupply.toString(), -18, 4)
     const result = await orgMineUnFixedContract.userInfo(account)
-    const balanceOf = await orgMineUnFixedContract.balanceOf(account)
-    console.log('result.lastStackedTime--', result.lastStackedTime.toString())
-    const _freeFeeTime = format(result.lastStackedTime.toString() * 1000 + 48 * 60 * 60 * 1000, 'yyyy-MM-dd hh:mm:ss')
+    const balanceOf = await orgMineUnFixedContract.balanceOf(account);
+    const endTime = result.lastStackedTime.toString() * 1000 + 48 * 60 * 60 * 1000;
+    
+    const _freeFeeTime = formats(new Date(endTime))
     setUserLpInfo((_val: any) => {
       // eslint-disable-next-line no-param-reassign
-      _val.freeFeeTime = _freeFeeTime
+      _val.freeFeeTime = endTime > Date.now() ? _freeFeeTime : ''
       // eslint-disable-next-line no-param-reassign
       _val.lastStackedTime = result.lastStackedTime.toString()
       // eslint-disable-next-line no-param-reassign
