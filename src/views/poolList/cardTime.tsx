@@ -519,11 +519,13 @@ const CardTimeContent: FC<any> = (): ReactElement => {
                         {t('Stake')}
                       </Button>
                     )}
-                    {userInfo.amount && !userInfo.canWithdraw && (
+
+                    {!!userInfo.amount && !userInfo.canWithdraw && (
                       <Button className="_btns dos" onClick={() => openDialog(dialogType.addStake)}>
                         {t('Add Stake')}ORG
                       </Button>
                     )}
+
                     {userInfo.amount > 0 && userInfo.canWithdraw && (
                       <Button className="_btns dos" isLoading={loadding} onClick={() => withdraw()}>
                         {t('UnStake')}
