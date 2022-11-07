@@ -42,7 +42,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
   const [querWeek, setQuerWeek] = useState<number>(1)
   const [rewardPerBlock, setRewardPerBlock] = useState<string | number>('0')
   const [rootNode, setRootNode] = useState(null)
-  const [userLpInfo, setUserLpInfo] = useState({
+  const [userInfo, setUserLpInfo] = useState({
     balance: 0,
     amount: 0,
     totalSupply: 0,
@@ -97,9 +97,9 @@ const CardTimeContent: FC<any> = (): ReactElement => {
 
   const calcBaseUnitApy = () => {
     // apy:  1/totalSupply * 每区块的奖励数 (rewardTokenInfo.rewardPerBlock)* 一年有多少个区块 * 周期比例rate
-    if ($BigNumber(rewardPerBlock).lte(0) || $BigNumber(userLpInfo.totalSupply).lte(0)) return '0'
+    if ($BigNumber(rewardPerBlock).lte(0) || $BigNumber(userInfo.totalSupply).lte(0)) return '0'
     return $BigNumber(1)
-      .dividedBy(userLpInfo.totalSupply)
+      .dividedBy(userInfo.totalSupply)
       .multipliedBy(rewardPerBlock)
       .multipliedBy(10512000)
       .toFixed(2, 1)
@@ -267,11 +267,11 @@ const CardTimeContent: FC<any> = (): ReactElement => {
   }
 
   const changeInput = () => {
-    const maxVal = userLpInfo.balance
+    const maxVal = userInfo.balance
     setAmount(Math.min(maxVal, amount as any))
 
     // const values = value.split('.');
-    // const maxVal = openType === dialogType.add ? userLpInfo.balance:  userLpInfo.amount;
+    // const maxVal = openType === dialogType.add ? userInfo.balance:  userInfo.amount;
     // console.log('changeInput',value, values, values.length, values.indexOf('.'), values.length >= 2 || values.indexOf('.') !== -1)
     // if(!values[1] || values.indexOf('.') === -1){
     //   setAmount(Math.min(maxVal, value))
@@ -290,9 +290,9 @@ const CardTimeContent: FC<any> = (): ReactElement => {
     }
   }
 
-  const baseUnitApy = useMemo(() => calcBaseUnitApy(), [userLpInfo, rewardPerBlock])
-  const maxApy = useMemo(() => $BigNumber(baseUnitApy).multipliedBy(weekList[4].rate).toFixed(2, 1), [baseUnitApy, userLpInfo])
-  const apy = useMemo(() => $BigNumber(baseUnitApy).multipliedBy(weekList[userLpInfo.stakeTerm].rate).toFixed(2, 1), [baseUnitApy, userLpInfo])
+  const baseUnitApy = useMemo(() => calcBaseUnitApy(), [userInfo, rewardPerBlock])
+  const maxApy = useMemo(() => $BigNumber(baseUnitApy).multipliedBy(weekList[4].rate).toFixed(2, 1), [baseUnitApy, userInfo])
+  const apy = useMemo(() => $BigNumber(baseUnitApy).multipliedBy(weekList[userInfo.stakeTerm].rate).toFixed(2, 1), [baseUnitApy, userInfo])
   const newApy = useMemo(() => $BigNumber(baseUnitApy).multipliedBy(weekList[week].rate).toFixed(2, 1), [baseUnitApy, week])
 
   const DialogComponents = (): ReactElement => {
@@ -309,9 +309,9 @@ const CardTimeContent: FC<any> = (): ReactElement => {
               {![dialogType.addTime].includes(openType) && (
                 <DialogCont>
                   <Top>
-                    {openType === dialogType.add ? t('Stake') : t('UnStake')}
+                    {[dialogType.add, dialogType.addStake].includes(openType) ? t('Stake') : t('UnStake')}
                     <RightCont>
-                      {t('Balance')}：{userLpInfo.balance}
+                      {t('Balance')}：{userInfo.balance}
                     </RightCont>
                   </Top>
                   <Bottom>
@@ -322,7 +322,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
                       onBlur={() => changeInput()}
                     />
                     <RightCont className="_operation">
-                      <Max onClick={() => setAmount(userLpInfo.balance)}>MAX</Max>
+                      <Max onClick={() => setAmount(userInfo.balance)}>MAX</Max>
                       ORG
                     </RightCont>
                   </Bottom>
@@ -337,15 +337,15 @@ const CardTimeContent: FC<any> = (): ReactElement => {
                         className={[
                           week === item.key && 'active',
                           openType === dialogType.addTime &&
-                            userLpInfo.balance > 0 &&
-                            item.key < userLpInfo.stakeTerm &&
+                            userInfo.balance > 0 &&
+                            item.key < userInfo.stakeTerm &&
                             'disbable',
                         ].join(' ')}
                         onClick={() => {
                           if (
                             openType === dialogType.addTime &&
-                            userLpInfo.balance > 0 &&
-                            item.key < userLpInfo.stakeTerm
+                            userInfo.balance > 0 &&
+                            item.key < userInfo.stakeTerm
                           ) {
                             //
                           } else {
@@ -374,7 +374,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
                 <ApyCont>
                   APY
                   <ApyValue>
-                    <b className={openType === dialogType.addTime && '_tr'}>{apy}%</b>
+                    <b className={openType === dialogType.addTime && '_tr'}>{openType === dialogType.add ? newApy : apy}%</b>
                     {openType === dialogType.addTime && (
                       <>
                         <img src="/images/poolList/jiantou.svg" alt="" />
@@ -446,7 +446,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
 
   useEffect(() => {
     calcBaseUnitApy()
-  }, [userLpInfo, rewardPerBlock])
+  }, [userInfo, rewardPerBlock])
 
   return (
     <Main>
@@ -472,13 +472,13 @@ const CardTimeContent: FC<any> = (): ReactElement => {
           <Lib>
             <Left>
               <Title>ORG{t('is about to unlock')}：</Title>
-              <Number className={userLpInfo.canWithdraw && 'final'}>{userLpInfo.days} days</Number>
+              <Number className={userInfo.canWithdraw && 'final'}>{userInfo.days} days</Number>
             </Left>
             <BtnBlock>
               <Nodes>
                 <Button
                   className="_btns"
-                  disabled={userLpInfo.canWithdraw}
+                  disabled={userInfo.canWithdraw}
                   isLoading={extendLoadding}
                   onClick={() => openDialog(dialogType.addTime)}
                 >
@@ -490,13 +490,13 @@ const CardTimeContent: FC<any> = (): ReactElement => {
           <Lib>
             <Left>
               <Title>ORG{t('earned')}</Title>
-              <Number>{userLpInfo.reward}</Number>
+              <Number>{userInfo.reward}</Number>
             </Left>
             <BtnBlock>
               <Nodes>
                 <Button
                   className="_btns"
-                  disabled={userLpInfo.reward <= 0}
+                  disabled={userInfo.reward <= 0}
                   isLoading={claimLoadding}
                   onClick={() => claim()}
                 >
@@ -508,23 +508,23 @@ const CardTimeContent: FC<any> = (): ReactElement => {
           <Lib>
             <Left>
               <Title>ORG{t('has fixed pledge')}</Title>
-              <Number>{userLpInfo.amount}</Number>
+              <Number>{userInfo.amount}</Number>
             </Left>
             <BtnBlock>
               <Nodes>
                 {allowance > 0 ? (
                   <>
-                    {!userLpInfo.amount && (
+                    {!userInfo.amount && (
                       <Button className="_btns dos" onClick={() => openDialog(dialogType.add)}>
                         {t('Stake')}
                       </Button>
                     )}
-                    {userLpInfo.amount && !userLpInfo.canWithdraw && (
+                    {userInfo.amount && !userInfo.canWithdraw && (
                       <Button className="_btns dos" onClick={() => openDialog(dialogType.addStake)}>
                         {t('Add Stake')}ORG
                       </Button>
                     )}
-                    {userLpInfo.amount > 0 && userLpInfo.canWithdraw && (
+                    {userInfo.amount > 0 && userInfo.canWithdraw && (
                       <Button className="_btns dos" isLoading={loadding} onClick={() => withdraw()}>
                         {t('UnStake')}
                       </Button>
@@ -541,7 +541,7 @@ const CardTimeContent: FC<any> = (): ReactElement => {
         </Section>
         <Line className="bottom">
           <Label>{t('Total Stake')}:</Label>
-          <Right className="bold luidity">{userLpInfo.totalSupply}</Right>
+          <Right className="bold luidity">{userInfo.totalSupply}</Right>
         </Line>
         <Line className="bottom">
           <Label>{t('My')}APY:</Label>

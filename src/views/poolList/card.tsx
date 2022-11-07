@@ -9,8 +9,7 @@ import useCatchTxError from 'hooks/useCatchTxError'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useERC20, useOrgMineUnFixedContract } from 'hooks/useContract'
 import ReactDOM from 'react-dom'
-import { format } from 'date-fns';
-
+import { format } from 'date-fns'
 
 const clearNoNum = (val: string) => {
   let _val = val.replace(/[^\d.]/g, '')
@@ -38,26 +37,25 @@ const CardContent: FC<any> = (): ReactElement => {
   const [amount, setAmount] = useState<string | number>('')
   const [rewardPerBlock, setRewardPerBlock] = useState<string | number>('0')
   const [rootNode, setRootNode] = useState(null)
-  const [userLpInfo, setUserLpInfo] = useState({
+  const [userInfo, setUserLpInfo] = useState({
     balance: 0,
     amount: 0,
     totalSupply: 0,
     lastStackedTime: 0,
     freeFeeTime: '',
     reward: 0,
-    
   })
 
   const orgMineUnFixed = {
     97: '0xF8dc23EB30206041C638D57A099f395851EbB75d',
-    201022:'0xaD4B6f7c037b0aEeB2CF9ca94008C28bAA97EF6D',
+    201022: '0xaD4B6f7c037b0aEeB2CF9ca94008C28bAA97EF6D',
   }
   const orgAddress = {
     97: '0xFd8755535B187Da3c0653c450641180382C75521',
-    201022:'0xFa61BD0B233A6E8112D8F8D06E88EA128B9E5D7b',
+    201022: '0xFa61BD0B233A6E8112D8F8D06E88EA128B9E5D7b',
   }
 
-  const contractAddress = orgMineUnFixed[chainId];
+  const contractAddress = orgMineUnFixed[chainId]
 
   const erc20Contract = useERC20(orgAddress[chainId])
   const orgMineUnFixedContract = useOrgMineUnFixedContract(orgMineUnFixed[chainId])
@@ -81,34 +79,37 @@ const CardContent: FC<any> = (): ReactElement => {
     setAmount('')
     setOpenType(type)
   }
- 
+
   const calcApy = (): string | number => {
     // apy:  1/totalSupply * 每区块的奖励数 (rewardTokenInfo.rewardPerBlock)* 一年有多少个区块
-    if ($BigNumber(rewardPerBlock).lte(0) || $BigNumber(userLpInfo.totalSupply).lte(0)) return '0'
-    return $BigNumber(1).dividedBy(userLpInfo.totalSupply).multipliedBy(rewardPerBlock).multipliedBy(10512000).toFixed(2, 1)
+    if ($BigNumber(rewardPerBlock).lte(0) || $BigNumber(userInfo.totalSupply).lte(0)) return '0'
+    return $BigNumber(1)
+      .dividedBy(userInfo.totalSupply)
+      .multipliedBy(rewardPerBlock)
+      .multipliedBy(10512000)
+      .toFixed(2, 1)
   }
 
   const getUserInfo = async () => {
-    
-    const _totalSupply = await orgMineUnFixedContract.totalSupply();
+    const _totalSupply = await orgMineUnFixedContract.totalSupply()
     const totalSupply = $shiftedBy(_totalSupply.toString(), -18, 4)
     const result = await orgMineUnFixedContract.userInfo(account)
-    const balanceOf = await orgMineUnFixedContract.balanceOf(account);
-    const _freeFeeTime = format(result.lastStackedTime.toString() * 1000 + 48 * 60 * 60 * 1000 , 'yyyy-MM-dd hh:mm:ss');
+    const balanceOf = await orgMineUnFixedContract.balanceOf(account)
+    console.log('result.lastStackedTime--', result.lastStackedTime.toString())
+    const _freeFeeTime = format(result.lastStackedTime.toString() * 1000 + 48 * 60 * 60 * 1000, 'yyyy-MM-dd hh:mm:ss')
     setUserLpInfo((_val: any) => {
       // eslint-disable-next-line no-param-reassign
-      _val.freeFeeTime = _freeFeeTime;
+      _val.freeFeeTime = _freeFeeTime
       // eslint-disable-next-line no-param-reassign
-      _val.lastStackedTime = result.lastStackedTime.toString();
+      _val.lastStackedTime = result.lastStackedTime.toString()
       // eslint-disable-next-line no-param-reassign
-      _val.totalSupply = totalSupply;
+      _val.totalSupply = totalSupply
       // eslint-disable-next-line no-param-reassign
-      _val.amount = $shiftedBy(balanceOf.toString(), -18, 4);
+      _val.amount = $shiftedBy(balanceOf.toString(), -18, 4)
       return { ..._val }
     })
   }
 
-  
   const getBalance = async () => {
     const balance = await erc20Contract.balanceOf(account)
     setUserLpInfo((_val: any) => {
@@ -118,7 +119,6 @@ const CardContent: FC<any> = (): ReactElement => {
     })
   }
 
-  
   const getPendingReward = async () => {
     const reward = await orgMineUnFixedContract.getPendingReward(account)
     setUserLpInfo((_val: any) => {
@@ -129,10 +129,10 @@ const CardContent: FC<any> = (): ReactElement => {
   }
 
   const getRewardTokenInfo = async () => {
-    const rewardInfo = await orgMineUnFixedContract.rewardTokenInfo();
+    const rewardInfo = await orgMineUnFixedContract.rewardTokenInfo()
     setRewardPerBlock($shiftedBy(rewardInfo.rewardPerBlock.toString(), -18, 4))
   }
-  
+
   const deposit = async () => {
     try {
       setLoadding(true)
@@ -177,7 +177,6 @@ const CardContent: FC<any> = (): ReactElement => {
     }
   }
 
-  
   const claim = async () => {
     try {
       setClaimLoadding(true)
@@ -222,9 +221,9 @@ const CardContent: FC<any> = (): ReactElement => {
     const result = await erc20Contract.allowance(account, contractAddress)
     setAllowance($shiftedBy(result.toString(), -18, 6))
   }
-  
+
   const changeInput = () => {
-    const maxVal = openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount
+    const maxVal = openType === dialogType.add ? userInfo.balance : userInfo.amount
     setAmount(Math.min(maxVal, amount as any))
   }
 
@@ -243,7 +242,7 @@ const CardContent: FC<any> = (): ReactElement => {
                 <Top>
                   {openType === dialogType.add ? 'Stake' : 'UnStake'}
                   <RightCont>
-                    {t('Balance')}：{openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount}
+                    {t('Balance')}：{openType === dialogType.add ? userInfo.balance : userInfo.amount}
                   </RightCont>
                 </Top>
                 <Bottom>
@@ -255,7 +254,7 @@ const CardContent: FC<any> = (): ReactElement => {
                   />
                   <RightCont className="_operation">
                     <Max
-                      onClick={() => setAmount(openType === dialogType.add ? userLpInfo.balance : userLpInfo.amount)}
+                      onClick={() => setAmount(openType === dialogType.add ? userInfo.balance : userInfo.amount)}
                     >
                       MAX
                     </Max>
@@ -289,7 +288,7 @@ const CardContent: FC<any> = (): ReactElement => {
       : null
   }
 
-  const apy = useMemo(() => calcApy(), [userLpInfo, rewardPerBlock])
+  const apy = useMemo(() => calcApy(), [userInfo, rewardPerBlock])
 
   useEffect(() => {
     listener()
@@ -320,13 +319,7 @@ const CardContent: FC<any> = (): ReactElement => {
 
   useEffect(() => {
     if (orgMineUnFixedContract && erc20Contract) {
-      Promise.all([
-        getUserInfo(),
-        getBalance(),
-        getPendingReward(),
-        getAllowance(),
-        getRewardTokenInfo(),
-      ])
+      Promise.all([getUserInfo(), getBalance(), getPendingReward(), getAllowance(), getRewardTokenInfo()])
     }
   }, [orgMineUnFixedContract, erc20Contract])
 
@@ -349,23 +342,24 @@ const CardContent: FC<any> = (): ReactElement => {
             {apy}% <CalculateIcon src="/images/farm/calculation.svg" />
           </Right>
         </Line>
-        <LineTip>
-          2% {t('Cancellation fee charged to')}
-          <span>{userLpInfo.freeFeeTime}</span>
-        </LineTip>
+        {userInfo.amount && (
+          <LineTip>
+            2% {t('Cancellation fee charged to')}
+            <span>{userInfo.freeFeeTime}</span>
+          </LineTip>
+        )}
+
         <Section>
           <Lib>
             <Left>
-              <Title>
-                ORG {t('earned')}
-              </Title>
-              <Number>{userLpInfo.reward}</Number>
+              <Title>ORG {t('earned')}</Title>
+              <Number>{userInfo.reward}</Number>
             </Left>
             <BtnBlock>
               <Nodes>
                 <Button
                   className="_btns"
-                  disabled={userLpInfo.reward <= 0}
+                  disabled={userInfo.reward <= 0}
                   isLoading={claimLoadding}
                   onClick={() => claim()}
                 >
@@ -377,7 +371,7 @@ const CardContent: FC<any> = (): ReactElement => {
           <Lib>
             <Left>
               <Title>{t('ORG has been flexibly pledged')}</Title>
-              <Number>{userLpInfo.amount}</Number>
+              <Number>{userInfo.amount}</Number>
             </Left>
             <BtnBlock>
               <Nodes>
@@ -401,9 +395,7 @@ const CardContent: FC<any> = (): ReactElement => {
         </Section>
         <Line className="bottom">
           <Label>{t('Total Stake')}:</Label>
-          <Right className="bold luidity">
-            {userLpInfo.totalSupply} ORG
-          </Right>
+          <Right className="bold luidity">{userInfo.totalSupply} ORG</Right>
         </Line>
       </Content>
       <Footer>
@@ -838,9 +830,9 @@ const Btns = styled.div`
     font-size: 16px;
     background: #fff;
     box-shadow: none;
-    &:hover{
-      background: linear-gradient(120.51deg, #FF6A43 1.69%, #FFAD34 100%);
-      color: #FFFFFF;
+    &:hover {
+      background: linear-gradient(120.51deg, #ff6a43 1.69%, #ffad34 100%);
+      color: #ffffff;
       opacity: 1 !important;
     }
     &:disabled,
@@ -870,7 +862,7 @@ const See = styled.div`
   color: #ff8c14;
   text-align: center;
   margin-top: 14px;
-  a{
+  a {
     display: inline;
   }
   span {
